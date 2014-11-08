@@ -1,4 +1,3 @@
-
 import java.io.FileNotFoundException;
 
 public class TestLecteurDonnees {
@@ -18,5 +17,4 @@ public class TestLecteurDonnees {
 		}
 	}
 
-}
- 
+} 

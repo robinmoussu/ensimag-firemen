@@ -1,5 +1,5 @@
 // Description de la carte
-// Dernière modification : Thibaud BACKENSTRASS, 8 novembre
+// Dernière modification : Thibaud BACKENSTRASS, 9 novembre
 public class Carte {
     // Attributs
     private int nbLignes; // >=0
@@ -10,7 +10,7 @@ public class Carte {
 
     // Constructeur
     public Carte(int nbLignes, int nbColonnes, int tailleCases) {
-        if(nbLignes<0 || nbColonnes<0 || tailleCases<0) {
+        if(nbLignes<=0 || nbColonnes<=0 || tailleCases<=0) {
             throw new ArithmeticException("Les paramètres de la carte doivent être positifs !");
         }
         else {
@@ -41,7 +41,7 @@ public class Carte {
             throw new ArithmeticException("Création d'une case en-dehors des limites de la carte !");
         }
         else {
-            carte[i][j] = new Case(i, j, t);
+            carte[i][j] = new Case(i, j, t); // On crée une case (composition) qui sera détruite à la destruction de la Carte
         }
     }
 

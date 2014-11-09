@@ -94,9 +94,23 @@ public class Carte {
             }
         }
         else {
-            throw new ArithmeticException("Pas de voisin existant !");
+            throw new ArithmeticException("Pas de voisin dans la direction spécifiée !");
         }
         return null; // Pour le compilateur seulement, on ne retournera jamais null en réalité...
+    }
+
+    // Savoir si une case est en bordure de l'eau ou non
+    public boolean estBordEau(Case c) {
+        if(     (voisinExiste(c, Direction.NORD)==true && getVoisin(c, Direction.NORD).getTerrain() == NatureTerrain.EAU)
+             || (voisinExiste(c, Direction.SUD)==true && getVoisin(c, Direction.SUD).getTerrain() == NatureTerrain.EAU)
+             || (voisinExiste(c, Direction.EST)==true && getVoisin(c, Direction.EST).getTerrain() == NatureTerrain.EAU)
+             || (voisinExiste(c, Direction.OUEST)==true && getVoisin(c, Direction.OUEST).getTerrain() == NatureTerrain.EAU)
+         ) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
 }

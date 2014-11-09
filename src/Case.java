@@ -44,5 +44,19 @@ public class Case {
     public void setTerrain(NatureTerrain terrain) {
         this.terrain = terrain;
     }
+    
+    // On ajoute une méthode permettant de savoir facilement si deux cases sont voisines ou non
+    public boolean estVoisine(Case c) {
+        if(    (c.getLigne()-this.ligne==1 && c.getColonne()-this.colonne==0)
+            || (c.getLigne()-this.ligne==-1 && c.getColonne()-this.colonne==0)
+            || (c.getLigne()-this.ligne==0 && c.getColonne()-this.colonne==1)
+            || (c.getLigne()-this.ligne==0 && c.getColonne()-this.colonne==-1)
+          ) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
 }

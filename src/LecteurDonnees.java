@@ -16,11 +16,11 @@ public class LecteurDonnees {
     public static DonneesSimulation creeDonnees(String fichierDonnees)
             throws FileNotFoundException, ExceptionFormatDonnees {
         LecteurDonnees lecteur = new LecteurDonnees(fichierDonnees);
+        System.out.println("[OK] Lecture du fichier " + fichierDonnees);
         lecteur.lireCarte();
         lecteur.lireIncendies();
         lecteur.lireRobots();
         scanner.close();
-        System.out.println("[OK] Lecture du fichier " + fichierDonnees);
         return simulation;
     }
 
@@ -87,8 +87,6 @@ public class LecteurDonnees {
 			throw new ExceptionFormatDonnees("Format de case invalide. "
 					+ "Attendu: nature altitude [valeur_specifique]");
 		}
-
-		System.out.println();
 	}
 
 

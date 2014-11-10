@@ -25,6 +25,9 @@ all: testIHM testLecture
 testIHM:
 	javac -d bin -classpath bin/ihm.jar -sourcepath src src/TestIHM.java
 
+testAfficheSimulation:
+	javac -d bin -classpath bin/ihm.jar -sourcepath src src/AfficheSimulation.java
+
 testLecture:
 	javac -d bin -sourcepath src src/TestLecteurDonnees.java
 	
@@ -35,6 +38,9 @@ testLecture:
 #   > make exeIHM
 exeIHM:
 	java -classpath bin:bin/ihm.jar TestIHM
+
+exeAfficheSimulation:
+	java -classpath bin:bin/ihm.jar AfficheSimulation cartes/carteSujet.txt
 
 exeLecture:
 	java -classpath bin TestLecteurDonnees cartes/carteSujet.txt

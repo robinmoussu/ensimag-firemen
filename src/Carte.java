@@ -86,17 +86,17 @@ public class Carte {
     // Renvoyer une référence sur la case du voisin
     public Case getVoisin(Case src, Direction dir) {
         if(this.voisinExiste(src, dir) == true) {
-            switch(dir) {
-                case NORD:  return carte[src.getLigne()-1][src.getColonne()];
-                case SUD:   return carte[src.getLigne()+1][src.getColonne()];
-                case EST:   return carte[src.getLigne()][src.getColonne()+1];
-                case OUEST: return carte[src.getLigne()][src.getColonne()+1];
-            }
+			throw new ArithmeticException("Pas de voisin dans la direction spécifiée !");
+		}
+	
+        switch(dir) {
+            case NORD:  return carte[src.getLigne()-1][src.getColonne()];
+            case SUD:   return carte[src.getLigne()+1][src.getColonne()];
+            case EST:   return carte[src.getLigne()][src.getColonne()+1];
+            case OUEST: return carte[src.getLigne()][src.getColonne()+1];
         }
-        else {
-            throw new ArithmeticException("Pas de voisin dans la direction spécifiée !");
-        }
-        return null; // Pour le compilateur seulement, on ne retournera jamais null en réalité...
+
+        return null;
     }
 
     // Savoir si une case est en bordure de l'eau ou non

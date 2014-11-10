@@ -1,5 +1,4 @@
 import ihm.*;
-
 import java.awt.Color;
 
 public class TestIHM {

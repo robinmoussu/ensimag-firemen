@@ -28,6 +28,12 @@ public class DonneesSimulation {
     public int getNbRobots() {
         return this.nbRobots;
     }
+    public int getNbLignes() {
+        return carte.getNbLignes();
+    }
+    public int getNbColonnes() {
+        return carte.getNbColonnes();
+    }
 
     // Méthodes pour ajouter des éléments à la simulation
     public void addCase(int ligne, int colonne, NatureTerrain t) {

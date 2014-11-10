@@ -86,14 +86,16 @@ class Firemen implements Simulable {
             // Affichage des incendies avec une taille croissante avec l'intensité
             LinkedList<Incendie> incendies = simulation.getIncendies();
             for(Incendie i : incendies) {
-                if(i.getIntensite()<1000) {
-                    ihm.paintImage((i.getPosition()).getColonne(), (i.getPosition()).getLigne(), "images/incendie.png", 0.5, 0.5);
-                }
-                else if(i.getIntensite()<10000) {
-                    ihm.paintImage((i.getPosition()).getColonne(), (i.getPosition()).getLigne(), "images/incendie.png", 0.7, 0.7);
-                }
-                else {
-                    ihm.paintImage((i.getPosition()).getColonne(), (i.getPosition()).getLigne(), "images/incendie.png", 0.9, 0.9);
+                if(i.getIntensite()>0) {
+                    if(i.getIntensite()<1000) {
+                        ihm.paintImage((i.getPosition()).getColonne(), (i.getPosition()).getLigne(), "images/incendie.png", 0.5, 0.5);
+                    }
+                    else if(i.getIntensite()<10000) {
+                        ihm.paintImage((i.getPosition()).getColonne(), (i.getPosition()).getLigne(), "images/incendie.png", 0.7, 0.7);
+                    }
+                    else {
+                        ihm.paintImage((i.getPosition()).getColonne(), (i.getPosition()).getLigne(), "images/incendie.png", 0.9, 0.9);
+                    }
                 }
             }
 

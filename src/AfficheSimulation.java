@@ -1,5 +1,6 @@
 import ihm.*;
 import java.awt.Color;
+import java.util.LinkedList;
 import java.io.FileNotFoundException;
 
 public class AfficheSimulation {
@@ -53,27 +54,50 @@ class Firemen implements Simulable {
 	private void dessine() {
         // Afficher les donnees 		
 		try {
+            // Affichage des données sur la nature du terrain
             for(int i=0; i<nbLignes; i++) {
                 for(int j=0; j<nbColonnes; j++) {
                     Case c = (simulation.getCarte()).getCase(i, j);
+                    // ATTENTION !
+                    // i désigne la ligne, j la colonne de la case
+                    // Il faut inverser les données pour les méthodes de ihm, qui veulent d'abord la colonne, puis la ligne
+                    // Sinon problème de transposée...
                     switch(c.getTerrain()) {
-                        case EAU:             ihm.paintImage(i, j, "images/eau.png", 1, 1);
+                        case EAU:             ihm.paintImage(j, i, "images/eau.png", 1, 1);
                                               break;
-                        case FORET:           ihm.paintImage(i, j, "images/foret.png", 1, 1);
+                        case FORET:           ihm.paintImage(j, i, "images/foret.png", 1, 1);
                                               break;
-                        case ROCHE:           ihm.paintImage(i, j, "images/roche.png", 1, 1);
+                        case ROCHE:           ihm.paintImage(j, i, "images/roche.png", 1, 1);
                                               break;
-                        case TERRAIN_LIBRE:   ihm.paintImage(i, j, "images/terrain_libre.png", 1, 1);
+                        case TERRAIN_LIBRE:   ihm.paintImage(j, i, "images/terrain_libre.png", 1, 1);
                                               break;
-                        case HABITAT:         ihm.paintImage(i, j, "images/habitat.png", 1, 1);
+                        case HABITAT:         ihm.paintImage(j, i, "images/habitat.png", 1, 1);
                                               break;
-                        default:    ihm.paintBox(i, j, Color.GRAY); // Erreur
+                        default:    ihm.paintBox(j, i, Color.GRAY); // Erreur
                                     break;
                     }
 			        //ihm.paintImage(4, 15, "images/feu.png", 0.8, 0.8);
         			//ihm.paintString(7, 15, Color.YELLOW, "I");
                 }
             }
+
+            // Affichage des incendies avec une taille croissante avec l'intensité
+            LinkedList<Incendie> incendies = simulation.getIncendies();
+            for(Incendie i : incendies) {
+                if(i.getIntensite()<1000) {
+                    ihm.paintImage((i.getPosition()).getColonne(), (i.getPosition()).getLigne(), "images/incendie.png", 0.5, 0.5);
+                }
+                else if(i.getIntensite()<10000) {
+                    ihm.paintImage((i.getPosition()).getColonne(), (i.getPosition()).getLigne(), "images/incendie.png", 0.7, 0.7);
+                }
+                else {
+                    ihm.paintImage((i.getPosition()).getColonne(), (i.getPosition()).getLigne(), "images/incendie.png", 0.9, 0.9);
+                }
+            }
+
+            // Affichage des robots
+            
+            
 		} catch (MapIndexOutOfBoundsException e) {
 			e.printStackTrace();
 		}

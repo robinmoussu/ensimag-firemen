@@ -82,6 +82,7 @@ public class LecteurDonnees {
 			NatureTerrain nature = NatureTerrain.valueOf(chaineNature);
 			verifieLigneTerminee();
 			this.simulation.addCase(lig, col, nature);
+            //System.out.println(lig + " " + col + " " + chaineNature);
 			
 		} catch (NoSuchElementException e) {
 			throw new ExceptionFormatDonnees("Format de case invalide. "

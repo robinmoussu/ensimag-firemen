@@ -20,7 +20,7 @@ public class Incendie {
     public Case getPosition() {
         return this.position;
     }
-    public int getEauNecessaire() {
+    public int getIntensite() {
         return this.eauNecessaire;
     }
 

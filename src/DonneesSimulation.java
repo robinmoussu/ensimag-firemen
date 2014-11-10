@@ -22,8 +22,14 @@ public class DonneesSimulation {
     public Carte getCarte() {
         return this.carte;
     }
+    public LinkedList<Incendie> getIncendies() {
+        return this.incendies;
+    }
     public int getNbIncendies() {
         return this.nbIncendies;
+    }
+    public LinkedList<Robot> getRobots() {
+        return this.robots;
     }
     public int getNbRobots() {
         return this.nbRobots;

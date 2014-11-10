@@ -1,5 +1,5 @@
 // Classe abstraite de description d'un robot
-// Dernière modification : Thibaud BACKENSTRASS, 9 novembre
+// Dernière modification : Thibaud BACKENSTRASS, 10 novembre
 abstract class Robot {
     // Attributs
     private Case position;
@@ -23,6 +23,7 @@ abstract class Robot {
     }
     
     // Accesseurs
+    abstract public TypeRobot getTypeRobot();
     public Case getPosition() {
         return this.position;
     }

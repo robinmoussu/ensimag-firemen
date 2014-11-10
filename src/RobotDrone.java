@@ -1,5 +1,5 @@
 // Description d'un robot DRONE
-// Dernière modification : Thibaud BACKENSTRASS, 9 novembre
+// Dernière modification : Thibaud BACKENSTRASS, 10 novembre
 public class RobotDrone extends Robot {
     // Attributs
     static private int vitesse = 100; // <150
@@ -20,6 +20,12 @@ public class RobotDrone extends Robot {
     }
     
     // Pas de mutateurs : la vitesse ne change pas en cours de route !
+    
+    // Renvoie le type du robot
+    @Override
+    public TypeRobot getTypeRobot() {
+        return TypeRobot.DRONE;
+    }
 
     // Renvoie la vitesse du robot en fonction du terrain
     @Override

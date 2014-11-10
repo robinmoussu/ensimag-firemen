@@ -1,5 +1,5 @@
 // Description d'un robot CHENILLES
-// Dernière modification : Thibaud BACKENSTRASS, 9 novembre
+// Dernière modification : Thibaud BACKENSTRASS, 10 novembre
 public class RobotChenilles extends Robot {
     // Attributs
     static private int vitesse = 60; // <=80
@@ -20,6 +20,12 @@ public class RobotChenilles extends Robot {
     }
     
     // Pas de mutateurs : la vitesse ne change pas en cours de route !
+
+    // Renvoie le type du robot
+    @Override
+    public TypeRobot getTypeRobot() {
+        return TypeRobot.CHENILLES;
+    }
 
     // Renvoie la vitesse du robot en fonction du terrain
     @Override

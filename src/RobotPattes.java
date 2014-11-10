@@ -1,5 +1,5 @@
 // Description d'un robot PATTES
-// Dernière modification : Thibaud BACKENSTRASS, 9 novembre
+// Dernière modification : Thibaud BACKENSTRASS, 10 novembre
 public class RobotPattes extends Robot {
     // Attributs
     static private int vitesse = 30;
@@ -18,6 +18,12 @@ public class RobotPattes extends Robot {
     }
     
     // Pas de mutateurs : la vitesse ne change pas en cours de route !
+    
+    // Renvoie le type du robot
+    @Override
+    public TypeRobot getTypeRobot() {
+        return TypeRobot.PATTES;
+    }
 
     // Renvoie la vitesse du robot en fonction du terrain
     @Override

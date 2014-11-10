@@ -1,5 +1,5 @@
 // Description d'un robot ROUES
-// Dernière modification : Thibaud BACKENSTRASS, 9 novembre
+// Dernière modification : Thibaud BACKENSTRASS, 10 novembre
 public class RobotRoues extends Robot {
     // Attributs
     static private int vitesse = 80;
@@ -18,6 +18,12 @@ public class RobotRoues extends Robot {
     }
     
     // Pas de mutateurs : la vitesse ne change pas en cours de route !
+    
+    // Renvoie le type du robot
+    @Override
+    public TypeRobot getTypeRobot() {
+        return TypeRobot.ROUES;
+    }
 
     // Renvoie la vitesse du robot en fonction du terrain
     @Override

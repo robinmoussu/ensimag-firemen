@@ -1,3 +1,5 @@
+// Classe d'affichage des données de la simulation depuis le fichier
+// Dernière modification : Thibaud BACKENSTRASS, 10 novembre
 import ihm.*;
 import java.awt.Color;
 import java.util.LinkedList;
@@ -96,7 +98,19 @@ class Firemen implements Simulable {
             }
 
             // Affichage des robots
-            
+            LinkedList<Robot> robots = simulation.getRobots();
+            for(Robot r : robots) {
+                switch(r.getTypeRobot()) {
+                    case DRONE:     ihm.paintImage((r.getPosition()).getColonne(), (r.getPosition()).getLigne(), "images/drone.png", 0.9, 0.9);
+                                    break;
+                    case ROUES:     ihm.paintImage((r.getPosition()).getColonne(), (r.getPosition()).getLigne(), "images/roues.png", 0.9, 0.9);
+                                    break;
+                    case CHENILLES: ihm.paintImage((r.getPosition()).getColonne(), (r.getPosition()).getLigne(), "images/chenilles.png", 0.9, 0.9);
+                                    break;
+                    case PATTES:    ihm.paintImage((r.getPosition()).getColonne(), (r.getPosition()).getLigne(), "images/pattes.png", 0.9, 0.9);
+                                    break;
+                }
+            }
             
 		} catch (MapIndexOutOfBoundsException e) {
 			e.printStackTrace();

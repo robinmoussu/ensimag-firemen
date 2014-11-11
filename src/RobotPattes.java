@@ -56,7 +56,7 @@ public class RobotPattes extends Robot {
     // Déverser le réservoir d'eau
     // La méthode doit être redéfinie, car le robot à pattes ne se vide jamais
     @Override
-    public void deverserEau(int nbInterventions) {
+    public void deverserEau(DonneesSimulation simulation, int nbInterventions) {
         return; // Ne rien faire...
     }
 

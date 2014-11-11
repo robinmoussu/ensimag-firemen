@@ -48,13 +48,18 @@ abstract class Robot {
     }
     
     // Déverser le réservoir d'eau
-    public void deverserEau(int nbInterventions) {
-        if(nbInterventions>volumeIntervention/volumeMax) {
+    public void deverserEau(DonneesSimulation simulation, int nbInterventions) {
+        if(nbInterventions>volumeIntervention/volumeEau) {
             throw new ArithmeticException("Pas assez d'eau dans le réservoir !");
         }
         else {
             this.volumeEau = this.volumeEau - nbInterventions*volumeIntervention; // Diminuer l'eau du reservoir du robot
-            
+            for(Incendie i : simulation.getIncendies()) { // On parcourt les incendies pour voir s'il y en a un à éteindre
+                if(i.getPosition() == this.position) { // TODO: Test d'égalité OK ????
+                    i.decrementeIntensite(nbInterventions*volumeIntervention);
+                    break; // Sortir du for, un robot n'est que sur une case à la fois...
+                }
+            }
         }
     }
 

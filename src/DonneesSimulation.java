@@ -74,7 +74,6 @@ public class DonneesSimulation {
                                 break;
             default:
                                 throw new ArithmeticException("Impossible de créer un robot du type spécifié !");
-                                break;
         }
         this.nbRobots++;
     }

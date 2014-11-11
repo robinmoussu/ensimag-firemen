@@ -70,7 +70,7 @@ public class DonneesSimulation {
             case "PATTES":    robots.add(new RobotPattes(pos));
                             break;
             default:
-                    // @TODO: add exception
+                              throw new ArithmeticException("Impossible de créer un robot du type spécifié !");
                             break;
         }
         this.nbRobots++;
@@ -92,7 +92,7 @@ public class DonneesSimulation {
             case "PATTES":    robots.add(new RobotPattes(pos, vitesse));
                             break;
             default:
-                    // @TODO: add exception
+                              throw new ArithmeticException("Impossible de créer un robot du type spécifié !");
                             break;
         }
         this.nbRobots++;

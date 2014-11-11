@@ -53,7 +53,8 @@ abstract class Robot {
             throw new ArithmeticException("Pas assez d'eau dans le réservoir !");
         }
         else {
-            this.volumeEau = this.volumeEau - nbInterventions*volumeIntervention;
+            this.volumeEau = this.volumeEau - nbInterventions*volumeIntervention; // Diminuer l'eau du reservoir du robot
+            
         }
     }
 

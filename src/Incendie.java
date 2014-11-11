@@ -26,12 +26,12 @@ public class Incendie {
 
     // Mutateurs
     // Pas de déplacement de l'incendie, on mute seulement l'eau
-    public void setEauNecessaire(int eau) {
-        if(eau<0) {
-            throw new ArithmeticException("Quantité d'eau négative !");
+    public void decrementeIntensite(int eau) {
+        if(eau>this.eauNecessaire) {
+            this.eauNecessaire -= eau;
         }
         else {
-            this.eauNecessaire = eau;
+            this.eauNecessaire = 0;
         }
     }
 

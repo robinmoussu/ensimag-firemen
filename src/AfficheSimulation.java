@@ -78,42 +78,31 @@ class Firemen implements Simulable {
                         default:    ihm.paintBox(j, i, Color.GRAY); // Erreur
                                     break;
                     }
-			        //ihm.paintImage(4, 15, "images/feu.png", 0.8, 0.8);
         			//ihm.paintString(7, 15, Color.YELLOW, "I");
                 }
             }
 
             // Affichage des incendies avec une taille croissante avec l'intensité
-            LinkedList<Incendie> incendies = simulation.getIncendies();
-            for(Incendie i : incendies) {
+            for(Incendie i : simulation.getIncendies()) {
                 if(i.getIntensite()>0) {
+                    double tailleImage;
                     if(i.getIntensite()<1000) {
-                        ihm.paintImage((i.getPosition()).getColonne(), (i.getPosition()).getLigne(), "images/incendie.png", 0.5, 0.5);
+                        tailleImage = 0.5;
                     }
                     else if(i.getIntensite()<10000) {
-                        ihm.paintImage((i.getPosition()).getColonne(), (i.getPosition()).getLigne(), "images/incendie.png", 0.7, 0.7);
+                        tailleImage = 0.7;
                     }
                     else {
-                        ihm.paintImage((i.getPosition()).getColonne(), (i.getPosition()).getLigne(), "images/incendie.png", 0.9, 0.9);
+                        tailleImage = 0.9;
                     }
+                    ihm.paintImage((i.getPosition()).getColonne(), (i.getPosition()).getLigne(), "images/incendie.png", tailleImage, tailleImage);
                 }
             }
 
             // Affichage des robots
-            LinkedList<Robot> robots = simulation.getRobots();
-            for(Robot r : robots) {
-                switch(r.getTypeRobot()) {
-                    case DRONE:     ihm.paintImage((r.getPosition()).getColonne(), (r.getPosition()).getLigne(), "images/drone.png", 0.9, 0.9);
-                                    break;
-                    case ROUES:     ihm.paintImage((r.getPosition()).getColonne(), (r.getPosition()).getLigne(), "images/roues.png", 0.9, 0.9);
-                                    break;
-                    case CHENILLES: ihm.paintImage((r.getPosition()).getColonne(), (r.getPosition()).getLigne(), "images/chenilles.png", 0.9, 0.9);
-                                    break;
-                    case PATTES:    ihm.paintImage((r.getPosition()).getColonne(), (r.getPosition()).getLigne(), "images/pattes.png", 0.9, 0.9);
-                                    break;
-                }
+            for(Robot r : simulation.getRobots()) {
+                ihm.paintImage((r.getPosition()).getColonne(), (r.getPosition()).getLigne(), r.getImage(), 0.9, 0.9);
             }
-            
 		} catch (MapIndexOutOfBoundsException e) {
 			e.printStackTrace();
 		}

@@ -19,12 +19,6 @@ public class RobotPattes extends Robot {
     
     // Pas de mutateurs : la vitesse ne change pas en cours de route !
     
-    // Renvoie le type du robot
-    @Override
-    public TypeRobot getTypeRobot() {
-        return TypeRobot.PATTES;
-    }
-
     // Renvoie la vitesse du robot en fonction du terrain
     @Override
     public int getVitesse(NatureTerrain terrain) {
@@ -37,6 +31,12 @@ public class RobotPattes extends Robot {
         else {
             return this.vitesse;
         }
+    }
+
+    // Renvoie l'image du robot
+    @Override
+    public String getImage() {
+        return "images/pattes.png";
     }
 
     // Déplacer le robot sur une case

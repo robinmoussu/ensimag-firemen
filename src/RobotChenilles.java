@@ -21,12 +21,6 @@ public class RobotChenilles extends Robot {
     
     // Pas de mutateurs : la vitesse ne change pas en cours de route !
 
-    // Renvoie le type du robot
-    @Override
-    public TypeRobot getTypeRobot() {
-        return TypeRobot.CHENILLES;
-    }
-
     // Renvoie la vitesse du robot en fonction du terrain
     @Override
     public int getVitesse(NatureTerrain terrain) {
@@ -39,6 +33,11 @@ public class RobotChenilles extends Robot {
         else {
             return this.vitesse;
         }
+    }
+
+    // Renvoie l'image du robot
+    public String getImage() {
+        return "images/chenilles.png";
     }
 
     // Déplacer le robot sur une case

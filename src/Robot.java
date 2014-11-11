@@ -23,7 +23,6 @@ abstract class Robot {
     }
     
     // Accesseurs
-    abstract public TypeRobot getTypeRobot();
     public Case getPosition() {
         return this.position;
     }
@@ -40,6 +39,7 @@ abstract class Robot {
     public int getDureeIntervention() {
         return this.dureeIntervention;
     }
+    abstract public String getImage();
 
 
     // Mutateurs

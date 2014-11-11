@@ -56,44 +56,25 @@ public class DonneesSimulation {
         }
     }
     public void addRobot(Case pos, String typeRobot) {
+        addRobot(pos, typeRobot, -1);
+    }
+    public void addRobot(Case pos, String typeRobot, int vitesse) {
         // Si la position est en-dehors de la carte...
         if(pos.getLigne()<0 || pos.getLigne()>=carte.getNbLignes() || pos.getColonne()<0 || pos.getColonne()>=carte.getNbColonnes()) {
             throw new ArithmeticException("Impossible de créer un robot sur la case spécifiée !");
         }
         switch(typeRobot) {
-            case "DRONE":     robots.add(new RobotDrone(pos));
-                            break;
-            case "ROUES":     robots.add(new RobotRoues(pos));
-                            break;
-            case "CHENILLES": robots.add(new RobotChenilles(pos));
-                            break;
-            case "PATTES":    robots.add(new RobotPattes(pos));
-                            break;
+            case "DRONE":       robots.add(new RobotDrone(pos, vitesse)); // Si la vitesse est négative, elle est ignorée par le constructeur
+                                break;
+            case "ROUES":       robots.add(new RobotRoues(pos, vitesse));
+                                break;
+            case "CHENILLES":   robots.add(new RobotChenilles(pos, vitesse));
+                                break;
+            case "PATTES":      robots.add(new RobotPattes(pos, vitesse));
+                                break;
             default:
-                              throw new ArithmeticException("Impossible de créer un robot du type spécifié !");
-                            break;
-        }
-        this.nbRobots++;
-    }
-
-    // @TODO cette méthode ou celle au dessus n'est sans doute pas utile. Si elle le sont toutes les deux, il faut les factoriser
-    public void addRobot(Case pos, String Robottype, int vitesse) {
-        // Si la position est en-dehors de la carte...
-        if(pos.getLigne()<0 || pos.getLigne()>=carte.getNbLignes() || pos.getColonne()<0 || pos.getColonne()>=carte.getNbColonnes()) {
-            throw new ArithmeticException("Impossible de créer un robot sur la case spécifiée !");
-        }
-        switch(Robottype) {
-            case "DRONE":     robots.add(new RobotDrone(pos, vitesse));
-                            break;
-            case "ROUES":     robots.add(new RobotRoues(pos, vitesse));
-                            break;
-            case "CHENILLES": robots.add(new RobotChenilles(pos, vitesse));
-                            break;
-            case "PATTES":    robots.add(new RobotPattes(pos, vitesse));
-                            break;
-            default:
-                              throw new ArithmeticException("Impossible de créer un robot du type spécifié !");
-                            break;
+                                throw new ArithmeticException("Impossible de créer un robot du type spécifié !");
+                                break;
         }
         this.nbRobots++;
     }

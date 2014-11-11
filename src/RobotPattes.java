@@ -14,7 +14,9 @@ public class RobotPattes extends Robot {
     }
     public RobotPattes(Case pos, int vitesse) {
         this(pos);
-        this.vitesse = vitesse; // Pas de contrainte sur la vitesse ?
+        if(vitesse > 0) {
+            this.vitesse = vitesse; // Pas de contrainte sur la vitesse ?
+        }
     }
     
     // Pas de mutateurs : la vitesse ne change pas en cours de route !

@@ -55,7 +55,7 @@ abstract class Robot {
         else {
             this.volumeEau = this.volumeEau - nbInterventions*volumeIntervention; // Diminuer l'eau du reservoir du robot
             for(Incendie i : simulation.getIncendies()) { // On parcourt les incendies pour voir s'il y en a un à éteindre
-                if(i.getPosition() == this.position) { // TODO: Test d'égalité OK ????
+                if(i.getPosition().equals(this.position) == true) { // TODO: Test d'égalité OK ????
                     i.decrementeIntensite(nbInterventions*volumeIntervention);
                     break; // Sortir du for, un robot n'est que sur une case à la fois...
                 }

@@ -44,6 +44,21 @@ public class Case {
     public void setTerrain(NatureTerrain terrain) {
         this.terrain = terrain;
     }
+
+    // On redéfinit un comparateur de Case "propre" depuis la superclasse Object
+    @Override
+    public boolean equals(Object o) {
+        if(this==o) {
+            return true;
+        }
+        if(!(o instanceof Case)) {
+            return false;
+        }
+
+        Case c = (Case) o; // downcasting
+        // Deux cases sont égales si et seulement si elles sont à la même place sur la carte
+        return this.ligne == c.getLigne() && this.colonne == c.getColonne();
+    }
     
     // On ajoute une méthode permettant de savoir facilement si deux cases sont voisines ou non
     public boolean estVoisine(Case c) {

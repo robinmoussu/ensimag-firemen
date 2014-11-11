@@ -165,17 +165,15 @@ public class LecteurDonnees {
 			int lig = scanner.nextInt();
 			int col = scanner.nextInt();
             Case c = (this.simulation.getCarte()).getCase(lig, col);
-			String chaineType = scanner.next();
-			// Transformer string en Enum TypeRobot
-			TypeRobot type = TypeRobot.valueOf(chaineType);
+			String type = scanner.next();
 			// Lecture éventuelle d'une vitesse du robot (entier)
 			String s = scanner.findInLine("(\\d+)");	// 1 or more digit(s) ?
             
 			if (s == null) {
-				this.simulation.addRobot(c, type);
-			} else {
-				int vitesse = Integer.parseInt(s);
-				this.simulation.addRobot(c, type, vitesse);
+                this.simulation.addRobot(c, type);
+            } else {
+                int vitesse = Integer.parseInt(s);
+                this.simulation.addRobot(c, type, vitesse);
 			}
 			verifieLigneTerminee();
 			

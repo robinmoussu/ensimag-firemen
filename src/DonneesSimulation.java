@@ -55,36 +55,44 @@ public class DonneesSimulation {
             this.nbIncendies++;
         }
     }
-    public void addRobot(Case pos, TypeRobot type) {
+    public void addRobot(Case pos, String typeRobot) {
         // Si la position est en-dehors de la carte...
         if(pos.getLigne()<0 || pos.getLigne()>=carte.getNbLignes() || pos.getColonne()<0 || pos.getColonne()>=carte.getNbColonnes()) {
             throw new ArithmeticException("Impossible de créer un robot sur la case spécifiée !");
         }
-        switch(type) {
-            case DRONE:     robots.add(new RobotDrone(pos));
+        switch(typeRobot) {
+            case "DRONE":     robots.add(new RobotDrone(pos));
                             break;
-            case ROUES:     robots.add(new RobotRoues(pos));
+            case "ROUES":     robots.add(new RobotRoues(pos));
                             break;
-            case CHENILLES: robots.add(new RobotChenilles(pos));
+            case "CHENILLES": robots.add(new RobotChenilles(pos));
                             break;
-            case PATTES:    robots.add(new RobotPattes(pos));
+            case "PATTES":    robots.add(new RobotPattes(pos));
+                            break;
+            default:
+                    // @TODO: add exception
                             break;
         }
         this.nbRobots++;
     }
-    public void addRobot(Case pos, TypeRobot type, int vitesse) {
+
+    // @TODO cette méthode ou celle au dessus n'est sans doute pas utile. Si elle le sont toutes les deux, il faut les factoriser
+    public void addRobot(Case pos, String Robottype, int vitesse) {
         // Si la position est en-dehors de la carte...
         if(pos.getLigne()<0 || pos.getLigne()>=carte.getNbLignes() || pos.getColonne()<0 || pos.getColonne()>=carte.getNbColonnes()) {
             throw new ArithmeticException("Impossible de créer un robot sur la case spécifiée !");
         }
-        switch(type) {
-            case DRONE:     robots.add(new RobotDrone(pos, vitesse));
+        switch(Robottype) {
+            case "DRONE":     robots.add(new RobotDrone(pos, vitesse));
                             break;
-            case ROUES:     robots.add(new RobotRoues(pos, vitesse));
+            case "ROUES":     robots.add(new RobotRoues(pos, vitesse));
                             break;
-            case CHENILLES: robots.add(new RobotChenilles(pos, vitesse));
+            case "CHENILLES": robots.add(new RobotChenilles(pos, vitesse));
                             break;
-            case PATTES:    robots.add(new RobotPattes(pos, vitesse));
+            case "PATTES":    robots.add(new RobotPattes(pos, vitesse));
+                            break;
+            default:
+                    // @TODO: add exception
                             break;
         }
         this.nbRobots++;

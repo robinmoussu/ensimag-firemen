@@ -1,10 +1,15 @@
 # TRAVAIL D'AMANDA
 abstract class Evenement
-    attribut dateFinExecution
+    // CHANGEMENT D'IMPLEMENTATION : ajout de dateDebExe
+    attribut dateDebExe
+    attribut dateFinExe
 Concrétisée en trois classes-filles de constructeurs :
- - deplacerRobot(Robot r, Direction d);
- - remplirRobot(Robot r);
- - viderRobot(Robot r, int nbInterventionsUnitaires)
+ - deplacerRobot(Date d, Robot r, Direction dir, Carte c);
+ - remplirRobot(Date d, Robot r, Carte c);
+ - viderRobot(Date d, Robot r, int nbInterventionsUnitaires, DonneesSimulation data)
+ // La Date d correspond à la date de début d'éxecution
+ // La Date de fin d'exe est calculé dans les trois classe-filles selon le robot passé dans le cnstructeur
+ // Afin de "vérouiller" un robot pendant qu'il exécute un évenement, on met la date de fin d'exe dans la date de début pour l'évènement suivant.
 
 class Date
     méthodes incrementDate() et getDate();

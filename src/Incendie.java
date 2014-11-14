@@ -8,11 +8,10 @@ public class Incendie {
     // Constructeur
     public Incendie(Case c, int eau) {
         if(eau<0) {
-            throw new ArithmeticException("Quantité d'eau négative !");
+            throw new ConstructionException("Quantité d'eau négative !");
         }
-        else {
-            this.eauNecessaire = eau;
-        }
+        
+        this.eauNecessaire = eau;
         this.position = c;
     }
 

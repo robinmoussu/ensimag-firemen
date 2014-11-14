@@ -48,12 +48,11 @@ public class DonneesSimulation {
     public void addIncendie(Case pos, int eau) {
         // Si la position est en-dehors de la carte...
         if(pos.getLigne()<0 || pos.getLigne()>=carte.getNbLignes() || pos.getColonne()<0 || pos.getColonne()>=carte.getNbColonnes()) {
-            throw new ArithmeticException("Impossible de créer un incendie sur la case spécifiée !");
+            throw new ConstructionException("Impossible de créer un incendie sur la case spécifiée !");
         }
-        else {
-            incendies.add(new Incendie(pos, eau));
-            this.nbIncendies++;
-        }
+
+        incendies.add(new Incendie(pos, eau));
+        this.nbIncendies++;
     }
     public void addRobot(Case pos, String typeRobot) {
         addRobot(pos, typeRobot, -1);
@@ -61,8 +60,9 @@ public class DonneesSimulation {
     public void addRobot(Case pos, String typeRobot, int vitesse) {
         // Si la position est en-dehors de la carte...
         if(pos.getLigne()<0 || pos.getLigne()>=carte.getNbLignes() || pos.getColonne()<0 || pos.getColonne()>=carte.getNbColonnes()) {
-            throw new ArithmeticException("Impossible de créer un robot sur la case spécifiée !");
+            throw new ConstructionException("Impossible de créer un robot sur la case spécifiée !");
         }
+
         switch(typeRobot) {
             case "DRONE":       robots.add(new RobotDrone(pos, vitesse)); // Si la vitesse est négative, elle est ignorée par le constructeur
                                 break;
@@ -73,7 +73,7 @@ public class DonneesSimulation {
             case "PATTES":      robots.add(new RobotPattes(pos, vitesse));
                                 break;
             default:
-                                throw new ArithmeticException("Impossible de créer un robot du type spécifié !");
+                                throw new ConstructionException("Impossible de créer un robot du type spécifié !");
         }
         this.nbRobots++;
     }

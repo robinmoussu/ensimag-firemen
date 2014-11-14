@@ -11,15 +11,14 @@ public class Carte {
     // Constructeur
     public Carte(int nbLignes, int nbColonnes, int tailleCases) {
         if(nbLignes<=0 || nbColonnes<=0 || tailleCases<=0) {
-            throw new ArithmeticException("Les paramètres de la carte doivent être positifs !");
+            throw new ConstructionException("Les paramètres de la carte doivent être positifs !");
         }
-        else {
-            this.nbLignes = nbLignes;
-            this.nbColonnes = nbColonnes;
-            this.tailleCases = tailleCases;
-            this.carte = new Case[nbLignes][nbColonnes];
-            // On n'initialise pas les cases ici, on dispose d'une méthode plus bas pour le faire
-        }
+        
+        this.nbLignes = nbLignes;
+        this.nbColonnes = nbColonnes;
+        this.tailleCases = tailleCases;
+        this.carte = new Case[nbLignes][nbColonnes];
+        // On n'initialise pas les cases ici, on dispose d'une méthode plus bas pour le faire
     }
 
     // Accesseurs
@@ -38,21 +37,19 @@ public class Carte {
     // Initialisation d'une case à la place (i, j)
     public void setCase(int i, int j, NatureTerrain t) {
         if(i<0 || i>=nbLignes || j<0 || j>=nbColonnes) {
-            throw new ArithmeticException("Création d'une case en-dehors des limites de la carte !");
+            throw new ConstructionException("Création d'une case en-dehors des limites de la carte !");
         }
-        else {
-            carte[i][j] = new Case(i, j, t); // On crée une case (composition) qui sera détruite à la destruction de la Carte
-        }
+        
+        carte[i][j] = new Case(i, j, t); // On crée une case (composition) qui sera détruite à la destruction de la Carte
     }
 
     // Récupérer une référence sur une case à partir de ses coordonnées
     public Case getCase(int i, int j) {
         if(i<0 || i>=nbLignes || j<0 || j>=nbColonnes) {
-            throw new ArithmeticException("Accès à une case en-dehors des limites de la carte !");
+            throw new SimulationException("Accès à une case en-dehors des limites de la carte !");
         }
-        else {
-            return carte[i][j];
-        }
+        
+        return carte[i][j];
     }
 
     // Rechercher si un voisin existe
@@ -86,7 +83,7 @@ public class Carte {
     // Renvoyer une référence sur la case du voisin
     public Case getVoisin(Case src, Direction dir) {
         if(this.voisinExiste(src, dir) == true) {
-			throw new ArithmeticException("Pas de voisin dans la direction spécifiée !");
+			throw new SimulationException("Pas de voisin dans la direction spécifiée !");
 		}
 	
         switch(dir) {

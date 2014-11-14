@@ -1,4 +1,3 @@
-
 // Pur typage
 public class ExceptionFormatDonnees extends Exception {
 	private static final long serialVersionUID = 1L;

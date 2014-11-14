@@ -45,22 +45,20 @@ public class RobotChenilles extends Robot {
     @Override
     public void deplacer(Case c) {
         if(c.estVoisine(this.getPosition())==false || c.getTerrain()==NatureTerrain.EAU || c.getTerrain()==NatureTerrain.ROCHE)  {
-            throw new ArithmeticException("Case inaccessible pour le robot sélectionné !");
+            throw new SimulationException("Case inaccessible pour le robot sélectionné !");
         }
-        else {
-            this.setPosition(c);
-        }
+        
+        this.setPosition(c);
     }
 
     // Remplir le réservoir d'eau si la case le permet
     @Override
     public void remplirReservoir(Carte carte) {
         if(carte.estBordEau(this.getPosition()) != true) {
-            throw new ArithmeticException("Impossible de remplir le réservoir sur la case actuelle !");
+            throw new SimulationException("Impossible de remplir le réservoir sur la case actuelle !");
         }
-        else {
-            this.volumeEau = this.volumeMax;
-        }
+        
+        this.volumeEau = this.volumeMax;
     } 
 
 }

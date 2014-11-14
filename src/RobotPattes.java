@@ -46,11 +46,10 @@ public class RobotPattes extends Robot {
     @Override
     public void deplacer(Case c) {
         if(c.estVoisine(this.getPosition())==false || c.getTerrain()==NatureTerrain.EAU)  {
-            throw new ArithmeticException("Case inaccessible pour le robot sélectionné !");
+            throw new SimulationException("Case inaccessible pour le robot sélectionné !");
         }
-        else {
-            this.setPosition(c);
-        }
+        
+        this.setPosition(c);
     }
 
     // Déverser le réservoir d'eau

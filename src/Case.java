@@ -27,19 +27,17 @@ public class Case {
     // Mutateurs
     public void setLigne(int ligne) {
         if(ligne<0) { // Invariant de classe
-            throw new ArithmeticException("Les coordonnées d'une case ne peuvent pas être négatives !");
+            throw new ConstructionException("Les coordonnées d'une case ne peuvent pas être négatives !");
         }
-        else {
-            this.ligne = ligne;
-        }
+        
+        this.ligne = ligne;
     }
     public void setColonne(int colonne) {
         if(colonne<0) { // Invariant de classe
-            throw new ArithmeticException("Les coordonnées d'une case ne peuvent pas être négatives !");
+            throw new ConstructionException("Les coordonnées d'une case ne peuvent pas être négatives !");
         }
-        else {
-            this.colonne = colonne;
-        }
+        
+        this.colonne = colonne;
     }
     public void setTerrain(NatureTerrain terrain) {
         this.terrain = terrain;

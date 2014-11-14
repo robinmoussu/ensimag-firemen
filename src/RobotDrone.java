@@ -36,7 +36,7 @@ public class RobotDrone extends Robot {
     // Déplacer le robot sur une case
     // On doit vérifier que les cases sont voisines, et que la nature du terrain soit compatible
     @Override
-    public void deplacer(Case c) {
+    public void deplacer(Case c) throws SimulationException {
         if(c.estVoisine(this.getPosition())==false) {
             throw new SimulationException("Case inaccessible pour le robot sélectionné !");
         }
@@ -46,7 +46,7 @@ public class RobotDrone extends Robot {
 
     // Remplir le réservoir d'eau si la case le permet
     @Override
-    public void remplirReservoir(Carte carte) {
+    public void remplirReservoir(Carte carte) throws SimulationException {
         if((this.getPosition()).getTerrain() != NatureTerrain.EAU) {
             throw new SimulationException("Impossible de remplir le réservoir sur la case actuelle !");
         }

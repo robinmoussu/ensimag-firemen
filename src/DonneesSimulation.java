@@ -10,7 +10,7 @@ public class DonneesSimulation {
     private int nbRobots;
 
     // Constructeur
-    public DonneesSimulation(int nbLignes, int nbColonnes, int tailleCases) {
+    public DonneesSimulation(int nbLignes, int nbColonnes, int tailleCases) throws ConstructionException {
         carte = new Carte(nbLignes, nbColonnes, tailleCases);
         incendies = new LinkedList<Incendie>();
         nbIncendies = 0;
@@ -42,10 +42,10 @@ public class DonneesSimulation {
     }
 
     // Méthodes pour ajouter des éléments à la simulation
-    public void addCase(int ligne, int colonne, NatureTerrain t) {
+    public void addCase(int ligne, int colonne, NatureTerrain t) throws ConstructionException {
         carte.setCase(ligne, colonne, t);
     }
-    public void addIncendie(Case pos, int eau) {
+    public void addIncendie(Case pos, int eau) throws ConstructionException {
         // Si la position est en-dehors de la carte...
         if(pos.getLigne()<0 || pos.getLigne()>=carte.getNbLignes() || pos.getColonne()<0 || pos.getColonne()>=carte.getNbColonnes()) {
             throw new ConstructionException("Impossible de créer un incendie sur la case spécifiée !");
@@ -54,10 +54,10 @@ public class DonneesSimulation {
         incendies.add(new Incendie(pos, eau));
         this.nbIncendies++;
     }
-    public void addRobot(Case pos, String typeRobot) {
+    public void addRobot(Case pos, String typeRobot) throws ConstructionException {
         addRobot(pos, typeRobot, -1);
     }
-    public void addRobot(Case pos, String typeRobot, int vitesse) {
+    public void addRobot(Case pos, String typeRobot, int vitesse) throws ConstructionException {
         // Si la position est en-dehors de la carte...
         if(pos.getLigne()<0 || pos.getLigne()>=carte.getNbLignes() || pos.getColonne()<0 || pos.getColonne()>=carte.getNbColonnes()) {
             throw new ConstructionException("Impossible de créer un robot sur la case spécifiée !");

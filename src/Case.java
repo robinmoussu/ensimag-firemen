@@ -25,14 +25,14 @@ public class Case {
     }
 
     // Mutateurs
-    public void setLigne(int ligne) {
+    public void setLigne(int ligne) throws ConstructionException {
         if(ligne<0) { // Invariant de classe
             throw new ConstructionException("Les coordonnées d'une case ne peuvent pas être négatives !");
         }
         
         this.ligne = ligne;
     }
-    public void setColonne(int colonne) {
+    public void setColonne(int colonne) throws ConstructionException {
         if(colonne<0) { // Invariant de classe
             throw new ConstructionException("Les coordonnées d'une case ne peuvent pas être négatives !");
         }

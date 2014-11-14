@@ -61,8 +61,9 @@ public class LecteurDonnees {
 		} catch (NoSuchElementException e) {
 			throw new ExceptionFormatDonnees("Format invalide. "
 					+ "Attendu: nbLignes nbColonnes tailleCases");
-		}
-		// une ExceptionFormat levee depuis lireCase est remontee telle quelle
+		} catch (ConstructionException e) {
+            throw new ExceptionFormatDonnees("Valeur(s) invalide(s) pour la carte");
+        }
 	}
 	
 
@@ -87,7 +88,9 @@ public class LecteurDonnees {
 		} catch (NoSuchElementException e) {
 			throw new ExceptionFormatDonnees("Format de case invalide. "
 					+ "Attendu: nature altitude [valeur_specifique]");
-		}
+		} catch (ConstructionException e) {
+            throw new ExceptionFormatDonnees("Valeur(s) invalide(s) pour les cases");
+        }
 	}
 
 
@@ -106,7 +109,9 @@ public class LecteurDonnees {
 		} catch (NoSuchElementException e) {
 			throw new ExceptionFormatDonnees("Format invalide. "
 					+ "Attendu: nbIncendies");
-		}		
+        } catch (ConstructionException e) {
+            System.out.println("[ERR] Erreur d'initialisation des incendies !");
+        }
 	}
 
 	
@@ -114,7 +119,7 @@ public class LecteurDonnees {
 	 * Lit et affiche les donnees du i-eme incendie.
 	 * @param i
 	 */
-	private void lireIncendie(int i) throws ExceptionFormatDonnees {
+	private void lireIncendie(int i) throws ExceptionFormatDonnees,ConstructionException {
 		ignorerCommentaires();		
 		try {
 			int lig = scanner.nextInt();
@@ -132,7 +137,9 @@ public class LecteurDonnees {
 		} catch (NoSuchElementException e) {
 			throw new ExceptionFormatDonnees("Format d'incendie invalide. "
 					+ "Attendu: ligne colonne intensité");		
-		}
+		} catch (SimulationException e) {
+            throw new ExceptionFormatDonnees("Valeur(s) invalide(s) pour un robot");
+        }
 	}
 
 
@@ -151,7 +158,9 @@ public class LecteurDonnees {
 		} catch (NoSuchElementException e) {
 			throw new ExceptionFormatDonnees("Format invalide. "
 					+ "Attendu: nbRobots");
-		}		
+		} catch (ConstructionException e) {
+            System.out.println("[ERR] Erreur d'initialisation des robots");
+        }
 	}
 
 	
@@ -159,7 +168,7 @@ public class LecteurDonnees {
 	 * Lit et affiche les donnees du i-eme robot.
 	 * @param i
 	 */
-	private void lireRobot(int i) throws ExceptionFormatDonnees {
+	private void lireRobot(int i) throws ExceptionFormatDonnees,ConstructionException {
 		ignorerCommentaires();
 		try {
 			int lig = scanner.nextInt();
@@ -180,7 +189,9 @@ public class LecteurDonnees {
 		} catch (NoSuchElementException e) {
 			throw new ExceptionFormatDonnees("format de robot invalide. "
 					+ "Attendu: ligne colonne type [valeur_specifique]");		
-		}
+		} catch (SimulationException e) {
+            throw new ExceptionFormatDonnees("Valeur(s) invalide(s) pour un robot");
+        }
 	}
 
 

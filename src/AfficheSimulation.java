@@ -112,7 +112,9 @@ class Firemen implements Simulable {
             }
 		} catch (MapIndexOutOfBoundsException e) {
 			e.printStackTrace();
-		}
+		} catch (SimulationException e) {
+            System.out.println("[ERR] Echec de l'affichage de la carte sur l'IHM (parcours de cases hors-carte)");
+        }
 	}
 
 }

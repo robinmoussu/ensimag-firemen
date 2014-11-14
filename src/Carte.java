@@ -9,7 +9,7 @@ public class Carte {
     private Case[][] carte;
 
     // Constructeur
-    public Carte(int nbLignes, int nbColonnes, int tailleCases) {
+    public Carte(int nbLignes, int nbColonnes, int tailleCases) throws ConstructionException {
         if(nbLignes<=0 || nbColonnes<=0 || tailleCases<=0) {
             throw new ConstructionException("Les paramètres de la carte doivent être positifs !");
         }
@@ -35,7 +35,7 @@ public class Carte {
     // Pas de mutateurs : la carte est chargée une fois pour toutes en mémoire
 
     // Initialisation d'une case à la place (i, j)
-    public void setCase(int i, int j, NatureTerrain t) {
+    public void setCase(int i, int j, NatureTerrain t) throws ConstructionException {
         if(i<0 || i>=nbLignes || j<0 || j>=nbColonnes) {
             throw new ConstructionException("Création d'une case en-dehors des limites de la carte !");
         }
@@ -44,7 +44,7 @@ public class Carte {
     }
 
     // Récupérer une référence sur une case à partir de ses coordonnées
-    public Case getCase(int i, int j) {
+    public Case getCase(int i, int j) throws SimulationException {
         if(i<0 || i>=nbLignes || j<0 || j>=nbColonnes) {
             throw new SimulationException("Accès à une case en-dehors des limites de la carte !");
         }
@@ -81,8 +81,8 @@ public class Carte {
     }
     
     // Renvoyer une référence sur la case du voisin
-    public Case getVoisin(Case src, Direction dir) {
-        if(this.voisinExiste(src, dir) == true) {
+    public Case getVoisin(Case src, Direction dir) throws SimulationException {
+        if(this.voisinExiste(src, dir) != true) {
 			throw new SimulationException("Pas de voisin dans la direction spécifiée !");
 		}
 	
@@ -98,14 +98,18 @@ public class Carte {
 
     // Savoir si une case est en bordure de l'eau ou non
     public boolean estBordEau(Case c) {
-        if(     (voisinExiste(c, Direction.NORD)==true && getVoisin(c, Direction.NORD).getTerrain() == NatureTerrain.EAU)
-             || (voisinExiste(c, Direction.SUD)==true && getVoisin(c, Direction.SUD).getTerrain() == NatureTerrain.EAU)
-             || (voisinExiste(c, Direction.EST)==true && getVoisin(c, Direction.EST).getTerrain() == NatureTerrain.EAU)
-             || (voisinExiste(c, Direction.OUEST)==true && getVoisin(c, Direction.OUEST).getTerrain() == NatureTerrain.EAU)
-         ) {
-            return true;
-        }
-        else {
+        try {
+            if(     (voisinExiste(c, Direction.NORD)==true && getVoisin(c, Direction.NORD).getTerrain() == NatureTerrain.EAU)
+                 || (voisinExiste(c, Direction.SUD)==true && getVoisin(c, Direction.SUD).getTerrain() == NatureTerrain.EAU)
+                 || (voisinExiste(c, Direction.EST)==true && getVoisin(c, Direction.EST).getTerrain() == NatureTerrain.EAU)
+                 || (voisinExiste(c, Direction.OUEST)==true && getVoisin(c, Direction.OUEST).getTerrain() == NatureTerrain.EAU)
+            ) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        } catch (Exception e) {
             return false;
         }
     }

@@ -6,7 +6,7 @@ public class Incendie {
     private int eauNecessaire; // Nombre de litres d'eau nécessaires pour l'éteindre
 
     // Constructeur
-    public Incendie(Case c, int eau) {
+    public Incendie(Case c, int eau) throws ConstructionException {
         if(eau<0) {
             throw new ConstructionException("Quantité d'eau négative !");
         }

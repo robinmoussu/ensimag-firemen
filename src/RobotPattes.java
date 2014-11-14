@@ -44,7 +44,7 @@ public class RobotPattes extends Robot {
     // Déplacer le robot sur une case
     // On doit vérifier que les cases sont voisines, et que la nature du terrain soit compatible
     @Override
-    public void deplacer(Case c) {
+    public void deplacer(Case c) throws SimulationException {
         if(c.estVoisine(this.getPosition())==false || c.getTerrain()==NatureTerrain.EAU)  {
             throw new SimulationException("Case inaccessible pour le robot sélectionné !");
         }

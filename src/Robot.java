@@ -48,7 +48,7 @@ abstract class Robot {
     }
     
     // Déverser le réservoir d'eau
-    public void deverserEau(DonneesSimulation simulation, int nbInterventions) {
+    public void deverserEau(DonneesSimulation simulation, int nbInterventions) throws SimulationException {
         if(nbInterventions>volumeIntervention/volumeEau) {
             throw new SimulationException("Pas assez d'eau dans le réservoir !");
         }
@@ -63,7 +63,7 @@ abstract class Robot {
     }
 
     // Méthodes abstraites
-    abstract public void deplacer(Case c);
-    abstract public void remplirReservoir(Carte carte);
+    abstract public void deplacer(Case c) throws SimulationException;
+    abstract public void remplirReservoir(Carte carte) throws SimulationException;
 
 }

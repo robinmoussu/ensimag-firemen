@@ -8,9 +8,14 @@ public class Carte {
 
     private Case[][] carte;
 
-    // Constructeur
+    /**
+     * @param nbLignes      Nombre de ligne de la carte (doit être > 0)
+     * @param nbColonnes    Nombre de colonne de la carte (doit être > 0)
+     * @param tailleCases   Taille d'une case dans la simulation (doit être > 0)
+     * @throws ConstructionException Si un des paramètre est <= 0
+     */
     public Carte(int nbLignes, int nbColonnes, int tailleCases) throws ConstructionException {
-        if(nbLignes<=0 || nbColonnes<=0 || tailleCases<=0) {
+        if(nbLignes<0 || nbColonnes<0 || tailleCases<0) {
             throw new ConstructionException("Les paramètres de la carte doivent être positifs !");
         }
         

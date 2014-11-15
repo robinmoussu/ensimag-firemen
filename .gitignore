@@ -22,3 +22,4 @@ test/*.html
 test/*.css
 test/*.js
 test/package-list
+*.swp

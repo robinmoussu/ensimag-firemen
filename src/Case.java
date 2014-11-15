@@ -12,6 +12,11 @@ public class Case {
         this.colonne = colonne;
         this.terrain = terrain;
     }
+    
+    
+    public Case(int ligne, int colonnen) {
+        this(ligne, colonnen, NatureTerrain.TERRAIN_LIBRE);
+    }
 
     // Accesseurs
     public int getLigne() {
@@ -71,5 +76,66 @@ public class Case {
             return false;
         }
     }
-
+    
+    ////////////////////////////
+    
+    
+    public Case up() {
+        return new Case(this.ligne - 1, this.colonne);
+    }
+    
+    public Case down() {
+        return new Case(this.ligne + 1, this.colonne);
+    }
+    
+    public Case left() {
+        return new Case(this.ligne, this.colonne - 1);
+    }
+    
+    public Case right() {
+        return new Case(this.ligne, this.colonne + 1);
+    }
+    
+    public String toString() {
+        return "Case " + this.ligne + ", " + this.colonne;
+    }
+    
+    /** Retourne la direction global permettant d'atteindre une autre case
+     * 
+     * @param other La case de destination
+     * @return La direction pour se diriger vers other
+     */
+    public Direction getDirection(Case other) {
+        if ((this.colonne <  other.colonne) && (this.ligne == other.ligne)) {
+            return Direction.right;
+        } else if ((this.colonne >  other.colonne) && (this.ligne == other.ligne)) {
+            return Direction.left;
+        } else if ((this.colonne == other.colonne) && (this.ligne >  other.ligne)) {
+            return Direction.up;
+        } else if ((this.colonne == other.colonne) && (this.ligne <  other.ligne)) {
+            return Direction.down;
+        } else if ((this.colonne <  other.colonne) && (this.ligne >  other.ligne)) {
+            return Direction.topRight;
+        } else if ((this.colonne <  other.colonne) && (this.ligne <  other.ligne)) {
+            return Direction.bottomRight;
+        } else if ((this.colonne >  other.colonne) && (this.ligne >  other.ligne)) {
+            return Direction.topLeft;
+        } else if ((this.colonne >  other.colonne) && (this.ligne <  other.ligne)) {
+            return Direction.bottomLeft;
+        } else {
+            return Direction.same;
+        }
+    }
+    
+    public enum Direction {
+        up,
+        down,
+        left,
+        right,
+        topLeft,
+        topRight,
+        bottomLeft,
+        bottomRight,
+        same,
+    };
 }

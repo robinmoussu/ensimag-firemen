@@ -10,3 +10,16 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+/firemem/nbproject/private/
+/nbproject/private/
+/build/build.xml
+manifest.mf
+nbproject/*
+build/*
+build.xml
+*~
+test/*.html
+test/*.css
+test/*.js
+test/package-list
+*.swp

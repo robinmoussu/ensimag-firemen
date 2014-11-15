@@ -15,10 +15,11 @@ public class AfficheSimulation {
             LecteurDonnees lecteur;
             DonneesSimulation simulation;
             Firemen firemen;
+            String filename = args[0];
             
-            lecteur    = new LecteurDonnees(args[0]);
+            lecteur    = new LecteurDonnees(filename);
             simulation = lecteur.creeDonnees();
-            firemen    = new Firemen(simulation, args[0], lecteur);
+            firemen    = new Firemen(simulation, filename, lecteur);
 		} catch (FileNotFoundException e) {
 			System.out.println("fichier " + args[0] + " inconnu ou illisible");
 		} catch (ExceptionFormatDonnees e) {

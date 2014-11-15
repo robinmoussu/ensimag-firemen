@@ -7,11 +7,11 @@
 # a votre projet.
 #
 # Organisation:
-#  1) Les sources (*.java) se trouvent dans le repertoire src
-#     Les classes d'un package toto sont dans src/toto
-#     Les classes du package par defaut sont dans src
+#  1) Les sources (*.java) se trouvent dans le repertoire $(SRC)
+#     Les classes d'un package toto sont dans $(SRC)/toto
+#     Les classes du package par defaut sont dans $(SRC)
 #
-#  2) Les bytecodes (*.class) se trouvent dans le repertoire bin
+#  2) Les bytecodes (*.class) se trouvent dans le repertoire $(BIN)
 #     La hierarchie des sources (par package) est conservee.
 #
 # Compilation:
@@ -20,31 +20,64 @@
 #   -classpath : repertoire dans lequel sont cherches les .class deja compiles
 #   -sourcepath : repertoire dans lequel sont cherches les .java (dependances)
 
-all: testIHM testLecture
+PROJPATH=.
 
-testIHM:
-	javac -d bin -classpath bin/ihm.jar -sourcepath src src/TestIHM.java
+PACKAGE=
 
-testAfficheSimulation:
-	javac -d bin -classpath bin/ihm.jar -sourcepath src src/AfficheSimulation.java
+SRC=$(PROJPATH)/src
+BIN=$(PROJPATH)/bin
+TEST=$(PROJPATH)/test
 
-testLecture:
-	javac -d bin -sourcepath src src/TestLecteurDonnees.java
-	
-# Execution:
-# on peut taper directement la ligne de commande :
-#   > java -classpath bin TestIHM
-# ou bien lancer l'execution en passant par ce Makefile:
-#   > make exeIHM
-exeIHM:
-	java -classpath bin:bin/ihm.jar TestIHM
+CARTE=cartes/carteSujet.txt
 
-exeAfficheSimulation:
-	java -classpath bin:bin/ihm.jar AfficheSimulation cartes/carteSujet.txt
+########################################################################################
 
-exeLecture:
-	java -classpath bin TestLecteurDonnees cartes/carteSujet.txt
+all: exeIHM exeAfficheSimulation exeTest
+
+exeTest: exeTestJunit exeTestLecture
+
+########################################################################################
+# programme
+
+makeIHM:
+	javac -d $(BIN) -classpath $(BIN)/ihm.jar -sourcepath $(SRC) $(SRC)/TestIHM.java
+
+makeAfficheSimulation:
+	javac -d $(BIN) -classpath $(BIN)/ihm.jar -sourcepath $(SRC) $(SRC)/AfficheSimulation.java
+
+exeIHM: makeIHM
+	java -classpath $(BIN):$(BIN)/ihm.jar TestIHM
+
+exeAfficheSimulation: makeAfficheSimulation
+	java -classpath $(BIN):$(BIN)/ihm.jar AfficheSimulation cartes/carteSujet.txt
 
 clean:
-	rm -rf bin/*.class
+	rm -rf $(BIN)/*.class
+
+########################################################################################
+# tests
+
+makeTestLecture:
+	javac -d $(BIN) -sourcepath $(SRC) $(SRC)/TestLecteurDonnees.java
+
+exeTestLecture: makeTestLecture
+	java -classpath $(BIN) TestLecteurDonnees $(CARTE)
+
+
+#---------  All the acces to lib.jar and .class used during the test ------
+CLASSPATH=$(BIN):$(BIN)/ihm.jar
+
+#--------- Name of Junit test in order of wanted excecution -------------  
+JUNIT_LIST= $(PACKAGE)testAstar\
+            $(PACKAGE)testCase\
+
+JUNITPATH=  /usr/share/java/junit.jar
+
+makeTestJunit:
+	javac -d $(BIN) -classpath $(CLASSPATH):$(JUNITPATH) $(TEST)/*.java $(SRC)/*.java
+
+exeTestJunit: makeTestJunit
+	java -classpath $(CLASSPATH):$(JUNITPATH) org.junit.runner.JUnitCore $(JUNIT_LIST)
+
+
 

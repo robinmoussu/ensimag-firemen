@@ -7,7 +7,7 @@ public class LecteurDonnees {
 
     // Attributs: la simulation à créer
 
-    static private DonneesSimulation simulation;
+    private DonneesSimulation simulation;
 
     /**
      * Lit un fichier de données et crée la structure de données nécessaire au
@@ -18,7 +18,7 @@ public class LecteurDonnees {
      * @return Objet DonneesSimulation contenant toutes les données de la
      * simulation
      */
-    public static DonneesSimulation creeDonnees(String fichierDonnees)
+    public DonneesSimulation creeDonnees(String fichierDonnees)
             throws FileNotFoundException, ExceptionFormatDonnees {
         LecteurDonnees lecteur = new LecteurDonnees(fichierDonnees);
         System.out.println("[OK] Lecture du fichier " + fichierDonnees);

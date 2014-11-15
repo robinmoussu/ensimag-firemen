@@ -40,21 +40,21 @@ public class Carte {
     // Pas de mutateurs : la carte est chargée une fois pour toutes en mémoire
 
     // Initialisation d'une case à la place (i, j)
-    public void setCase(int i, int j, NatureTerrain t) throws ConstructionException {
-        if(i<0 || i>=nbLignes || j<0 || j>=nbColonnes) {
+    public void setCase(int ligne, int colonne, NatureTerrain t) throws ConstructionException {
+        if(ligne<0 || ligne>=nbLignes || colonne<0 || colonne>=nbColonnes) {
             throw new ConstructionException("Création d'une case en-dehors des limites de la carte !");
         }
         
-        carte[i][j] = new Case(i, j, t); // On crée une case (composition) qui sera détruite à la destruction de la Carte
+        carte[ligne][colonne] = new Case(ligne, colonne, t); // On crée une case (composition) qui sera détruite à la destruction de la Carte
     }
 
     // Récupérer une référence sur une case à partir de ses coordonnées
-    public Case getCase(int i, int j) throws SimulationException {
-        if(i<0 || i>=nbLignes || j<0 || j>=nbColonnes) {
+    public Case getCase(int ligne, int colonne) throws SimulationException {
+        if(ligne<0 || ligne>=nbLignes || colonne<0 || colonne>=nbColonnes) {
             throw new SimulationException("Accès à une case en-dehors des limites de la carte !");
         }
         
-        return carte[i][j];
+        return carte[ligne][colonne];
     }
 
     // Rechercher si un voisin existe

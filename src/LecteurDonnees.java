@@ -8,7 +8,8 @@ public class LecteurDonnees {
     // Attributs: la simulation à créer
 
     private DonneesSimulation simulation;
-
+    private String fichierDonnees;
+    
     /**
      * Lit un fichier de données et crée la structure de données nécessaire au
      * stockage. Méthode de classe, utilisation:
@@ -18,13 +19,12 @@ public class LecteurDonnees {
      * @return Objet DonneesSimulation contenant toutes les données de la
      * simulation
      */
-    public DonneesSimulation creeDonnees(String fichierDonnees)
-            throws FileNotFoundException, ExceptionFormatDonnees {
-        LecteurDonnees lecteur = new LecteurDonnees(fichierDonnees);
-        System.out.println("[OK] Lecture du fichier " + fichierDonnees);
-        lecteur.lireCarte();
-        lecteur.lireIncendies();
-        lecteur.lireRobots();
+    public DonneesSimulation creeDonnees()
+            throws ExceptionFormatDonnees {
+        System.out.println("[OK] Lecture du fichier " + this.fichierDonnees);
+        lireCarte();
+        lireIncendies();
+        lireRobots();
         scanner.close();
         return simulation;
     }
@@ -33,14 +33,13 @@ public class LecteurDonnees {
     private static Scanner scanner;
 
     /**
-     * Constructeur privé; impossible d'instancier la classe depuis l'exterieur
-     *
      * @param fichierDonnees nom du fichier a lire
      */
-    private LecteurDonnees(String fichierDonnees)
+    public LecteurDonnees(String fichierDonnees)
             throws FileNotFoundException {
         scanner = new Scanner(new File(fichierDonnees));
         scanner.useLocale(Locale.US);
+        fichierDonnees = fichierDonnees;
     }
 
     /**

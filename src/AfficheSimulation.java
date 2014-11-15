@@ -12,8 +12,13 @@ public class AfficheSimulation {
             System.exit(1);
         }
         try {
-            DonneesSimulation simulation = LecteurDonnees.creeDonnees(args[0]);
-            Firemen firement = new Firemen(simulation, args[0]);
+            LecteurDonnees lecteur;
+            DonneesSimulation simulation;
+            Firemen firemen;
+            
+            lecteur    = new LecteurDonnees(args[0]);
+            simulation = lecteur.creeDonnees();
+            firemen    = new Firemen(simulation, args[0], lecteur);
 		} catch (FileNotFoundException e) {
 			System.out.println("fichier " + args[0] + " inconnu ou illisible");
 		} catch (ExceptionFormatDonnees e) {
@@ -29,8 +34,9 @@ class Firemen implements Simulable {
     private IGSimulateur ihm;  // l'IHM associee a ce simulateur
     private long date = 0;
     private String fichierSimulation;
+    private LecteurDonnees lecteur;
     
-	public Firemen(DonneesSimulation data, String fichier) {
+	public Firemen(DonneesSimulation data, String fichier, LecteurDonnees lecteur) {
 		// cree l'IHM et l'associe a ce simulateur (this), qui en tant que
 		// Simulable recevra les evenements suite aux actions de l'utilisateur
         nbLignes = data.getNbLignes();
@@ -38,6 +44,7 @@ class Firemen implements Simulable {
         simulation = data;
         fichierSimulation = fichier;
 		ihm = new IGSimulateur(nbColonnes, nbLignes, this);
+                lecteur = lecteur;
 		dessine();    // mettre a jour l'affichage
 	}
 	
@@ -51,7 +58,7 @@ class Firemen implements Simulable {
 	@Override
 	public void restart() {
         try {
-            this.simulation = LecteurDonnees.creeDonnees(fichierSimulation);
+            this.simulation = this.lecteur.creeDonnees();
             date = 0;
             dessine(); // Mettre à jour l'affichage
             System.out.println("[OK] Redémarrage de la simulation depuis son état initial.");

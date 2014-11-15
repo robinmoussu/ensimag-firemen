@@ -7,7 +7,6 @@ public class DonneesSimulation {
     private LinkedList<Incendie> incendies;
     private int nbIncendies;
     private LinkedList<Robot> robots;
-    private int nbRobots;
 
     // Constructeur
     public DonneesSimulation(int nbLignes, int nbColonnes, int tailleCases) throws ConstructionException {
@@ -15,7 +14,6 @@ public class DonneesSimulation {
         incendies = new LinkedList<Incendie>();
         nbIncendies = 0;
         robots = new LinkedList<Robot>();
-        nbRobots = 0;
     }
 
     // Accesseurs
@@ -32,7 +30,7 @@ public class DonneesSimulation {
         return this.robots;
     }
     public int getNbRobots() {
-        return this.nbRobots;
+        return this.robots.size();
     }
     public int getNbLignes() {
         return carte.getNbLignes();
@@ -75,7 +73,6 @@ public class DonneesSimulation {
             default:
                                 throw new ConstructionException("Impossible de créer un robot du type spécifié !");
         }
-        this.nbRobots++;
     }
 
 }

@@ -51,7 +51,7 @@ public class testAstar {
         Case objectif   = new Case(1, 1);
         NatureTerrain[] terrains = {NatureTerrain.TERRAIN_LIBRE};
         
-        org.junit.Assert.assertEquals("do not move",  objectif,
+        assertEquals("do not move",  objectif,
                 astar.next(objectif, objectif, terrains));
     }
     
@@ -61,16 +61,16 @@ public class testAstar {
         Case objectif   = new Case(1, 1);
         NatureTerrain[] terrains = {NatureTerrain.TERRAIN_LIBRE};
 
-        org.junit.Assert.assertEquals("must go right",  objectif,
+        assertEquals("must go right",  objectif,
                 astar.next(objectif.left(),
                         objectif, terrains));
-        org.junit.Assert.assertEquals("must go left", objectif,
+        assertEquals("must go left", objectif,
                 astar.next(objectif.right(),
                         objectif, terrains));
-        org.junit.Assert.assertEquals("must go down",    objectif,
+        assertEquals("must go down",    objectif,
                 astar.next(objectif.up(),
                         objectif, terrains));
-        org.junit.Assert.assertEquals("must go up",  objectif,
+        assertEquals("must go up",  objectif,
                 astar.next(objectif.down(),
                         objectif, terrains));
     }
@@ -84,45 +84,45 @@ public class testAstar {
         
         
         // 2 times in same direction
-        org.junit.Assert.assertEquals("start 2 time top",  objectif,
+        assertEquals("start 2 time top",  objectif,
                 astar.next(astar.next(objectif.up().up()
                 , objectif, terrains), objectif, terrains));
         
-        org.junit.Assert.assertEquals("start 2 time bottom",  objectif,
+        assertEquals("start 2 time bottom",  objectif,
                 astar.next(astar.next(objectif.down().down()
                 , objectif, terrains), objectif, terrains));
                 
-        org.junit.Assert.assertEquals("start 2 time right",  objectif,
+        assertEquals("start 2 time right",  objectif,
                 astar.next(astar.next(objectif.right().right()
                 , objectif, terrains), objectif, terrains));
                 
-        org.junit.Assert.assertEquals("start 2 time left",  objectif,
+        assertEquals("start 2 time left",  objectif,
                 astar.next(astar.next(objectif.left().left()
                 , objectif, terrains), objectif, terrains));
         
         
         // corner
         depart = objectif.up().left();
-        org.junit.Assert.assertEquals("start corner top left",  objectif,
+        assertEquals("start corner top left",  objectif,
                 astar.next(astar.next(
                 depart
                 , objectif, terrains), objectif, terrains));
         
-        org.junit.Assert.assertEquals("start corner top right", objectif,
+        assertEquals("start corner top right", objectif,
                 astar.next(astar.next(objectif.up().right()
                 , objectif, terrains), objectif, terrains));
                 
-        org.junit.Assert.assertEquals("start corner bottom left",    objectif,
+        assertEquals("start corner bottom left",    objectif,
                 astar.next(astar.next(objectif.down().left()
                 , objectif, terrains), objectif, terrains));
                 
-        org.junit.Assert.assertEquals("start corner bottom right",  objectif,
+        assertEquals("start corner bottom right",  objectif,
                 astar.next(astar.next(objectif.down().right()
                 , objectif, terrains), objectif, terrains));
         
         
         // far away
-        org.junit.Assert.assertEquals("far away",  objectif,
+        assertEquals("far away",  objectif,
                 astar.next(astar.next(astar.next(astar.next(astar.next(astar.next(
                 objectif.up().up().up().left().left().left()
                 , objectif, terrains), objectif, terrains)
@@ -130,7 +130,7 @@ public class testAstar {
                 , objectif, terrains), objectif, terrains)
         );
         
-        org.junit.Assert.assertEquals("far away",  objectif,
+        assertEquals("far away",  objectif,
                 astar.next(astar.next(astar.next(astar.next(astar.next(astar.next(
                 objectif.down().down().down().down().left().left()
                 , objectif, terrains), objectif, terrains)

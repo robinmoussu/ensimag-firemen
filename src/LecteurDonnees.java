@@ -29,8 +29,8 @@ public class LecteurDonnees {
         return simulation;
     }
 
-    // Tout le reste de la classe est privé !
-    private static Scanner scanner;
+    
+    private Scanner scanner;
 
     /**
      * @param fichierDonnees nom du fichier a lire

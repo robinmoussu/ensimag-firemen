@@ -16,7 +16,7 @@ public class AfficheSimulation {
             LecteurDonnees lecteur = new LecteurDonnees(filename);
             DonneesSimulation simulation = lecteur.creeDonnees();
 
-            Firemen firemen = new Firemen(simulation, lecteur); // Création de l'IHM
+            Firemen firemen = new Firemen(simulation, filename); // Création de l'IHM
 		} catch (FileNotFoundException e) {
 			System.out.println("fichier " + args[0] + " inconnu ou illisible");
 		} catch (ExceptionFormatDonnees e) {
@@ -31,11 +31,11 @@ class Firemen implements Simulable {
     private IGSimulateur ihm;  // l'IHM associee a ce simulateur
     private Date date; // On utilise l'objet Date
     private DonneesSimulation simulation;
-    private LecteurDonnees lecteur;
+    private String filename;
     private Simulateur simulateur;
     private Manager manager;
     
-	public Firemen(DonneesSimulation data, LecteurDonnees lecteur) {
+	public Firemen(DonneesSimulation data, String filename) {
 		// cree l'IHM et l'associe a ce simulateur (this), qui en tant que
 		// Simulable recevra les evenements suite aux actions de l'utilisateur
         this.simulation = data;
@@ -43,9 +43,9 @@ class Firemen implements Simulable {
         nbColonnes = data.getNbColonnes();
 		ihm = new IGSimulateur(nbColonnes, nbLignes, this);
         date = new Date();
-        this.lecteur = lecteur;
+        this.filename = filename;
         this.simulateur = new Simulateur(date); // Création du simulteur
-        this.manager = new ManagerScenario0(simulateur, simulation); // Création du manager
+        this.manager = new ManagerScenario1(simulateur, simulation); // Création du manager
         this.simulateur.setManager(manager);
 		dessine();    // mettre a jour l'affichage
 	}
@@ -53,8 +53,9 @@ class Firemen implements Simulable {
 	@Override
 	public void next() {
 		try {
-            simulateur.incrementeDate(1); // Incrémenter la date courante et gérer les événements
+            simulateur.incrementeDate(238); // Incrémenter la date courante et gérer les événements ; 238 correspond à un déplacement d'une case pour un drone
             dessine();
+            System.out.println("[OK] Simulation avancée d'un pas à la date " + this.date.getDate());
         }
         catch (SimulationException e) {
             System.out.println("[ERR] Erreur lors de l'exécution de la simulation : " + e.getMessage());
@@ -64,12 +65,13 @@ class Firemen implements Simulable {
 	@Override
 	public void restart() {
         try {
-            this.simulation = this.lecteur.creeDonnees();
+            LecteurDonnees lecteur = new LecteurDonnees(filename);
+            this.simulation = lecteur.creeDonnees();
             date.resetDate(); // Réinitialiser la date courante
             dessine(); // Mettre à jour l'affichage
             System.out.println("[OK] Redémarrage de la simulation depuis son état initial.");
         } catch (Exception e) {
-            System.out.println("[ERR] Erreur lors de la remise à jour des données de simulation");
+            System.out.println("[ERR] Erreur lors de la remise à jour des données de simulation : " + e.getMessage());
         }
 	}
 

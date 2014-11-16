@@ -10,7 +10,8 @@ public class EventMoveRobot extends Evenement {
 		this.robot = r;
 		this.direction = dir;
 		this.carte = c;
-		this.dateFin = d.dateInc((long)(carte.getTailleCases() / robot.getVitesse(robot.getPosition().getTerrain())));
+		this.dateFin = new Date ((long)(d.getDate() + carte.getTailleCases() * 3.6 / robot.getVitesse(robot.getPosition().getTerrain()))); // Attention, vitesse en km/h, à passer en m/s
+
 	}
 
 	// Constructeur de copie
@@ -25,7 +26,9 @@ public class EventMoveRobot extends Evenement {
 	// Execute concrètement l'évènement
 	public void execute() throws SimulationException {
 		Case cur = robot.getPosition();
+        System.out.println(cur.toString());
 		Case c = carte.getVoisin(cur, this.direction);
 		robot.deplacer(c);
+        System.out.println(robot.getPosition().toString());
 	}
 }

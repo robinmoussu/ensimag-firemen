@@ -8,7 +8,7 @@ public class EventRemplirRobot extends Evenement {
 		super(d);
 		this.robot = r;
 		this.carte = c;
-		this.dateFin = d.dateInc((long)(carte.getTailleCases() / robot.getVitesse(robot.getPosition().getTerrain())));
+		this.dateFin = new Date (d.getDate() + r.getTempsRemplissage());
 	}
 
 	// Constructeur de copie

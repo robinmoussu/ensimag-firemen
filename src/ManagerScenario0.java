@@ -10,19 +10,22 @@ public class ManagerScenario0 extends Manager {
 		Robot r = simuData.getRobots().get(0);
 		Carte c = simuData.getCarte();
 		Date d = simu.getDate();
+        
+		// Ne créer les événements qu'une seule fois !
+        if(d.getDate() == 238) {
+            // Implementer le calcul de la date de fin d'exe avec incrementeDate et simu.getDate
+	    	EventMoveRobot e1 = new EventMoveRobot(d, r, Direction.NORD, c);
+		    simu.ajouteEvenement(e1);
 
-		// Implementer le calcul de la date de fin d'exe avec incrementeDate et simu.getDate
-		EventMoveRobot e1 = new EventMoveRobot(d, r, Direction.NORD, c);
-		simu.ajouteEvenement(e1);
+		    EventMoveRobot e2 = new EventMoveRobot(e1.getDateFin(), r, Direction.NORD, c);
+		    simu.ajouteEvenement(e2);
 
-		EventMoveRobot e2 = new EventMoveRobot(e1.getDateFin(), r, Direction.NORD, c);
-		simu.ajouteEvenement(e2);
+		    EventMoveRobot e3 = new EventMoveRobot(e2.getDateFin(), r, Direction.NORD, c);
+		    simu.ajouteEvenement(e3);
 
-		EventMoveRobot e3 = new EventMoveRobot(e2.getDateFin(), r, Direction.NORD, c);
-		simu.ajouteEvenement(e3);
-
-		EventMoveRobot e4 = new EventMoveRobot(e3.getDateFin(), r, Direction.NORD, c);
-		simu.ajouteEvenement(e4);
+		    EventMoveRobot e4 = new EventMoveRobot(e3.getDateFin(), r, Direction.NORD, c);
+		    simu.ajouteEvenement(e4);
+        }
 	}
 
 	@Override

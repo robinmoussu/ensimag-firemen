@@ -10,7 +10,7 @@ public class EventViderRobot extends Evenement {
 		this.robot = r;
 		this.nbIntervention = n;
 		this.donneesSimulation = data;
-		this.dateFin = d.dateInc((long)(donneesSimulation.getCarte().getTailleCases() / robot.getVitesse(robot.getPosition().getTerrain())));
+		this.dateFin = new Date (d.getDate() + r.getDureeIntervention() * n);
 	}
 
 	// Constructeur de copie

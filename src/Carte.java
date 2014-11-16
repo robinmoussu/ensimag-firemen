@@ -41,11 +41,16 @@ public class Carte {
 
     // Initialisation d'une case à la place (i, j)
     public void setCase(int ligne, int colonne, NatureTerrain t) throws ConstructionException {
-        if(ligne<0 || ligne>=nbLignes || colonne<0 || colonne>=nbColonnes) {
-            throw new ConstructionException("Création d'une case en-dehors des limites de la carte !");
+        setCase(new Case(ligne, colonne, t)); // On crée une case (composition) qui sera détruite à la destruction de la Carte
+    }
+    public void setCase(Case case_) throws ConstructionException {
+        if(case_.getLigne()<0 || case_.getLigne()>=nbLignes ||
+                case_.getColonne()<0 || case_.getColonne()>=nbColonnes) {
+            throw new ConstructionException(
+                    "Création d'une case en-dehors des limites de la carte !");
         }
         
-        carte[ligne][colonne] = new Case(ligne, colonne, t); // On crée une case (composition) qui sera détruite à la destruction de la Carte
+        carte[case_.getLigne()][case_.getColonne()] = case_;
     }
 
     // Récupérer une référence sur une case à partir de ses coordonnées

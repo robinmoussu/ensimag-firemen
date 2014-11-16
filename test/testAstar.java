@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
 
 
 /**
@@ -19,11 +20,27 @@ import static org.junit.Assert.*;
  */
 public class testAstar {
     
+    static class ParcourtTerrainLibre implements ValideCase {
+        @Override
+        public boolean estValide(Case case_) {
+            return case_.getTerrain().equals(NatureTerrain.TERRAIN_LIBRE);
+        }
+    }
+    
+    static class ParcourtToutTerrain implements ValideCase {
+        @Override
+        public boolean estValide(Case case_) {
+            return true;
+        }
+    }
+    
     private Carte carte;
+    static private ValideCase parcourtTerrainLibre = new ParcourtTerrainLibre();
+    static private ValideCase parcourtToutTerrain = new ParcourtToutTerrain();
     
     public testAstar() {
         try {
-            this.carte = new Carte(10, 10, 1000);
+            carte = new Carte(1000, 1000, 1000);
         } catch (ConstructionException ex) {
             Logger.getLogger(testAstar.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -49,56 +66,53 @@ public class testAstar {
     public void samePosition() {
         Astar astar     = new Astar(this.carte);
         Case objectif   = new Case(1, 1);
-        NatureTerrain[] terrains = {NatureTerrain.TERRAIN_LIBRE};
         
         assertEquals("do not move",  objectif,
-                astar.next(objectif, objectif, terrains));
+                astar.next(objectif, objectif, parcourtToutTerrain));
     }
     
     @Test
     public void voisin() {
         Astar astar     = new Astar(this.carte);
         Case objectif   = new Case(1, 1);
-        NatureTerrain[] terrains = {NatureTerrain.TERRAIN_LIBRE};
 
         assertEquals("must go right",  objectif,
                 astar.next(objectif.left(),
-                        objectif, terrains));
+                        objectif, parcourtToutTerrain));
         assertEquals("must go left", objectif,
                 astar.next(objectif.right(),
-                        objectif, terrains));
+                        objectif, parcourtToutTerrain));
         assertEquals("must go down",    objectif,
                 astar.next(objectif.up(),
-                        objectif, terrains));
+                        objectif, parcourtToutTerrain));
         assertEquals("must go up",  objectif,
                 astar.next(objectif.down(),
-                        objectif, terrains));
+                        objectif, parcourtToutTerrain));
     }
     
     @Test
     public void distantSansObstacle() {
         Astar astar     = new Astar(this.carte);
         Case objectif   = new Case(10, 10);
-        NatureTerrain[] terrains = {NatureTerrain.TERRAIN_LIBRE};
         Case depart;
         
         
         // 2 times in same direction
         assertEquals("start 2 time top",  objectif,
                 astar.next(astar.next(objectif.up().up()
-                , objectif, terrains), objectif, terrains));
+                , objectif, parcourtToutTerrain), objectif, parcourtToutTerrain));
         
         assertEquals("start 2 time bottom",  objectif,
                 astar.next(astar.next(objectif.down().down()
-                , objectif, terrains), objectif, terrains));
+                , objectif, parcourtToutTerrain), objectif, parcourtToutTerrain));
                 
         assertEquals("start 2 time right",  objectif,
                 astar.next(astar.next(objectif.right().right()
-                , objectif, terrains), objectif, terrains));
+                , objectif, parcourtToutTerrain), objectif, parcourtToutTerrain));
                 
         assertEquals("start 2 time left",  objectif,
                 astar.next(astar.next(objectif.left().left()
-                , objectif, terrains), objectif, terrains));
+                , objectif, parcourtToutTerrain), objectif, parcourtToutTerrain));
         
         
         // corner
@@ -106,36 +120,59 @@ public class testAstar {
         assertEquals("start corner top left",  objectif,
                 astar.next(astar.next(
                 depart
-                , objectif, terrains), objectif, terrains));
+                , objectif, parcourtToutTerrain), objectif, parcourtToutTerrain));
         
         assertEquals("start corner top right", objectif,
                 astar.next(astar.next(objectif.up().right()
-                , objectif, terrains), objectif, terrains));
+                , objectif, parcourtToutTerrain), objectif, parcourtToutTerrain));
                 
         assertEquals("start corner bottom left",    objectif,
                 astar.next(astar.next(objectif.down().left()
-                , objectif, terrains), objectif, terrains));
+                , objectif, parcourtToutTerrain), objectif, parcourtToutTerrain));
                 
         assertEquals("start corner bottom right",  objectif,
                 astar.next(astar.next(objectif.down().right()
-                , objectif, terrains), objectif, terrains));
+                , objectif, parcourtToutTerrain), objectif, parcourtToutTerrain));
         
         
         // far away
         assertEquals("far away",  objectif,
                 astar.next(astar.next(astar.next(astar.next(astar.next(astar.next(
                 objectif.up().up().up().left().left().left()
-                , objectif, terrains), objectif, terrains)
-                , objectif, terrains), objectif, terrains)
-                , objectif, terrains), objectif, terrains)
+                , objectif, parcourtToutTerrain), objectif, parcourtToutTerrain)
+                , objectif, parcourtToutTerrain), objectif, parcourtToutTerrain)
+                , objectif, parcourtToutTerrain), objectif, parcourtToutTerrain)
         );
         
         assertEquals("far away",  objectif,
                 astar.next(astar.next(astar.next(astar.next(astar.next(astar.next(
                 objectif.down().down().down().down().left().left()
-                , objectif, terrains), objectif, terrains)
-                , objectif, terrains), objectif, terrains)
-                , objectif, terrains), objectif, terrains)
+                , objectif, parcourtToutTerrain), objectif, parcourtToutTerrain)
+                , objectif, parcourtToutTerrain), objectif, parcourtToutTerrain)
+                , objectif, parcourtToutTerrain), objectif, parcourtToutTerrain)
         );
+    }
+    
+    @Test
+    public void avecObstacle() {
+        Astar astar     = new Astar(this.carte);
+        Case objectif   = new Case(10, 10);
+        Case obstacle   = new Case(10, 9, NatureTerrain.ROCHE);
+        Case depart     = new Case(10,8);
+        
+        try {
+            carte.setCase(obstacle);
+        } catch (ConstructionException ex) {
+            Logger.getLogger(testAstar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        // Pour atteindre la case, il faut faire 4 mouvements
+        Case it = depart;
+        for(int i = 0; (i < 4) && (it != objectif); i++) {
+            it = astar.next(it, objectif, parcourtTerrainLibre);
+            assertThat("Une case invalide à été franchit", it, is(not(obstacle)));
+        }
+        assertThat("objectif non atteind", it, is(objectif));
+        
     }
 }

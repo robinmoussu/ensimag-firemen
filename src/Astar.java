@@ -1,12 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- *
- * @author robin
- */
+
 public class Astar {
     private Carte carte;
     
@@ -14,7 +6,7 @@ public class Astar {
         this.carte = carte;
     }
     
-    public Case next(Case start, Case objectif, NatureTerrain[] explorable) {
+    public Case next(Case start, Case objectif, ValideCase validateur) {
         switch (start.getDirection(objectif)) {
         case up:
             return start.up();

@@ -11,6 +11,7 @@ public class RobotDrone extends Robot {
     // Constructeurs
     public RobotDrone(Case pos) {
         super(pos, vitesse, volumeMax, tempsRemplissage, volumeIntervention, dureeIntervention);
+        volumeEau = volumeMax;
     }
     public RobotDrone(Case pos, int vitesse) {
         this(pos);

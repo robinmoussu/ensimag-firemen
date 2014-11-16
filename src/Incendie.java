@@ -26,7 +26,7 @@ public class Incendie {
     // Mutateurs
     // Pas de déplacement de l'incendie, on mute seulement l'eau
     public void decrementeIntensite(int eau) {
-        if(eau>this.eauNecessaire) {
+        if(eau<this.eauNecessaire) {
             this.eauNecessaire -= eau;
         }
         else {

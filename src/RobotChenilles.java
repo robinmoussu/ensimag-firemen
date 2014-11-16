@@ -11,6 +11,7 @@ public class RobotChenilles extends Robot {
     // Constructeurs
     public RobotChenilles(Case pos) {
         super(pos, vitesse, volumeMax, tempsRemplissage, volumeIntervention, dureeIntervention);
+        volumeEau = volumeMax;
     }
     public RobotChenilles(Case pos, int vitesse) {
         this(pos);

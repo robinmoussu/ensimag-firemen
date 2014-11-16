@@ -57,7 +57,7 @@ public class Simulateur {
 		dateSimulation.incrementeDate(t);
 		// 2. Execution des évènements dont dateFin < dateSimulation
    		Evenement e = evenements.peek();
-    	while (e!=null && e.getDateFin().getDate() <= this.dateSimulation.getDate()) { // TODO une exception est générée ici (NullPointerException), à gérer...
+    	while (e!=null && e.getDateFin().getDate() <= this.dateSimulation.getDate()) {
 	    	try {
 		    	evenements.poll().execute();
 			    // Le simulateur doit envoyer un signal de succès au manager

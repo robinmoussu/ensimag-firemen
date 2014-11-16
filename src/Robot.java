@@ -3,7 +3,7 @@
 abstract class Robot {
     // Attributs
     private Case position;
-    protected int volumeEau = 0; // en litres, 0 par défaut
+    protected int volumeEau; // en litres, 0 par défaut
     // Attributs à définir dans les sous-classes
     private int vitesse; // en km/h
     private int volumeMax; // en litres
@@ -49,7 +49,7 @@ abstract class Robot {
     
     // Déverser le réservoir d'eau
     public void deverserEau(DonneesSimulation simulation, int nbInterventions) throws SimulationException {
-        if(volumeEau == 0 || nbInterventions>volumeIntervention/volumeEau) {
+        if(volumeEau == 0 || nbInterventions>volumeEau/volumeIntervention) {
             throw new SimulationException("Pas assez d'eau dans le réservoir !");
         }
         

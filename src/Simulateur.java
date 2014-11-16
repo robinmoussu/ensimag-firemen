@@ -7,8 +7,8 @@ public class Simulateur {
 	private Manager manager = null;
 
 	// Constructeur
-	public Simulateur(long date) {
-		this.dateSimulation = new Date(date);
+	public Simulateur(Date date) {
+		this.dateSimulation = date;
 		this.evenements = new PriorityQueue<Evenement>();
 	}
 
@@ -56,18 +56,20 @@ public class Simulateur {
 		// 1. Incrémentation de la date courante de simulation
 		dateSimulation.incrementeDate(t);
 		// 2. Execution des évènements dont dateFin < dateSimulation
-		Evenement e = evenements.peek();
-		while (e.getDateFin().getDate() <= this.dateSimulation.getDate()) {
-			try {
-				evenements.poll().execute();
-				// Le simulateur doit envoyer un signal de succès au manager
-				manager.signalSuccessEvent(e);
-			}
-			catch(SimulationException exc) {
-				manager.signalFailEvent(e); // Signal d'échec
-			}
-			e = evenements.peek();
-		}
+        if(simulationTermine() == false) {
+    		Evenement e = evenements.peek();
+	    	while (e.getDateFin().getDate() <= this.dateSimulation.getDate()) {
+		    	try {
+			    	evenements.poll().execute();
+				    // Le simulateur doit envoyer un signal de succès au manager
+    				manager.signalSuccessEvent(e);
+	    		}
+		    	catch(SimulationException exc) {
+			    	manager.signalFailEvent(e); // Signal d'échec
+    			}
+	    		e = evenements.peek();
+		    }
+        }
 		// 3. Appel à manage() du Manager après la MAJ de DonneesSimulations dans execute()
 		// Mise à jour de la file à priorité <evenements>
 		manager.manage();
@@ -76,7 +78,6 @@ public class Simulateur {
 	/** simulationTermine()
 	  * Retourne true si la liste d'évenement est vide
 	  *
-	  * @param void
 	  * @return boolean : retourne true si la simulation est terminee, ie. si la liste des evenements a executer est vide
 	  */
 	private boolean simulationTermine() {

@@ -15,11 +15,8 @@ public class AfficheSimulation {
             String filename = args[0];
             LecteurDonnees lecteur = new LecteurDonnees(filename);
             DonneesSimulation simulation = lecteur.creeDonnees();
-            Simulateur simulateur = new Simulateur(0); // Création du simulateur
-            Manager manager = new ManagerScenario0(simulateur, simulation); // Création du manager
-            simulateur.setManager(manager);
 
-            Firemen firemen = new Firemen(simulation, lecteur, simulateur); // Création de l'IHM
+            Firemen firemen = new Firemen(simulation, lecteur); // Création de l'IHM
 		} catch (FileNotFoundException e) {
 			System.out.println("fichier " + args[0] + " inconnu ou illisible");
 		} catch (ExceptionFormatDonnees e) {
@@ -32,20 +29,24 @@ class Firemen implements Simulable {
 	private int nbLignes;
 	private int nbColonnes;
     private IGSimulateur ihm;  // l'IHM associee a ce simulateur
-    private Date date = new Date(); // On utilise l'objet Date
+    private Date date; // On utilise l'objet Date
     private DonneesSimulation simulation;
     private LecteurDonnees lecteur;
     private Simulateur simulateur;
+    private Manager manager;
     
-	public Firemen(DonneesSimulation data, LecteurDonnees lecteur, Simulateur simulateur) {
+	public Firemen(DonneesSimulation data, LecteurDonnees lecteur) {
 		// cree l'IHM et l'associe a ce simulateur (this), qui en tant que
 		// Simulable recevra les evenements suite aux actions de l'utilisateur
         this.simulation = data;
         nbLignes = data.getNbLignes();
         nbColonnes = data.getNbColonnes();
 		ihm = new IGSimulateur(nbColonnes, nbLignes, this);
+        date = new Date();
         this.lecteur = lecteur;
-        this.simulateur = simulateur;
+        this.simulateur = new Simulateur(date); // Création du simulteur
+        this.manager = new ManagerScenario0(simulateur, simulation); // Création du manager
+        this.simulateur.setManager(manager);
 		dessine();    // mettre a jour l'affichage
 	}
 	

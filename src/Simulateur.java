@@ -48,7 +48,7 @@ public class Simulateur {
 	  *
 	  * @param long t : nombres de tics a ajouter a la date courrante du Simulateur
 	  */
-	private void incrementeDate(long t) throws SimulationException {
+	public void incrementeDate(long t) throws SimulationException {
         if(this.manager == null) {
             throw new SimulationException("Aucun manager associé au simulateur !");
         }

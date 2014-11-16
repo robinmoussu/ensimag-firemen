@@ -16,7 +16,7 @@ public class AfficheSimulation {
             LecteurDonnees lecteur = new LecteurDonnees(filename);
             DonneesSimulation simulation = lecteur.creeDonnees();
             Simulateur simulateur = new Simulateur(0); // Création du simulateur
-            Manager manager = new Manager(simulateur, simulation); // Création du manager
+            Manager manager = new ManagerScenario0(simulateur, simulation); // Création du manager
             simulateur.setManager(manager);
 
             Firemen firemen = new Firemen(simulation, lecteur, simulateur); // Création de l'IHM
@@ -29,29 +29,35 @@ public class AfficheSimulation {
 }
 
 class Firemen implements Simulable {
-    private DonneesSimulation simulation;
 	private int nbLignes;
 	private int nbColonnes;
     private IGSimulateur ihm;  // l'IHM associee a ce simulateur
     private Date date = new Date(); // On utilise l'objet Date
+    private DonneesSimulation simulation;
     private LecteurDonnees lecteur;
+    private Simulateur simulateur;
     
 	public Firemen(DonneesSimulation data, LecteurDonnees lecteur, Simulateur simulateur) {
 		// cree l'IHM et l'associe a ce simulateur (this), qui en tant que
 		// Simulable recevra les evenements suite aux actions de l'utilisateur
+        this.simulation = data;
         nbLignes = data.getNbLignes();
         nbColonnes = data.getNbColonnes();
-        simulation = data;
 		ihm = new IGSimulateur(nbColonnes, nbLignes, this);
         this.lecteur = lecteur;
+        this.simulateur = simulateur;
 		dessine();    // mettre a jour l'affichage
 	}
 	
 	@Override
 	public void next() {
-		date.incrementeDate(); // Incrémenter la date courante
-		System.out.println("TODO: avancer la simulation \"d'un pas de temps\": " + date.getDate());
-		dessine();    // mettre a jour l'affichage
+		try {
+            simulateur.incrementeDate(1); // Incrémenter la date courante et gérer les événements
+            dessine();
+        }
+        catch (SimulationException e) {
+            System.out.println("[ERR] Erreur lors de l'exécution de la simulation : " + e.getMessage());
+        }
 	}
 
 	@Override

@@ -33,7 +33,7 @@ class Firemen implements Simulable {
 	private int nbLignes;
 	private int nbColonnes;
     private IGSimulateur ihm;  // l'IHM associee a ce simulateur
-    private long date = 0;
+    private Date date = new Date(); // On utilise l'objet Date
     private LecteurDonnees lecteur;
     
 	public Firemen(DonneesSimulation data, LecteurDonnees lecteur) {
@@ -49,8 +49,8 @@ class Firemen implements Simulable {
 	
 	@Override
 	public void next() {
-		date++;
-		System.out.println("TODO: avancer la simulation \"d'un pas de temps\": " + date);
+		date.incrementeDate(); // Incrémenter la date courante
+		System.out.println("TODO: avancer la simulation \"d'un pas de temps\": " + date.getDate());
 		dessine();    // mettre a jour l'affichage
 	}
 
@@ -58,11 +58,11 @@ class Firemen implements Simulable {
 	public void restart() {
         try {
             this.simulation = this.lecteur.creeDonnees();
-            date = 0;
+            date.resetDate(); // Réinitialiser la date courante
             dessine(); // Mettre à jour l'affichage
             System.out.println("[OK] Redémarrage de la simulation depuis son état initial.");
         } catch (Exception e) {
-            System.out.println("Erreur lors de la remise à jour des données de simulation");
+            System.out.println("[ERR] Erreur lors de la remise à jour des données de simulation");
         }
 	}
 

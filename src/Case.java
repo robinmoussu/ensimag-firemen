@@ -1,3 +1,6 @@
+
+import java.util.Objects;
+
 // Description d'une case
 // Dernière modification : Thibaud BACKENSTRASS, 8 novembre
 public class Case {
@@ -62,6 +65,15 @@ public class Case {
         // Deux cases sont égales si et seulement si elles sont à la même place sur la carte
         return this.ligne == c.getLigne() && this.colonne == c.getColonne();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + this.ligne;
+        hash = 97 * hash + this.colonne;
+        hash = 97 * hash + Objects.hashCode(this.terrain);
+        return hash;
+    }
     
     // On ajoute une méthode permettant de savoir facilement si deux cases sont voisines ou non
     public boolean estVoisine(Case c) {
@@ -78,24 +90,7 @@ public class Case {
     }
     
     ////////////////////////////
-    
-    
-    public Case up() {
-        return new Case(this.ligne - 1, this.colonne);
-    }
-    
-    public Case down() {
-        return new Case(this.ligne + 1, this.colonne);
-    }
-    
-    public Case left() {
-        return new Case(this.ligne, this.colonne - 1);
-    }
-    
-    public Case right() {
-        return new Case(this.ligne, this.colonne + 1);
-    }
-    
+
     public String toString() {
         return "Case " + this.ligne + ", " + this.colonne;
     }
@@ -107,35 +102,23 @@ public class Case {
      */
     public Direction getDirection(Case other) {
         if ((this.colonne <  other.colonne) && (this.ligne == other.ligne)) {
-            return Direction.right;
+            return Direction.EST;
         } else if ((this.colonne >  other.colonne) && (this.ligne == other.ligne)) {
-            return Direction.left;
+            return Direction.OUEST;
         } else if ((this.colonne == other.colonne) && (this.ligne >  other.ligne)) {
-            return Direction.up;
+            return Direction.NORD;
         } else if ((this.colonne == other.colonne) && (this.ligne <  other.ligne)) {
-            return Direction.down;
+            return Direction.SUD;
         } else if ((this.colonne <  other.colonne) && (this.ligne >  other.ligne)) {
-            return Direction.topRight;
+            return Direction.NORD_EST;
         } else if ((this.colonne <  other.colonne) && (this.ligne <  other.ligne)) {
-            return Direction.bottomRight;
+            return Direction.SUD_EST;
         } else if ((this.colonne >  other.colonne) && (this.ligne >  other.ligne)) {
-            return Direction.topLeft;
+            return Direction.NORD_OUEST;
         } else if ((this.colonne >  other.colonne) && (this.ligne <  other.ligne)) {
-            return Direction.bottomLeft;
+            return Direction.SUD_OUEST;
         } else {
-            return Direction.same;
+            return Direction.NONE;
         }
     }
-    
-    public enum Direction {
-        up,
-        down,
-        left,
-        right,
-        topLeft,
-        topRight,
-        bottomLeft,
-        bottomRight,
-        same,
-    };
 }

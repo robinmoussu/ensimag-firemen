@@ -49,7 +49,7 @@ abstract class Robot {
     
     // Déverser le réservoir d'eau
     public void deverserEau(DonneesSimulation simulation, int nbInterventions) throws SimulationException {
-        if(nbInterventions>volumeIntervention/volumeEau) {
+        if(volumeEau == 0 || nbInterventions>volumeIntervention/volumeEau) {
             throw new SimulationException("Pas assez d'eau dans le réservoir !");
         }
         

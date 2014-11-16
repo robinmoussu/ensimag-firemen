@@ -8,6 +8,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
+/** Algorithme de résolution du plus court chemin utilisant la méthode Astar
+ */
 public class Astar {
     protected Carte carte;
     protected Noeud arrivee;
@@ -17,6 +19,8 @@ public class Astar {
         this.arrivee = new Noeud(arrivee);
     }
 
+    /** À chaque case de la carte est associé un Noeud
+     */
     protected class Noeud implements Comparable<Noeud> {
         protected ArrayList<Noeud> voisins;
         protected Noeud precedant;
@@ -59,6 +63,12 @@ public class Astar {
             return 0;//vit_max(voisin.position.getTerrain()) + this.cost;
         }
 
+        /** Classe deux noeuds par distance en nombre de case à vol d'oiseau
+         * 
+         * @param other Le noeud à comparer
+         * @return      <0, 0, ou >0 si ce noeud est plus proche, de même
+         *              distance ou plus loin que l'autre noeud.
+         */
         @Override
         public int compareTo(Noeud other) {
             if (this == other) {
@@ -77,7 +87,15 @@ public class Astar {
         }
     }
     
-    private Case parcourt(Case start, ValideCase validateur) throws SimulationException {
+    /** Calcule le parcourt optimal pour aller à la case d'arrivée
+     * 
+     * @param start      Case de départ
+     * @param validateur Fonction permettant de valider le passage par une case
+     * @return           La case suivante du parcourt
+     * @throws SimulationException 
+     */
+    private Case parcourt(Case start, ValideCase validateur)
+            throws SimulationException {
         // to do a mettre en cache
         Noeud it;
         PriorityQueue<Noeud> eligible;
@@ -138,6 +156,12 @@ public class Astar {
         return solution.peek().getCase();
     }
 
+    /** Renvoie la case qui permet de se rapprocher de l'objectif
+     * 
+     * @param start      Case de départ
+     * @param validateur Fonction permettant de valider le passage par une case
+     * @return           Case suivant du trajet
+     */
     public Case next(Case start, ValideCase validateur) {
         Case destination;
 

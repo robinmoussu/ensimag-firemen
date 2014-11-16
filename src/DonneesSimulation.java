@@ -5,14 +5,12 @@ public class DonneesSimulation {
     // Attributs
     private Carte carte;
     private LinkedList<Incendie> incendies;
-    private int nbIncendies;
     private LinkedList<Robot> robots;
 
     // Constructeur
     public DonneesSimulation(int nbLignes, int nbColonnes, int tailleCases) throws ConstructionException {
         carte = new Carte(nbLignes, nbColonnes, tailleCases);
         incendies = new LinkedList<Incendie>();
-        nbIncendies = 0;
         robots = new LinkedList<Robot>();
     }
 
@@ -24,7 +22,7 @@ public class DonneesSimulation {
         return this.incendies;
     }
     public int getNbIncendies() {
-        return this.nbIncendies;
+        return this.incendies.size();
     }
     public LinkedList<Robot> getRobots() {
         return this.robots;
@@ -50,7 +48,6 @@ public class DonneesSimulation {
         }
 
         incendies.add(new Incendie(pos, eau));
-        this.nbIncendies++;
     }
     public void addRobot(Case pos, String typeRobot) throws ConstructionException {
         addRobot(pos, typeRobot, -1);

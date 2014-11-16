@@ -9,7 +9,8 @@ public class TestLecteurDonnees {
 		}
 		
 		try {
-			LecteurDonnees.creeDonnees(args[0]);
+			LecteurDonnees lecteur = new LecteurDonnees(args[0]);
+                        lecteur.creeDonnees();
 		} catch (FileNotFoundException e) {
 			System.out.println("fichier " + args[0] + " inconnu ou illisible");
 		} catch (ExceptionFormatDonnees e) {

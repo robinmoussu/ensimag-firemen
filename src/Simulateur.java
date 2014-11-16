@@ -61,10 +61,10 @@ public class Simulateur {
 	    	try {
 		    	evenements.poll().execute();
 			    // Le simulateur doit envoyer un signal de succès au manager
-   				manager.signalSuccessEvent(e);
+   				manager.signaleSuccessEvent(e);
     		}
 	    	catch(SimulationException exc) {
-		    	manager.signalFailEvent(e); // Signal d'échec
+		    	manager.signaleFailEvent(e); // Signal d'échec
 			}
 			e = evenements.peek();
         }

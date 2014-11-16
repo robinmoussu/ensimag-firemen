@@ -5,7 +5,7 @@ import java.awt.Color;
 import java.util.LinkedList;
 import java.io.FileNotFoundException;
 
-public class AfficheSimulation {
+public class MainClass {
 
     public static void main(String[] args) {
         if (args.length < 1) {

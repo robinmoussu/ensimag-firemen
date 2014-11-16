@@ -43,12 +43,12 @@ public class ManagerScenario1 extends Manager {
 	}
 
 	@Override
-	public void signalSuccessEvent(Evenement e) {
+	public void signaleSuccessEvent(Evenement e) {
 		return;
 	}
 
 	@Override
-	public void signalFailEvent(Evenement e) {
+	public void signaleFailEvent(Evenement e) {
 		System.out.println("[ERR] Erreur de simulation du Scenario 1");
 		return;
 	}

@@ -42,9 +42,9 @@ class Firemen implements Simulable {
         nbLignes = data.getNbLignes();
         nbColonnes = data.getNbColonnes();
         simulation = data;
-	ihm = new IGSimulateur(nbColonnes, nbLignes, this);
+		ihm = new IGSimulateur(nbColonnes, nbLignes, this);
         this.lecteur = lecteur;
-	dessine();    // mettre a jour l'affichage
+		dessine();    // mettre a jour l'affichage
 	}
 	
 	@Override

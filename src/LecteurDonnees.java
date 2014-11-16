@@ -39,7 +39,7 @@ public class LecteurDonnees {
             throws FileNotFoundException {
         scanner = new Scanner(new File(fichierDonnees));
         scanner.useLocale(Locale.US);
-        fichierDonnees = fichierDonnees;
+        this.fichierDonnees = fichierDonnees;
     }
 
     /**

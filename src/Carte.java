@@ -44,10 +44,14 @@ public class Carte {
         setCase(new Case(ligne, colonne, t)); // On crée une case (composition) qui sera détruite à la destruction de la Carte
     }
     public void setCase(Case case_) throws ConstructionException {
-        if(case_.getLigne()<0 || case_.getLigne()>=nbLignes ||
+        if (case_.getLigne()<0 || case_.getLigne()>=nbLignes ||
                 case_.getColonne()<0 || case_.getColonne()>=nbColonnes) {
             throw new ConstructionException(
                     "Création d'une case en-dehors des limites de la carte !");
+        }
+        
+        if (carte[case_.getLigne()][case_.getColonne()] != null) {
+            throw new ConstructionException("Case déjà existante");
         }
         
         carte[case_.getLigne()][case_.getColonne()] = case_;
@@ -55,8 +59,12 @@ public class Carte {
 
     // Récupérer une référence sur une case à partir de ses coordonnées
     public Case getCase(int ligne, int colonne) throws SimulationException {
-        if(ligne<0 || ligne>=nbLignes || colonne<0 || colonne>=nbColonnes) {
+        if (ligne<0 || ligne>=nbLignes || colonne<0 || colonne>=nbColonnes) {
             throw new SimulationException("Accès à une case en-dehors des limites de la carte !");
+        }
+        
+        if (carte[ligne][colonne] == null) {
+            carte[ligne][colonne] = new Case(ligne, colonne);
         }
         
         return carte[ligne][colonne];
@@ -65,45 +73,44 @@ public class Carte {
     // Rechercher si un voisin existe
     public boolean voisinExiste(Case src, Direction dir) {
         switch(dir) {
-            case NORD:  // Il faut pouvoir atteindre la ligne 0
-                        if(src.getLigne()>0 && src.getLigne()<nbLignes && src.getColonne()>=0 && src.getColonne()<nbColonnes) {
-                           return true;
-                        }
-                        break;
-            case SUD:   // Il faut pouvoir atteindre la ligne nbLignes-1
-                        if(src.getLigne()>=0 && src.getLigne()<nbLignes-1 && src.getColonne()>=0 && src.getColonne()<nbColonnes) {
-                            return true;
-                        }
-                        break;
-            case EST:   // Il faut pouvoir atteindre la colonne nbColonnes-1
-                        if(src.getLigne()>=0 && src.getLigne()<nbLignes && src.getColonne()>=0 && src.getColonne()<nbColonnes-1) {
-                            return true;
-                        }
-                        break;
-            case OUEST: // Il faut pouvoir atteindre la colonne 0
-                        if(src.getLigne()>=0 && src.getLigne()<nbLignes && src.getColonne()>0 && src.getColonne()<nbColonnes) {
-                            return true;
-                        }
-                        break;
-            default: return false;
+        case NORD:  // Il faut pouvoir atteindre la ligne 0
+            return (src.getLigne()>0 && src.getLigne()<nbLignes
+                    && src.getColonne()>=0 && src.getColonne()<nbColonnes);
+        case SUD:   // Il faut pouvoir atteindre la ligne nbLignes-1
+            return (src.getLigne()>=0 && src.getLigne()<nbLignes-1
+                    && src.getColonne()>=0 && src.getColonne()<nbColonnes);
+        case EST:   // Il faut pouvoir atteindre la colonne nbColonnes-1
+            return (src.getLigne()>=0 && src.getLigne()<nbLignes
+                    && src.getColonne()>=0 && src.getColonne()<nbColonnes-1);
+        case OUEST: // Il faut pouvoir atteindre la colonne 0
+            return (src.getLigne()>=0 && src.getLigne()<nbLignes
+                    && src.getColonne()>0 && src.getColonne()<nbColonnes);
+        default: return false;
         }
-        return false;
     }
     
-    // Renvoyer une référence sur la case du voisin
+    /** Renvoyer une référence sur la case du voisin
+     * 
+     * @param src Case de départ
+     * @param dir Direction du déplacement.
+     * @return
+     * @throws SimulationException 
+     */
     public Case getVoisin(Case src, Direction dir) throws SimulationException {
+        Case ret = null;
+        
         if(this.voisinExiste(src, dir) != true) {
 			throw new SimulationException("Pas de voisin dans la direction spécifiée !");
 		}
 	
         switch(dir) {
-            case NORD:  return carte[src.getLigne()-1][src.getColonne()];
-            case SUD:   return carte[src.getLigne()+1][src.getColonne()];
-            case EST:   return carte[src.getLigne()][src.getColonne()+1];
-            case OUEST: return carte[src.getLigne()][src.getColonne()+1];
+            case NORD:  ret = getCase(src.getLigne()-1, src.getColonne()); break;
+            case SUD:   ret = getCase(src.getLigne()+1, src.getColonne()); break;
+            case EST:   ret = getCase(src.getLigne(), src.getColonne()+1); break;
+            case OUEST: ret = getCase(src.getLigne(), src.getColonne()-1); break;
         }
 
-        return null;
+        return ret;
     }
 
     // Savoir si une case est en bordure de l'eau ou non

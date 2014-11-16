@@ -15,10 +15,11 @@ public class AfficheSimulation {
             LecteurDonnees lecteur;
             DonneesSimulation simulation;
             Firemen firemen;
+            String filename = args[0];
             
-            lecteur    = new LecteurDonnees(args[0]);
+            lecteur    = new LecteurDonnees(filename);
             simulation = lecteur.creeDonnees();
-            firemen    = new Firemen(simulation, args[0], lecteur);
+            firemen    = new Firemen(simulation, lecteur);
 		} catch (FileNotFoundException e) {
 			System.out.println("fichier " + args[0] + " inconnu ou illisible");
 		} catch (ExceptionFormatDonnees e) {
@@ -33,19 +34,17 @@ class Firemen implements Simulable {
 	private int nbColonnes;
     private IGSimulateur ihm;  // l'IHM associee a ce simulateur
     private long date = 0;
-    private String fichierSimulation;
     private LecteurDonnees lecteur;
     
-	public Firemen(DonneesSimulation data, String fichier, LecteurDonnees lecteur) {
+	public Firemen(DonneesSimulation data, LecteurDonnees lecteur) {
 		// cree l'IHM et l'associe a ce simulateur (this), qui en tant que
 		// Simulable recevra les evenements suite aux actions de l'utilisateur
         nbLignes = data.getNbLignes();
         nbColonnes = data.getNbColonnes();
         simulation = data;
-        fichierSimulation = fichier;
-		ihm = new IGSimulateur(nbColonnes, nbLignes, this);
-                lecteur = lecteur;
-		dessine();    // mettre a jour l'affichage
+	ihm = new IGSimulateur(nbColonnes, nbLignes, this);
+        this.lecteur = lecteur;
+	dessine();    // mettre a jour l'affichage
 	}
 	
 	@Override

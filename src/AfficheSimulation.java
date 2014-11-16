@@ -6,15 +6,16 @@ import java.util.LinkedList;
 import java.io.FileNotFoundException;
 
 public class AfficheSimulation {
-	public static void main(String[] args) {
-        if(args.length < 1) {
+
+    public static void main(String[] args) {
+        if (args.length < 1) {
             System.out.println("Syntaxe: java AfficheSimulation <nomDeFichier>");
             System.exit(1);
         }
         try {
             String filename = args[0];
-            LecteurDonnees lecteur = new LecteurDonnees(filename);
-            DonneesSimulation simulation = lecteur.creeDonnees();
+            LecteurDonnees lecteur;
+            DonneesSimulation simulation;
 
             Firemen firemen = new Firemen(simulation, filename); // Création de l'IHM
 		} catch (FileNotFoundException e) {
@@ -22,7 +23,7 @@ public class AfficheSimulation {
 		} catch (ExceptionFormatDonnees e) {
 			System.out.println("\n\t**format du fichier " + args[0] + " invalide: " + e.getMessage());
         }
-	}
+    }
 }
 
 class Firemen implements Simulable {
@@ -37,7 +38,7 @@ class Firemen implements Simulable {
     
 	public Firemen(DonneesSimulation data, String filename) {
 		// cree l'IHM et l'associe a ce simulateur (this), qui en tant que
-		// Simulable recevra les evenements suite aux actions de l'utilisateur
+        // Simulable recevra les evenements suite aux actions de l'utilisateur
         this.simulation = data;
         nbLignes = data.getNbLignes();
         nbColonnes = data.getNbColonnes();
@@ -62,8 +63,8 @@ class Firemen implements Simulable {
         }
 	}
 
-	@Override
-	public void restart() {
+    @Override
+    public void restart() {
         try {
             LecteurDonnees lecteur = new LecteurDonnees(filename);
             this.simulation = lecteur.creeDonnees();
@@ -73,48 +74,52 @@ class Firemen implements Simulable {
         } catch (Exception e) {
             System.out.println("[ERR] Erreur lors de la remise à jour des données de simulation : " + e.getMessage());
         }
-	}
+    }
 
-	private void dessine() {
+    private void dessine() {
         // Afficher les donnees 		
-		try {
+        try {
             // Affichage des données sur la nature du terrain
-            for(int i=0; i<nbLignes; i++) {
-                for(int j=0; j<nbColonnes; j++) {
+            for (int i = 0; i < this.simulation.getNbLignes(); i++) {
+                for (int j = 0; j < this.simulation.getNbColonnes(); j++) {
                     Case c = (simulation.getCarte()).getCase(i, j);
                     // ATTENTION !
                     // i désigne la ligne, j la colonne de la case
                     // Il faut inverser les données pour les méthodes de ihm, qui veulent d'abord la colonne, puis la ligne
                     // Sinon problème de transposée...
-                    switch(c.getTerrain()) {
-                        case EAU:             ihm.paintImage(j, i, "images/eau.png", 1, 1);
-                                              break;
-                        case FORET:           ihm.paintImage(j, i, "images/foret.png", 1, 1);
-                                              break;
-                        case ROCHE:           ihm.paintImage(j, i, "images/roche.png", 1, 1);
-                                              break;
-                        case TERRAIN_LIBRE:   ihm.paintImage(j, i, "images/terrain_libre.png", 1, 1);
-                                              break;
-                        case HABITAT:         ihm.paintImage(j, i, "images/habitat.png", 1, 1);
-                                              break;
-                        default:    ihm.paintBox(j, i, Color.GRAY); // Erreur
-                                    break;
+                    switch (c.getTerrain()) {
+                        case EAU:
+                            ihm.paintImage(j, i, "images/eau.png", 1, 1);
+                            break;
+                        case FORET:
+                            ihm.paintImage(j, i, "images/foret.png", 1, 1);
+                            break;
+                        case ROCHE:
+                            ihm.paintImage(j, i, "images/roche.png", 1, 1);
+                            break;
+                        case TERRAIN_LIBRE:
+                            ihm.paintImage(j, i, "images/terrain_libre.png", 1, 1);
+                            break;
+                        case HABITAT:
+                            ihm.paintImage(j, i, "images/habitat.png", 1, 1);
+                            break;
+                        default:
+                            ihm.paintBox(j, i, Color.GRAY); // Erreur
+                            break;
                     }
-        			//ihm.paintString(7, 15, Color.YELLOW, "I");
+                    //ihm.paintString(7, 15, Color.YELLOW, "I");
                 }
             }
 
             // Affichage des incendies avec une taille croissante avec l'intensité
-            for(Incendie i : simulation.getIncendies()) {
-                if(i.getIntensite()>0) {
+            for (Incendie i : simulation.getIncendies()) {
+                if (i.getIntensite() > 0) {
                     double tailleImage;
-                    if(i.getIntensite()<1000) {
+                    if (i.getIntensite() < 1000) {
                         tailleImage = 0.5;
-                    }
-                    else if(i.getIntensite()<10000) {
+                    } else if (i.getIntensite() < 10000) {
                         tailleImage = 0.7;
-                    }
-                    else {
+                    } else {
                         tailleImage = 0.9;
                     }
                     ihm.paintImage((i.getPosition()).getColonne(), (i.getPosition()).getLigne(), "images/incendie.png", tailleImage, tailleImage);
@@ -122,15 +127,14 @@ class Firemen implements Simulable {
             }
 
             // Affichage des robots
-            for(Robot r : simulation.getRobots()) {
+            for (Robot r : simulation.getRobots()) {
                 ihm.paintImage((r.getPosition()).getColonne(), (r.getPosition()).getLigne(), r.getImage(), 0.9, 0.9);
             }
-		} catch (MapIndexOutOfBoundsException e) {
-			e.printStackTrace();
-		} catch (SimulationException e) {
+        } catch (MapIndexOutOfBoundsException e) {
+            e.printStackTrace();
+        } catch (SimulationException e) {
             System.out.println("[ERR] Echec de l'affichage de la carte sur l'IHM (parcours de cases hors-carte)");
         }
-	}
+    }
 
 }
-

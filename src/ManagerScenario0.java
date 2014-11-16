@@ -1,8 +1,10 @@
 public class ManagerScenario0 extends Manager {
+    int i;
 
 	// Constructeur
     public ManagerScenario0(Simulateur simu, DonneesSimulation simuData) {
         super(simu, simuData);
+        i = 0;
     }
 
     @Override
@@ -12,7 +14,7 @@ public class ManagerScenario0 extends Manager {
 		Date d = simu.getDate();
         
 		// Ne créer les événements qu'une seule fois !
-        if(d.getDate() == 238) {
+        if(this.i == 0) {
             // Implementer le calcul de la date de fin d'exe avec incrementeDate et simu.getDate
 	    	EventMoveRobot e1 = new EventMoveRobot(d, r, Direction.NORD, c);
 		    simu.ajouteEvenement(e1);
@@ -26,6 +28,8 @@ public class ManagerScenario0 extends Manager {
 		    EventMoveRobot e4 = new EventMoveRobot(e3.getDateFin(), r, Direction.NORD, c);
 		    simu.ajouteEvenement(e4);
         }
+
+        this.i = i+1;
 	}
 
 	@Override

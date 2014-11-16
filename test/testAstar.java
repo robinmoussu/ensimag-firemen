@@ -65,12 +65,14 @@ public class testAstar {
 
     @Test
     public void samePosition() {
-        Astar astar = new Astar(this.carte);
+        Astar astar;
         Case objectif;
         try {
             objectif = this.carte.getCase(10, 10);
+            astar = new Astar(this.carte, objectif);
+            
             assertEquals("do not move", objectif,
-                    astar.next(objectif, objectif, parcourtToutTerrain));
+                    astar.next(objectif, parcourtToutTerrain));
         } catch (SimulationException ex) {
             Logger.getLogger(testAstar.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -78,23 +80,25 @@ public class testAstar {
 
     @Test
     public void voisin() {
-        Astar astar = new Astar(this.carte);
+        Astar astar;
         Case objectif;
         try {
             objectif = this.carte.getCase(10, 10);
+            astar = new Astar(this.carte, objectif);
 
             assertEquals("must go right", objectif,
                     astar.next(this.carte.getVoisin(objectif, Direction.OUEST),
-                            objectif, parcourtToutTerrain));
+                            parcourtToutTerrain));
+            
             assertEquals("must go left", objectif,
                     astar.next(this.carte.getVoisin(objectif, Direction.EST),
-                            objectif, parcourtToutTerrain));
+                            parcourtToutTerrain));
             assertEquals("must go down", objectif,
                     astar.next(this.carte.getVoisin(objectif, Direction.NORD),
-                            objectif, parcourtToutTerrain));
+                            parcourtToutTerrain));
             assertEquals("must go up", objectif,
                     astar.next(this.carte.getVoisin(objectif, Direction.SUD),
-                            objectif, parcourtToutTerrain));
+                            parcourtToutTerrain));
         } catch (SimulationException ex) {
             Logger.getLogger(testAstar.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -102,11 +106,11 @@ public class testAstar {
 
     @Test
     public void distantSansObstacle() {
-        Astar astar = new Astar(this.carte);
-        Case depart;
+        Astar astar;
         Case objectif;
         try {
             objectif = this.carte.getCase(10, 10);
+            astar = new Astar(this.carte, objectif);
 
             // 2 times in same direction
             assertEquals("start 2 time top", objectif,
@@ -115,8 +119,8 @@ public class testAstar {
                             this.carte.getVoisin(objectif,
                                     Direction.NORD),
                                     Direction.NORD),
-                            objectif, parcourtToutTerrain),
-                            objectif, parcourtToutTerrain));
+                            parcourtToutTerrain),
+                            parcourtToutTerrain));
 
             assertEquals("start 2 time bottom", objectif,
                     astar.next(astar.next(
@@ -124,8 +128,8 @@ public class testAstar {
                             this.carte.getVoisin(objectif,
                                     Direction.SUD),
                                     Direction.SUD),
-                            objectif, parcourtToutTerrain),
-                            objectif, parcourtToutTerrain));
+                            parcourtToutTerrain),
+                            parcourtToutTerrain));
 
             assertEquals("start 2 time right", objectif,
                     astar.next(astar.next(
@@ -133,8 +137,8 @@ public class testAstar {
                             this.carte.getVoisin(objectif,
                                     Direction.EST),
                                     Direction.EST),
-                            objectif, parcourtToutTerrain),
-                            objectif, parcourtToutTerrain));
+                            parcourtToutTerrain),
+                            parcourtToutTerrain));
 
             assertEquals("start 2 time left", objectif,
                     astar.next(astar.next(
@@ -142,8 +146,8 @@ public class testAstar {
                             this.carte.getVoisin(objectif,
                                     Direction.OUEST),
                                     Direction.OUEST),
-                            objectif, parcourtToutTerrain),
-                            objectif, parcourtToutTerrain));
+                            parcourtToutTerrain),
+                            parcourtToutTerrain));
 
             // corner
             assertEquals("start corner top left", objectif,
@@ -152,8 +156,8 @@ public class testAstar {
                             this.carte.getVoisin(objectif,
                                     Direction.NORD),
                                     Direction.OUEST),
-                            objectif, parcourtToutTerrain),
-                            objectif, parcourtToutTerrain));
+                            parcourtToutTerrain),
+                            parcourtToutTerrain));
 
             assertEquals("start corner top right", objectif,
                     astar.next(astar.next(
@@ -161,8 +165,8 @@ public class testAstar {
                             this.carte.getVoisin(objectif,
                                     Direction.EST),
                                     Direction.NORD),
-                            objectif, parcourtToutTerrain),
-                            objectif, parcourtToutTerrain));
+                            parcourtToutTerrain),
+                            parcourtToutTerrain));
 
             assertEquals("start corner bottom left", objectif,
                     astar.next(astar.next(
@@ -170,8 +174,8 @@ public class testAstar {
                             this.carte.getVoisin(objectif,
                                     Direction.OUEST),
                                     Direction.SUD),
-                            objectif, parcourtToutTerrain),
-                            objectif, parcourtToutTerrain));
+                            parcourtToutTerrain),
+                            parcourtToutTerrain));
 
             assertEquals("start corner bottom right", objectif,
                     astar.next(astar.next(
@@ -179,8 +183,8 @@ public class testAstar {
                             this.carte.getVoisin(objectif,
                                     Direction.SUD),
                                     Direction.EST),
-                            objectif, parcourtToutTerrain),
-                            objectif, parcourtToutTerrain));
+                            parcourtToutTerrain),
+                            parcourtToutTerrain));
 
             // far away
             assertEquals("far away", objectif,
@@ -199,12 +203,12 @@ public class testAstar {
                                     Direction.NORD),
                                     Direction.EST),
                                     Direction.EST),
-                            objectif, parcourtToutTerrain),
-                            objectif, parcourtToutTerrain),
-                            objectif, parcourtToutTerrain),
-                            objectif, parcourtToutTerrain),
-                            objectif, parcourtToutTerrain),
-                            objectif, parcourtToutTerrain));
+                            parcourtToutTerrain),
+                            parcourtToutTerrain),
+                            parcourtToutTerrain),
+                            parcourtToutTerrain),
+                            parcourtToutTerrain),
+                            parcourtToutTerrain));
 
             assertEquals("far away", objectif,
                     astar.next(astar.next(
@@ -222,12 +226,12 @@ public class testAstar {
                                     Direction.OUEST),
                                     Direction.NORD),
                                     Direction.OUEST),
-                            objectif, parcourtToutTerrain),
-                            objectif, parcourtToutTerrain),
-                            objectif, parcourtToutTerrain),
-                            objectif, parcourtToutTerrain),
-                            objectif, parcourtToutTerrain),
-                            objectif, parcourtToutTerrain));
+                            parcourtToutTerrain),
+                            parcourtToutTerrain),
+                            parcourtToutTerrain),
+                            parcourtToutTerrain),
+                            parcourtToutTerrain),
+                            parcourtToutTerrain));
         } catch (SimulationException ex) {
             Logger.getLogger(testAstar.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -235,12 +239,13 @@ public class testAstar {
 
     @Test
     public void avecObstacle() {
-        Astar astar = new Astar(this.carte);
+        Astar astar;
         Case obstacle;
-        Case depart;
-
         Case objectif;
+        Case depart;
         try {
+            objectif = this.carte.getCase(10, 10);
+            astar = new Astar(this.carte, objectif);
             obstacle = new Case(10, 9, NatureTerrain.ROCHE);
             carte.setCase(obstacle);
 
@@ -250,7 +255,7 @@ public class testAstar {
             // Pour atteindre la case, il faut faire 4 mouvements maximum
             Case it = depart;
             for (int i = 0; (i < 4) && (it != objectif); i++) {
-                it = astar.next(it, objectif, parcourtTerrainLibre);
+                it = astar.next(it, parcourtTerrainLibre);
                 assertThat("Une case invalide à été franchit", it, is(not(obstacle)));
             }
             assertThat("objectif non atteind", it, is(objectif));

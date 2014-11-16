@@ -1,3 +1,6 @@
+
+import java.util.Objects;
+
 // Description d'une case
 // Dernière modification : Thibaud BACKENSTRASS, 8 novembre
 public class Case {
@@ -61,6 +64,15 @@ public class Case {
         Case c = (Case) o; // downcasting
         // Deux cases sont égales si et seulement si elles sont à la même place sur la carte
         return this.ligne == c.getLigne() && this.colonne == c.getColonne();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + this.ligne;
+        hash = 97 * hash + this.colonne;
+        hash = 97 * hash + Objects.hashCode(this.terrain);
+        return hash;
     }
     
     // On ajoute une méthode permettant de savoir facilement si deux cases sont voisines ou non

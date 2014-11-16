@@ -11,6 +11,7 @@ public class RobotRoues extends Robot {
     // Constructeurs
     public RobotRoues(Case pos) {
         super(pos, vitesse, volumeMax, tempsRemplissage, volumeIntervention, dureeIntervention);
+        volumeEau = volumeMax; // Remplir le réservoir
     }
     public RobotRoues(Case pos, int vitesse) {
         this(pos);

@@ -11,6 +11,7 @@ public class RobotPattes extends Robot {
     // Constructeurs
     public RobotPattes(Case pos) {
         super(pos, vitesse, volumeMax, tempsRemplissage, volumeIntervention, dureeIntervention);
+        volumeEau = volumeMax;
     }
     public RobotPattes(Case pos, int vitesse) {
         this(pos);

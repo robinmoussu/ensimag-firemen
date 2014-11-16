@@ -39,37 +39,38 @@ public class DonneesSimulation {
 
     // Méthodes pour ajouter des éléments à la simulation
     public void addCase(int ligne, int colonne, NatureTerrain t) throws ConstructionException {
-        carte.setCase(ligne, colonne, t);
+        this.carte.setCase(ligne, colonne, t);
     }
+    public void addCase(Case case_) throws ConstructionException {
+        this.carte.setCase(case_);
+    }
+    
+    protected boolean estHorsCarte(Case pos) {
+        int ligne   = pos.getLigne();
+        int colonne = pos.getColonne();
+        
+        return ligne<0 || ligne>=carte.getNbLignes()
+                || colonne<0 || colonne>=carte.getNbColonnes();
+                
+    }
+    
     public void addIncendie(Case pos, int eau) throws ConstructionException {
         // Si la position est en-dehors de la carte...
-        if(pos.getLigne()<0 || pos.getLigne()>=carte.getNbLignes() || pos.getColonne()<0 || pos.getColonne()>=carte.getNbColonnes()) {
-            throw new ConstructionException("Impossible de créer un incendie sur la case spécifiée !");
+        if (estHorsCarte(pos)) {
+            throw new ConstructionException("Impossible de créer un incendie"
+                    + "sur la case spécifiée !");
         }
 
         incendies.add(new Incendie(pos, eau));
     }
-    public void addRobot(Case pos, String typeRobot) throws ConstructionException {
-        addRobot(pos, typeRobot, -1);
-    }
-    public void addRobot(Case pos, String typeRobot, int vitesse) throws ConstructionException {
+    public void addRobot(Case pos, Robot robot) throws ConstructionException {
         // Si la position est en-dehors de la carte...
-        if(pos.getLigne()<0 || pos.getLigne()>=carte.getNbLignes() || pos.getColonne()<0 || pos.getColonne()>=carte.getNbColonnes()) {
-            throw new ConstructionException("Impossible de créer un robot sur la case spécifiée !");
+        if (estHorsCarte(pos)) {
+            throw new ConstructionException("Impossible de créer un robot sur"
+                    + "la case spécifiée !");
         }
-
-        switch(typeRobot) {
-            case "DRONE":       robots.add(new RobotDrone(pos, vitesse)); // Si la vitesse est négative, elle est ignorée par le constructeur
-                                break;
-            case "ROUES":       robots.add(new RobotRoues(pos, vitesse));
-                                break;
-            case "CHENILLES":   robots.add(new RobotChenilles(pos, vitesse));
-                                break;
-            case "PATTES":      robots.add(new RobotPattes(pos, vitesse));
-                                break;
-            default:
-                                throw new ConstructionException("Impossible de créer un robot du type spécifié !");
-        }
+        robot.setPosition(pos);
+        robots.add(robot);
     }
 
 }

@@ -171,19 +171,48 @@ public class LecteurDonnees {
     private void lireRobot(int i) throws ExceptionFormatDonnees, ConstructionException {
         ignorerCommentaires();
         try {
-            int lig = scanner.nextInt();
-            int col = scanner.nextInt();
-            Case c = (this.simulation.getCarte()).getCase(lig, col);
-            String type = scanner.next();
-            // Lecture éventuelle d'une vitesse du robot (entier)
-            String s = scanner.findInLine("(\\d+)");	// 1 or more digit(s) ?
-
-            if (s == null) {
-                this.simulation.addRobot(c, type);
+            int lig, col;
+            Case pos;
+            String typeRobot;
+            String vitesse_str;
+            int vitesse;
+            Robot robot;
+            
+            
+            lig = scanner.nextInt();
+            col = scanner.nextInt();
+            typeRobot = scanner.next();
+            vitesse_str = scanner.findInLine("(\\d+)");
+            
+            pos = this.simulation.getCarte().getCase(lig, col);
+            
+            // Si la vitesse est négative, elle est ignorée par le constructeur
+            if (vitesse_str == null) {
+                vitesse = -1;
             } else {
-                int vitesse = Integer.parseInt(s);
-                this.simulation.addRobot(c, type, vitesse);
+                vitesse = Integer.parseInt(vitesse_str);
             }
+            
+            switch (typeRobot) {
+            case "DRONE":
+                robot = new RobotDrone(pos, vitesse);
+                break;
+            case "ROUES":
+                robot = new RobotRoues(pos, vitesse);
+                break;
+            case "CHENILLES":
+                robot = new RobotChenilles(pos, vitesse);
+                break;
+            case "PATTES":
+                robot = new RobotPattes(pos, vitesse);
+                break;
+            default:
+                throw new ConstructionException("Impossible de créer un robot du type spécifié !");
+            }
+            
+            this.simulation.addRobot(pos, robot);
+
+            
             verifieLigneTerminee();
 
         } catch (NoSuchElementException e) {

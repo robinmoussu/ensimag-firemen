@@ -95,7 +95,7 @@ public class Carte {
             case NORD:  return carte[src.getLigne()-1][src.getColonne()];
             case SUD:   return carte[src.getLigne()+1][src.getColonne()];
             case EST:   return carte[src.getLigne()][src.getColonne()+1];
-            case OUEST: return carte[src.getLigne()][src.getColonne()+1];
+            case OUEST: return carte[src.getLigne()][src.getColonne()-1];
         }
 
         return null;

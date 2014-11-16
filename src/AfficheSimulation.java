@@ -14,8 +14,8 @@ public class AfficheSimulation {
         }
         try {
             String filename = args[0];
-            LecteurDonnees lecteur;
-            DonneesSimulation simulation;
+            LecteurDonnees lecteur = new LecteurDonnees(filename);
+            DonneesSimulation simulation = lecteur.creeDonnees();
 
             Firemen firemen = new Firemen(simulation, filename); // Création de l'IHM
 		} catch (FileNotFoundException e) {
@@ -42,7 +42,7 @@ class Firemen implements Simulable {
         this.simulation = data;
         nbLignes = data.getNbLignes();
         nbColonnes = data.getNbColonnes();
-		ihm = new IGSimulateur(nbColonnes, nbLignes, this);
+		ihm = new IGSimulateur(nbColonnes, nbLignes, this); // Création de l'IHM
         date = new Date();
         this.filename = filename;
         this.simulateur = new Simulateur(date); // Création du simulteur

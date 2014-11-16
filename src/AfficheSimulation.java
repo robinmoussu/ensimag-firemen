@@ -12,14 +12,14 @@ public class AfficheSimulation {
             System.exit(1);
         }
         try {
-            LecteurDonnees lecteur;
-            DonneesSimulation simulation;
-            Firemen firemen;
             String filename = args[0];
-            
-            lecteur    = new LecteurDonnees(filename);
-            simulation = lecteur.creeDonnees();
-            firemen    = new Firemen(simulation, lecteur);
+            LecteurDonnees lecteur = new LecteurDonnees(filename);
+            DonneesSimulation simulation = lecteur.creeDonnees();
+            Simulateur simulateur = new Simulateur(0); // Création du simulateur
+            Manager manager = new Manager(simulateur, simulation); // Création du manager
+            simulateur.setManager(manager);
+
+            Firemen firemen = new Firemen(simulation, lecteur, simulateur); // Création de l'IHM
 		} catch (FileNotFoundException e) {
 			System.out.println("fichier " + args[0] + " inconnu ou illisible");
 		} catch (ExceptionFormatDonnees e) {
@@ -36,7 +36,7 @@ class Firemen implements Simulable {
     private Date date = new Date(); // On utilise l'objet Date
     private LecteurDonnees lecteur;
     
-	public Firemen(DonneesSimulation data, LecteurDonnees lecteur) {
+	public Firemen(DonneesSimulation data, LecteurDonnees lecteur, Simulateur simulateur) {
 		// cree l'IHM et l'associe a ce simulateur (this), qui en tant que
 		// Simulable recevra les evenements suite aux actions de l'utilisateur
         nbLignes = data.getNbLignes();

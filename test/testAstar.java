@@ -40,11 +40,6 @@ public class testAstar {
     static private ValideCase parcourtToutTerrain = new ParcourtToutTerrain();
 
     public testAstar() {
-        try {
-            carte = new Carte(1000, 1000, 1000);
-        } catch (ConstructionException ex) {
-            Logger.getLogger(testAstar.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     @BeforeClass
@@ -57,6 +52,11 @@ public class testAstar {
 
     @Before
     public void setUp() {
+        try {
+            carte = new Carte(1000, 1000, 1000);
+        } catch (ConstructionException ex) {
+            Logger.getLogger(testAstar.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @After

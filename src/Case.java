@@ -1,57 +1,59 @@
-
 import java.util.Objects;
 
-// Description d'une case
-// Dernière modification : Thibaud BACKENSTRASS, 8 novembre
 public class Case {
-    // Coordonnées (entières, positives) de la case
-    private int ligne;
-    private int colonne;
+    private int ligne; // >0
+    private int colonne; // >0
     private NatureTerrain terrain;
     
-    // Constructeur de case
+    /**
+     * Constructeur de la case aux coordonnées (i,j) par rapport au coin supérieur droit d'une carte, et de terrain spécifié.
+     * @param ligne Numéro de la ligne de la case à créer, à partir de zéro
+     * @param colonne Numéro de la colonne de la case à créer, à partir de zéro
+     * @param terrain Nature du terrain sur la case à créer
+     */
     public Case(int ligne, int colonne, NatureTerrain terrain) {
         this.ligne = ligne;
         this.colonne = colonne;
         this.terrain = terrain;
     }
-    
-    
-    public Case(int ligne, int colonnen) {
-        this(ligne, colonnen, NatureTerrain.TERRAIN_LIBRE);
+    /**
+     * Constructeur de la case aux coordonnées (i,j) par rapport au coin supérieur droit d'une carte, et de Terrain Libre.
+     * @param ligne Numéro de la ligne de la case à créer, à partir de zéro
+     * @param colonne Numéro de la colonne de la case à créer, à partir de zéro
+     */
+    public Case(int ligne, int colonne) {
+        this(ligne, colonne, NatureTerrain.TERRAIN_LIBRE);
     }
 
-    // Accesseurs
+
+    /**
+     * Accesseur sur la ligne de la case.
+     * @return Numéro de la ligne de la case, à partir de zéro
+     */
     public int getLigne() {
         return this.ligne;
     }
+    /**
+     * Accesseur sur la colonne de la case.
+     * @return Numéro de la colonne de la case, à partir de zéro
+     */
     public int getColonne() {
         return this.colonne;
     }
+    /**
+     * Accesseur sur la nature du terrain de la case.
+     * @return Nature du terrain de la case
+     */
     public NatureTerrain getTerrain() {
         return this.terrain;
     }
 
-    // Mutateurs
-    public void setLigne(int ligne) throws ConstructionException {
-        if(ligne<0) { // Invariant de classe
-            throw new ConstructionException("Les coordonnées d'une case ne peuvent pas être négatives !");
-        }
-        
-        this.ligne = ligne;
-    }
-    public void setColonne(int colonne) throws ConstructionException {
-        if(colonne<0) { // Invariant de classe
-            throw new ConstructionException("Les coordonnées d'une case ne peuvent pas être négatives !");
-        }
-        
-        this.colonne = colonne;
-    }
-    public void setTerrain(NatureTerrain terrain) {
-        this.terrain = terrain;
-    }
 
-    // On redéfinit un comparateur de Case "propre" depuis la superclasse Object
+    /**
+     * Méthode d'égalisation de deux cases.
+     * @param o Objet à comparer
+     * @return Booléen indiquant si les deux cases ont mêmes coordonnées
+     */
     @Override
     public boolean equals(Object o) {
         if(this==o) {
@@ -66,6 +68,11 @@ public class Case {
         return this.ligne == c.getLigne() && this.colonne == c.getColonne();
     }
 
+
+    /**
+     * Méthode de calcul d'un hashCode sur une case.
+     * @return Clé de hachage de la case
+     */
     @Override
     public int hashCode() {
         int hash = 7;
@@ -75,7 +82,11 @@ public class Case {
         return hash;
     }
     
-    // On ajoute une méthode permettant de savoir facilement si deux cases sont voisines ou non
+    /**
+     * Rechercher si deux cases sont voisines.
+     * @param c Case à comparer avec la case courante
+     * @return Booléen indiquant si les deux cases sont voisines
+     */
     public boolean estVoisine(Case c) {
         if(    (c.getLigne()-this.ligne==1 && c.getColonne()-this.colonne==0)
             || (c.getLigne()-this.ligne==-1 && c.getColonne()-this.colonne==0)
@@ -89,16 +100,20 @@ public class Case {
         }
     }
     
-    ////////////////////////////
-
+    
+    /**
+     * Représentation chaînée d'une case.
+     * @return Chaîne de caractères représentant les coordonnées de la case
+     */
     public String toString() {
         return "Case " + this.ligne + ", " + this.colonne;
     }
     
-    /** Retourne la direction global permettant d'atteindre une autre case
-     * 
-     * @param other La case de destination
-     * @return La direction pour se diriger vers other
+
+    /**
+     * Retourne la direction globale permettant d'atteindre une autre case.
+     * @param other Case de destination
+     * @return Direction pour se diriger vers la case de destination
      */
     public Direction getDirection(Case other) {
         if ((this.colonne <  other.colonne) && (this.ligne == other.ligne)) {
@@ -121,4 +136,5 @@ public class Case {
             return Direction.NONE;
         }
     }
+
 }

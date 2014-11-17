@@ -1,5 +1,3 @@
-// Description de la carte
-// Dernière modification : Thibaud BACKENSTRASS, 9 novembre
 public class Carte {
     // Attributs
     private int nbLignes; // >=0

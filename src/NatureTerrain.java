@@ -1,5 +1,8 @@
-// Déclaration de l'énumération indiquant la nature du terrain
-// Dernière modification:  Thibaud BACKENSTRASS, 8 novembre
+/**
+ * Type énuméré décrivant la nature du terrain d'une case.
+ * @author Thibaud Backenstrass
+ * @date 2014-11-17
+ */
 public enum NatureTerrain {
     EAU,
     FORET,

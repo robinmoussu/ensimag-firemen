@@ -1,5 +1,9 @@
+/**
+ * Description d'une carte.
+ * @author Thibaud Backenstrass
+ * @date 2014-11-17
+ */
 public class Carte {
-    // Attributs
     private int nbLignes; // >=0
     private int nbColonnes; // >=0
     private int tailleCases; // >=0

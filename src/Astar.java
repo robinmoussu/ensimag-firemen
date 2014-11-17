@@ -1,4 +1,3 @@
-
 import static java.lang.Math.abs;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -7,7 +6,11 @@ import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
+/**
+ * Calcul du plus court chemin selon l'algorithme Astar.
+ * @author Robin Moussu
+ * @date 2014-11-17
+ */
 public class Astar {
     protected Carte carte;
     protected Noeud arrivee;

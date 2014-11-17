@@ -1,42 +1,50 @@
 import java.util.* ;
 
+/**
+ * Description abstraite d'une événement.
+ * @author Amanda Sambath
+ * @date 2014-11-15
+ */
 public abstract class Evenement implements Comparable<Evenement> {
-
 	protected Date dateDebut;	
 	protected Date dateFin;
 
-	// Constructeur
+	/**
+     * Constructeur d'événement à une date fixée.
+     * @param date Objet-date indiquant la date de début de l'événement
+     */
 	public Evenement(Date date) {
 		this.dateDebut = date;
 	}
-	// Constructeur de copie abstrait à implémenter dans les sous-classes concrètes
-	//public Evenement(Evenement e) {
-	//	this.dateDebExe = e.dateDebExe;
-	//}
 	
-	// Accesseurs
+
+	/**
+     * Accesseur sur la date de début d'un événement.
+     * @return Objet-date indiquant la date de début de l'événement
+     */
 	public Date getDateDebut() {
 		return this.dateDebut;
 	}
+    /**
+     * Accesseur sur la date de fin d'un événement.
+     * @return Objet-date indiquant la date de fin de l'événement
+     */
 	public Date getDateFin() {
 		return this.dateFin;
 	}
 
+
 	/**
-      * execute()
-	  * Méthode abstraite d'execution d'un évenement
-	  * (déplacement, intervention et remplissage du reservoir d'un robot)
+	  * Méthode abstraite invoquée pour l'exécution de l'événement.
+      * @throws SimulationException si l'exécution de l'événement a échoué.
 	  */
 	public abstract void execute() throws SimulationException;
 
+
 	/**
-      * compareTo(e)
-	  * Redefinition de la methode compareTo pour la classe Evenement
-	  * necessaire pour l'utilisation de la collection java PriorityQueue
-	  * Genere une execption NullPointerException si l'evenement a comparer est null
-	  *
-	  * @param Evenement e : auquel est compare l'evenement sur lequel est appelee la methode
-	  * @return int : retourne -1 si l'evenement est plus prioritaire que e, 1 dans le cas inverse, 0 si les deux evenements sont de meme priorite
+	  * Redéfinition de la méthode de comparaison de deux événements en fonction de leur date de fin.
+	  * @param e Evénement à comparer
+	  * @return Entier dont le signe indique le degré de priorité entre les deux événements
 	  */
 	@Override
 	public int compareTo(Evenement e) {
@@ -52,5 +60,4 @@ public abstract class Evenement implements Comparable<Evenement> {
 		else return 0;
 	}
 
-	// Redéfinition de equals et hashCode nécessaires ?
 } 

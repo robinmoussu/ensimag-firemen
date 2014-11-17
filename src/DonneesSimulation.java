@@ -1,30 +1,30 @@
 // Classe de description des données de la simulation
 // Dernière modification : Thibaud BACKENSTRASS, 9 novembre
-import java.util.LinkedList;
+import java.util.ArrayList;
 public class DonneesSimulation {
     // Attributs
     private Carte carte;
-    private LinkedList<Incendie> incendies;
-    private LinkedList<Robot> robots;
+    private ArrayList<Incendie> incendies;
+    private ArrayList<Robot> robots;
 
     // Constructeur
     public DonneesSimulation(int nbLignes, int nbColonnes, int tailleCases) throws ConstructionException {
         carte = new Carte(nbLignes, nbColonnes, tailleCases);
-        incendies = new LinkedList<Incendie>();
-        robots = new LinkedList<Robot>();
+        incendies = new ArrayList<Incendie>();
+        robots = new ArrayList<Robot>();
     }
 
     // Accesseurs
     public Carte getCarte() {
         return this.carte;
     }
-    public LinkedList<Incendie> getIncendies() {
+    public ArrayList<Incendie> getIncendies() {
         return this.incendies;
     }
     public int getNbIncendies() {
         return this.incendies.size();
     }
-    public LinkedList<Robot> getRobots() {
+    public ArrayList<Robot> getRobots() {
         return this.robots;
     }
     public int getNbRobots() {

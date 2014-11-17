@@ -19,8 +19,7 @@ public class LecteurDonnees {
      * @return Objet DonneesSimulation contenant toutes les données de la
      * simulation
      */
-    public DonneesSimulation creeDonnees()
-            throws ExceptionFormatDonnees {
+    public DonneesSimulation creeDonnees() throws ExceptionFormatDonnees {
         System.out.println("[OK] Lecture du fichier " + this.fichierDonnees);
         lireCarte();
         lireIncendies();

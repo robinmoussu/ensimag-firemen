@@ -40,6 +40,7 @@ abstract class Robot {
         return this.dureeIntervention;
     }
     abstract public String getImage();
+    abstract public ValideCase getValidateur();
 
 
     // Mutateurs
@@ -47,7 +48,20 @@ abstract class Robot {
         this.position = c;
     }
     
-    // Déverser le réservoir d'eau
+    // Predicats
+    public boolean estPlein() {
+        return this.volumeEau == this.volumeMax;
+    }
+    public boolean estVide() {
+        return this.volumeEau == 0;
+    }
+    
+    /** Déverser le réservoir d'eau
+     * 
+     * @param simulation 
+     * @param nbInterventions
+     * @throws SimulationException 
+     */
     public void deverserEau(DonneesSimulation simulation, int nbInterventions) throws SimulationException {
         if(volumeEau == 0 || nbInterventions>volumeEau/volumeIntervention) {
             throw new SimulationException("Pas assez d'eau dans le réservoir !");

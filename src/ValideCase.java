@@ -1,4 +1,6 @@
 
+/** Foncteur permettant de valider le parcourt d'une case
+ */
 public interface ValideCase {
     
     /** prédicat permettant de valider le parcourt d'une case

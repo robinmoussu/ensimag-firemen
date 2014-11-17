@@ -13,8 +13,9 @@ public abstract class Manager {
      * manage() Methode abstraite qui dans les sous-classes concretes de Manager
      * implemente le choix des evenements a executer (predefini a l'avance ou
      * calcule selon le plus court chemin)
+     * @throws SimulationException
      */
-    public abstract void manage();
+    public abstract void manage() throws SimulationException;
 
     /**
      * signaleSuccessEvent(e) Est appelee sur un manager concret lorsque

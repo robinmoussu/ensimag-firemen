@@ -1,17 +1,20 @@
 // Classe de description des données de la simulation
 // Dernière modification : Thibaud BACKENSTRASS, 9 novembre
+import java.util.ArrayList;
 import java.util.LinkedList;
 public class DonneesSimulation {
     // Attributs
-    private Carte carte;
-    private LinkedList<Incendie> incendies;
-    private LinkedList<Robot> robots;
+    protected Carte carte;
+    protected LinkedList<Incendie> incendies;
+    protected LinkedList<Robot> robots;
+    protected ArrayList<Case> caseEau;
 
     // Constructeur
     public DonneesSimulation(int nbLignes, int nbColonnes, int tailleCases) throws ConstructionException {
         carte = new Carte(nbLignes, nbColonnes, tailleCases);
-        incendies = new LinkedList<Incendie>();
-        robots = new LinkedList<Robot>();
+        incendies = new LinkedList<>();
+        robots = new LinkedList<>();
+        caseEau = new ArrayList<>();
     }
 
     // Accesseurs
@@ -36,6 +39,9 @@ public class DonneesSimulation {
     public int getNbColonnes() {
         return carte.getNbColonnes();
     }
+    public ArrayList<Case> getCaseEau() {
+        return caseEau;
+    }
 
     // Méthodes pour ajouter des éléments à la simulation
     public void addCase(int ligne, int colonne, NatureTerrain t) throws ConstructionException {
@@ -43,6 +49,9 @@ public class DonneesSimulation {
     }
     public void addCase(Case case_) throws ConstructionException {
         this.carte.setCase(case_);
+        if (case_.getTerrain() == NatureTerrain.EAU) {
+            this.caseEau.add(case_);
+        }
     }
     
     protected boolean estHorsCarte(Case pos) {

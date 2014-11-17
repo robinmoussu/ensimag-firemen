@@ -51,7 +51,8 @@ public class Carte {
         }
         
         if (carte[case_.getLigne()][case_.getColonne()] != null) {
-            throw new ConstructionException("Case déjà existante");
+            throw new ConstructionException("Case déjà existante : " + 
+                    case_.toString());
         }
         
         carte[case_.getLigne()][case_.getColonne()] = case_;

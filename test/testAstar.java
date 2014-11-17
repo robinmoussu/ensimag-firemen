@@ -36,8 +36,8 @@ public class testAstar {
     }
 
     private Carte carte;
-    static private ValideCase parcourtTerrainLibre = new ParcourtTerrainLibre();
-    static private ValideCase parcourtToutTerrain = new ParcourtToutTerrain();
+    static protected ValideCase parcourtTerrainLibre = new ParcourtTerrainLibre();
+    static protected ValideCase parcourtToutTerrain = new ParcourtToutTerrain();
 
     public testAstar() {
     }
@@ -55,7 +55,9 @@ public class testAstar {
         try {
             carte = new Carte(1000, 1000, 1000);
         } catch (ConstructionException ex) {
-            Logger.getLogger(testAstar.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(testAstar.class.getName()).log(
+                    Level.SEVERE, null, ex);
+            fail();
         }
     }
 
@@ -66,174 +68,163 @@ public class testAstar {
     @Test
     public void samePosition() {
         Astar astar;
-        Case objectif;
+        Case depart, objectif;
         try {
             objectif = this.carte.getCase(10, 10);
-            astar = new Astar(this.carte, objectif);
+            depart   = objectif;
+            
+            astar = new Astar(this.carte, depart, objectif, parcourtToutTerrain);
             
             assertEquals("do not move", objectif,
-                    astar.next(objectif, parcourtToutTerrain));
+                    astar.next(objectif));
         } catch (SimulationException ex) {
-            Logger.getLogger(testAstar.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(testAstar.class.getName()).log(
+                    Level.SEVERE, null, ex);
+            fail();
         }
     }
 
     @Test
     public void voisin() {
         Astar astar;
-        Case objectif;
+        Case depart, objectif;
         try {
             objectif = this.carte.getCase(10, 10);
-            astar = new Astar(this.carte, objectif);
-
-            assertEquals("must go right", objectif,
-                    astar.next(this.carte.getVoisin(objectif, Direction.OUEST),
-                            parcourtToutTerrain));
             
+            depart = this.carte.getVoisin(objectif, Direction.OUEST);
+            astar = new Astar(this.carte, depart, objectif, parcourtToutTerrain);
+            assertEquals("must go right", objectif,
+                    astar.next(depart));
+            
+            depart = this.carte.getVoisin(objectif, Direction.EST);
+            astar = new Astar(this.carte, depart, objectif, parcourtToutTerrain);
             assertEquals("must go left", objectif,
-                    astar.next(this.carte.getVoisin(objectif, Direction.EST),
-                            parcourtToutTerrain));
+                    astar.next(depart));
+            
+            depart = this.carte.getVoisin(objectif, Direction.NORD);
+            astar = new Astar(this.carte, depart, objectif, parcourtToutTerrain);
             assertEquals("must go down", objectif,
-                    astar.next(this.carte.getVoisin(objectif, Direction.NORD),
-                            parcourtToutTerrain));
+                    astar.next(depart));
+            
+            depart = this.carte.getVoisin(objectif, Direction.SUD);
+            astar = new Astar(this.carte, depart, objectif, parcourtToutTerrain);
             assertEquals("must go up", objectif,
-                    astar.next(this.carte.getVoisin(objectif, Direction.SUD),
-                            parcourtToutTerrain));
+                    astar.next(depart));
         } catch (SimulationException ex) {
-            Logger.getLogger(testAstar.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(testAstar.class.getName()).log(
+                    Level.SEVERE, null, ex);
+            fail();
         }
     }
 
     @Test
     public void distantSansObstacle() {
         Astar astar;
-        Case objectif;
+        Case depart, objectif, it;
+        int i;
         try {
             objectif = this.carte.getCase(10, 10);
-            astar = new Astar(this.carte, objectif);
-
+            
+            depart = this.carte.getVoisin(this.carte.getVoisin(objectif,
+                                Direction.NORD),
+                                Direction.NORD);
+            astar = new Astar(this.carte, depart, objectif, parcourtToutTerrain);
             // 2 times in same direction
             assertEquals("start 2 time top", objectif,
-                    astar.next(astar.next(
-                            this.carte.getVoisin(
-                            this.carte.getVoisin(objectif,
-                                    Direction.NORD),
-                                    Direction.NORD),
-                            parcourtToutTerrain),
-                            parcourtToutTerrain));
+                    astar.next(astar.next(depart)));
 
+            depart = this.carte.getVoisin(this.carte.getVoisin(objectif,
+                                Direction.SUD),
+                                Direction.SUD);
+            astar = new Astar(this.carte, depart, objectif, parcourtToutTerrain);
             assertEquals("start 2 time bottom", objectif,
-                    astar.next(astar.next(
-                            this.carte.getVoisin(
-                            this.carte.getVoisin(objectif,
-                                    Direction.SUD),
-                                    Direction.SUD),
-                            parcourtToutTerrain),
-                            parcourtToutTerrain));
+                    astar.next(astar.next(depart)));
 
+            depart = this.carte.getVoisin(this.carte.getVoisin(objectif,
+                                Direction.OUEST),
+                                Direction.OUEST);
+            astar = new Astar(this.carte, depart, objectif, parcourtToutTerrain);
             assertEquals("start 2 time right", objectif,
-                    astar.next(astar.next(
-                            this.carte.getVoisin(
-                            this.carte.getVoisin(objectif,
-                                    Direction.EST),
-                                    Direction.EST),
-                            parcourtToutTerrain),
-                            parcourtToutTerrain));
+                    astar.next(astar.next(depart)));
 
+            depart = this.carte.getVoisin(this.carte.getVoisin(objectif,
+                                Direction.EST),
+                                Direction.EST);
+            astar = new Astar(this.carte, depart, objectif, parcourtToutTerrain);
             assertEquals("start 2 time left", objectif,
-                    astar.next(astar.next(
-                            this.carte.getVoisin(
-                            this.carte.getVoisin(objectif,
-                                    Direction.OUEST),
-                                    Direction.OUEST),
-                            parcourtToutTerrain),
-                            parcourtToutTerrain));
+                    astar.next(astar.next(depart)));
 
             // corner
+
+            depart = this.carte.getVoisin(this.carte.getVoisin(objectif,
+                                Direction.NORD),
+                                Direction.OUEST);
+            astar = new Astar(this.carte, depart, objectif, parcourtToutTerrain);
             assertEquals("start corner top left", objectif,
-                    astar.next(astar.next(
-                            this.carte.getVoisin(
-                            this.carte.getVoisin(objectif,
-                                    Direction.NORD),
-                                    Direction.OUEST),
-                            parcourtToutTerrain),
-                            parcourtToutTerrain));
+                    astar.next(astar.next(depart)));
 
+            depart = this.carte.getVoisin(this.carte.getVoisin(objectif,
+                                Direction.NORD),
+                                Direction.EST);
+            astar = new Astar(this.carte, depart, objectif, parcourtToutTerrain);
             assertEquals("start corner top right", objectif,
-                    astar.next(astar.next(
-                            this.carte.getVoisin(
-                            this.carte.getVoisin(objectif,
-                                    Direction.EST),
-                                    Direction.NORD),
-                            parcourtToutTerrain),
-                            parcourtToutTerrain));
+                    astar.next(astar.next(depart)));
 
+            depart = this.carte.getVoisin(this.carte.getVoisin(objectif,
+                                Direction.SUD),
+                                Direction.OUEST);
+            astar = new Astar(this.carte, depart, objectif, parcourtToutTerrain);
             assertEquals("start corner bottom left", objectif,
-                    astar.next(astar.next(
-                            this.carte.getVoisin(
-                            this.carte.getVoisin(objectif,
-                                    Direction.OUEST),
-                                    Direction.SUD),
-                            parcourtToutTerrain),
-                            parcourtToutTerrain));
+                    astar.next(astar.next(depart)));
 
+            depart = this.carte.getVoisin(this.carte.getVoisin(objectif,
+                                Direction.SUD),
+                                Direction.EST);
+            astar = new Astar(this.carte, depart, objectif, parcourtToutTerrain);
             assertEquals("start corner bottom right", objectif,
-                    astar.next(astar.next(
-                            this.carte.getVoisin(
-                            this.carte.getVoisin(objectif,
-                                    Direction.SUD),
-                                    Direction.EST),
-                            parcourtToutTerrain),
-                            parcourtToutTerrain));
+                    astar.next(astar.next(depart)));
 
             // far away
-            assertEquals("far away", objectif,
-                    astar.next(astar.next(
-                    astar.next(astar.next(
-                    astar.next(astar.next(
-                            this.carte.getVoisin(
-                            this.carte.getVoisin(
-                            this.carte.getVoisin(
-                            this.carte.getVoisin(
-                            this.carte.getVoisin(
-                            this.carte.getVoisin(objectif,
-                                    Direction.NORD),
-                                    Direction.NORD),
-                                    Direction.NORD),
-                                    Direction.NORD),
-                                    Direction.EST),
-                                    Direction.EST),
-                            parcourtToutTerrain),
-                            parcourtToutTerrain),
-                            parcourtToutTerrain),
-                            parcourtToutTerrain),
-                            parcourtToutTerrain),
-                            parcourtToutTerrain));
+            depart = this.carte.getVoisin(this.carte.getVoisin(
+                     this.carte.getVoisin(this.carte.getVoisin(
+                     this.carte.getVoisin(this.carte.getVoisin(objectif,
+                                Direction.NORD),
+                                Direction.NORD),
+                                Direction.NORD),
+                                Direction.NORD),
+                                Direction.NORD),
+                                Direction.EST);
+            astar = new Astar(this.carte, depart, objectif, parcourtToutTerrain);
+            // Pour atteindre la case, il faut faire 6 mouvements maximum
+            it = depart;
+            for (i = 0; (i < 6) && (it != objectif); i++) {
+                it = astar.next(it);
+            }
+            assertThat("Il faut faire 6 mouvements pour atteindre l'arrivée",
+                    i, is(6));
 
-            assertEquals("far away", objectif,
-                    astar.next(astar.next(
-                    astar.next(astar.next(
-                    astar.next(astar.next(
-                            this.carte.getVoisin(
-                            this.carte.getVoisin(
-                            this.carte.getVoisin(
-                            this.carte.getVoisin(
-                            this.carte.getVoisin(
-                            this.carte.getVoisin(objectif,
-                                    Direction.NORD),
-                                    Direction.OUEST),
-                                    Direction.NORD),
-                                    Direction.OUEST),
-                                    Direction.NORD),
-                                    Direction.OUEST),
-                            parcourtToutTerrain),
-                            parcourtToutTerrain),
-                            parcourtToutTerrain),
-                            parcourtToutTerrain),
-                            parcourtToutTerrain),
-                            parcourtToutTerrain));
+            depart = this.carte.getVoisin(this.carte.getVoisin(
+                     this.carte.getVoisin(this.carte.getVoisin(
+                     this.carte.getVoisin(this.carte.getVoisin(objectif,
+                                Direction.SUD),
+                                Direction.EST),
+                                Direction.SUD),
+                                Direction.EST),
+                                Direction.SUD),
+                                Direction.EST);
+            astar = new Astar(this.carte, depart, objectif, parcourtToutTerrain);
+            // Pour atteindre la case, il faut faire 6 mouvements maximum
+            it = depart;
+            for (i = 0; (i < 6) && (it != objectif); i++) {
+                it = astar.next(it);
+            }
+            assertThat("Il faut faire 6 mouvements pour atteindre l'arrivée",
+                    i, is(6));
+            assertThat("Doit atteindre la case de fin", it, is(objectif));
         } catch (SimulationException ex) {
-            Logger.getLogger(testAstar.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(testAstar.class.getName()).log(
+                    Level.SEVERE, null, ex);
+            fail();
         }
     }
 
@@ -244,24 +235,30 @@ public class testAstar {
         Case objectif;
         Case depart;
         try {
-            objectif = this.carte.getCase(10, 10);
-            astar = new Astar(this.carte, objectif);
             obstacle = new Case(10, 9, NatureTerrain.ROCHE);
             carte.setCase(obstacle);
-
             objectif = this.carte.getCase(10, 10);
             depart = this.carte.getCase(10, 8);
+            
+            astar = new Astar(this.carte, depart, objectif,parcourtTerrainLibre);
 
             // Pour atteindre la case, il faut faire 4 mouvements maximum
             Case it = depart;
-            for (int i = 0; (i < 4) && (it != objectif); i++) {
-                it = astar.next(it, parcourtTerrainLibre);
-                assertThat("Une case invalide à été franchit", it, is(not(obstacle)));
+            int i;
+            for (i = 0; (i < 4) && (it != objectif); i++) {
+                it = astar.next(it);
+                System.out.println(it);
+                assertThat("Une case invalide à été franchie", it,
+                        is(not(obstacle)));
             }
-            assertThat("objectif non atteind", it, is(objectif));
+            assertThat("Il faut faire 4 mouvements pour atteindre l'arrivée",
+                    i, is(4));
+            assertThat("Doit atteindre la case de fin", it, is(objectif));
 
         } catch (SimulationException | ConstructionException ex) {
-            Logger.getLogger(testAstar.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(testAstar.class.getName()).log(
+                    Level.SEVERE, null, ex);
+            fail();
         }
     }
 }

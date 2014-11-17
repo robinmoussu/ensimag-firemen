@@ -1,10 +1,21 @@
+/**
+ * Evénement de déplacement d'un robot.
+ * Cette classe concrétise la classe abstraite Evenement.
+ * @author Amanda Sambath
+ * @date 2014-11-15
+ */
 public class EventMoveRobot extends Evenement {
-
 	private Robot robot;
 	private Direction direction;
 	private Carte carte;
 
-	// Constructeur
+	/**
+     * Constructeur d'événement de déplacement de robot.
+     * @param d Objet-date indiquant la date de début d'événement
+     * @param r Référence sur le robot à déplacer
+     * @param dir Direction de déplacement
+     * @param c Carte à laquelle le robot est rattaché
+     */
 	public EventMoveRobot(Date d, Robot r, Direction dir, Carte c) {
 		super(d);
 		this.robot = r;
@@ -14,16 +25,11 @@ public class EventMoveRobot extends Evenement {
 
 	}
 
-	// Constructeur de copie
-	//public EventMoveRobot(EventMoveRobot e) {
-	//	super(e);
-	//	this.robot = e.robot;
-	//	this.direction = e.direction;
-	//	this.carte = e.carte;
-	//	this.dateFinExe = e.dateFinExe;
-	//}
 
-	// Execute concrètement l'évènement
+	/**
+     * Exécution de l'événement.
+     * @throws SimulationException si l'exécution de l'événement a échoué
+     */
 	public void execute() throws SimulationException {
 		Case cur = robot.getPosition();
         System.out.println(cur.toString());

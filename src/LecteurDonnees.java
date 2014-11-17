@@ -1,23 +1,34 @@
-// Lecteur de cartes au format spécifié dans le sujet
-// Dernière modification : Thibaud BACKENSTRASS, 9 novembre
 import java.io.*;
 import java.util.*;
 
+/**
+ * Lecteur de cartes au format spécifié dans le sujet.
+ * @author Enseignants Ensimag
+ * @date -
+ */
 public class LecteurDonnees {
-
-    // Attributs: la simulation à créer
-
     private DonneesSimulation simulation;
     private String fichierDonnees;
+    private Scanner scanner;
     
+
     /**
-     * Lit un fichier de données et crée la structure de données nécessaire au
-     * stockage. Méthode de classe, utilisation:
-     * LecteurDonnees.creeDonnees(fichierDonnees).
-     *
+     * Constructeur du lecteur de données à partir du fichier passé en paramètre.
      * @param fichierDonnees Nom du fichier à lire
-     * @return Objet DonneesSimulation contenant toutes les données de la
-     * simulation
+     * @throws FileNotFoundException si le fichier n'a pas été trouvé
+     */
+    public LecteurDonnees(String fichierDonnees) throws FileNotFoundException {
+        scanner = new Scanner(new File(fichierDonnees));
+        scanner.useLocale(Locale.US);
+        this.fichierDonnees = fichierDonnees;
+    }
+
+
+    /**
+     * Lit le fichier de données et crée la structure de données nécessaire au stockage.
+     * Méthode de classe, utilisation: LecteurDonnees.creeDonnees().
+     * @return Objet DonneesSimulation contenant toutes les données de la simulation
+     * @throws ExceptionFormatDonnees en cas d'erreur de syntaxe dans le fichier de données
      */
     public DonneesSimulation creeDonnees() throws ExceptionFormatDonnees {
         System.out.println("[OK] Lecture du fichier " + this.fichierDonnees);
@@ -29,22 +40,9 @@ public class LecteurDonnees {
     }
 
     
-    private Scanner scanner;
-
     /**
-     * @param fichierDonnees nom du fichier a lire
-     */
-    public LecteurDonnees(String fichierDonnees)
-            throws FileNotFoundException {
-        scanner = new Scanner(new File(fichierDonnees));
-        scanner.useLocale(Locale.US);
-        this.fichierDonnees = fichierDonnees;
-    }
-
-    /**
-     * Lit et affiche les donnees de la carte.
-     *
-     * @throws ExceptionFormatDonnees
+     * Lit et stocker les donnees de la carte.
+     * @throws ExceptionFormatDonnees en cas d'erreur de syntaxe dans le fichier de données
      */
     private void lireCarte() throws ExceptionFormatDonnees {
         ignorerCommentaires();
@@ -63,20 +61,22 @@ public class LecteurDonnees {
             }
 
         } catch (NoSuchElementException e) {
-            throw new ExceptionFormatDonnees("Format invalide. "
-                    + "Attendu: nbLignes nbColonnes tailleCases");
+            throw new ExceptionFormatDonnees("Format invalide. Attendu: nbLignes nbColonnes tailleCases");
         } catch (ConstructionException e) {
             throw new ExceptionFormatDonnees("Valeur(s) invalide(s) pour la carte");
         }
     }
 
+
     /**
-     * Lit et affiche les donnees d'une case.
+     * Lit et stocker les donnees d'une case.
+     * @param lig Numéro de la ligne de la case, à partir de zéro
+     * @param col Numéro de la colonne de la case, à partir de zéro
+     * @throws ExceptionFormatDonnees en cas d'erreur de syntaxe dans le fichier de données
      */
     private void lireCase(int lig, int col) throws ExceptionFormatDonnees {
         ignorerCommentaires();
         String chaineNature = new String();
-//		NatureTerrain nature;
 
         try {
             chaineNature = scanner.next();
@@ -84,18 +84,18 @@ public class LecteurDonnees {
             NatureTerrain nature = NatureTerrain.valueOf(chaineNature);
             verifieLigneTerminee();
             this.simulation.addCase(lig, col, nature);
-            //System.out.println(lig + " " + col + " " + chaineNature);
 
         } catch (NoSuchElementException e) {
-            throw new ExceptionFormatDonnees("Format de case invalide. "
-                    + "Attendu: nature altitude [valeur_specifique]");
+            throw new ExceptionFormatDonnees("Format de case invalide. Attendu: nature altitude [valeur_specifique]");
         } catch (ConstructionException e) {
             throw new ExceptionFormatDonnees("Valeur(s) invalide(s) pour les cases");
         }
     }
 
+
     /**
-     * Lit et affiche les donnees des incendies.
+     * Lit et stocker les donnees des incendies.
+     * @throws ExceptionFormatDonnees en cas d'erreur de syntaxe dans le fichier de données
      */
     private void lireIncendies() throws ExceptionFormatDonnees {
         ignorerCommentaires();
@@ -107,17 +107,18 @@ public class LecteurDonnees {
             System.out.println("[OK] Incendies initialisés : " + nbIncendies);
 
         } catch (NoSuchElementException e) {
-            throw new ExceptionFormatDonnees("Format invalide. "
-                    + "Attendu: nbIncendies");
+            throw new ExceptionFormatDonnees("Format invalide. Attendu: nbIncendies");
         } catch (ConstructionException e) {
             System.out.println("[ERR] Erreur d'initialisation des incendies !");
         }
     }
 
+
     /**
-     * Lit et affiche les donnees du i-eme incendie.
-     *
-     * @param i
+     * Lit et stocker les donnees du i-eme incendie.
+     * @param i Numéro de l'incendie à lire, à partir de zéro
+     * @throws ExceptionFormatDonnees en cas d'erreur de syntaxe dans le fichier de données
+     * @throws ConstructionException si les données du fichier sont invalides
      */
     private void lireIncendie(int i) throws ExceptionFormatDonnees, ConstructionException {
         ignorerCommentaires();
@@ -143,7 +144,8 @@ public class LecteurDonnees {
     }
 
     /**
-     * Lit et affiche les donnees des robots.
+     * Lit et stocker les donnees des robots.
+     * @throws ExceptionFormatDonnees en cas d'erreur de syntaxe dans le fichier de données
      */
     private void lireRobots() throws ExceptionFormatDonnees {
         ignorerCommentaires();
@@ -155,17 +157,17 @@ public class LecteurDonnees {
             System.out.println("[OK] Robots initialisés : " + nbRobots);
 
         } catch (NoSuchElementException e) {
-            throw new ExceptionFormatDonnees("Format invalide. "
-                    + "Attendu: nbRobots");
+            throw new ExceptionFormatDonnees("Format invalide. Attendu: nbRobots");
         } catch (ConstructionException e) {
             System.out.println("[ERR] Erreur d'initialisation des robots");
         }
     }
 
     /**
-     * Lit et affiche les donnees du i-eme robot.
-     *
-     * @param i
+     * Lit et stocker les donnees du i-eme robot.
+     * @param i Numéro du robot à lire, à partir de zéro
+     * @throws ExceptionFormatDonnees en cas d'erreur de syntaxe dans le fichier de données
+     * @throws ConstructionException si les données du fichier sont invalides
      */
     private void lireRobot(int i) throws ExceptionFormatDonnees, ConstructionException {
         ignorerCommentaires();
@@ -215,15 +217,14 @@ public class LecteurDonnees {
             verifieLigneTerminee();
 
         } catch (NoSuchElementException e) {
-            throw new ExceptionFormatDonnees("format de robot invalide. "
-                    + "Attendu: ligne colonne type [valeur_specifique]");
+            throw new ExceptionFormatDonnees("format de robot invalide. Attendu: ligne colonne type [valeur_specifique]");
         } catch (SimulationException e) {
             throw new ExceptionFormatDonnees("Valeur(s) invalide(s) pour un robot");
         }
     }
 
     /**
-     * Ignore toute (fin de) ligne commencant par '#'
+     * Ignore toute (fin de) ligne commencant par '#'.
      */
     private void ignorerCommentaires() {
         while (scanner.hasNext("#.*")) {
@@ -232,9 +233,8 @@ public class LecteurDonnees {
     }
 
     /**
-     * Verifie qu'il n'y a plus rien a lire sur cette ligne (int ou float).
-     *
-     * @throws ExceptionFormatDonnees
+     * Verifie qu'il n'y a plus rien à lire sur cette ligne (int ou float).
+     * @throws ExceptionFormatDonnees en cas d'erreur de syntaxe dans le fichier de données
      */
     private void verifieLigneTerminee() throws ExceptionFormatDonnees {
         if (scanner.findInLine("(\\d+)") != null) {

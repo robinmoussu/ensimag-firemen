@@ -1,10 +1,13 @@
-// Classe d'affichage des données de la simulation depuis le fichier
-// Dernière modification : Thibaud BACKENSTRASS, 10 novembre
 import ihm.*;
 import java.awt.Color;
 import java.util.LinkedList;
 import java.io.FileNotFoundException;
 
+/**
+ * Classe principale, chargée d'appeler toutes les autres.
+ * @author Thibaud Backenstrass
+ * @date 2014-11-17
+ */
 public class MainClass {
 
     public static void main(String[] args) {
@@ -26,6 +29,12 @@ public class MainClass {
     }
 }
 
+
+/**
+ * Interface graphique.
+ * @author Enseignants Ensimag
+ * @date 2014-11-17
+ */
 class Firemen implements Simulable {
 	private int nbLignes;
 	private int nbColonnes;
@@ -35,7 +44,13 @@ class Firemen implements Simulable {
     private String filename;
     private Simulateur simulateur;
     private Manager manager;
-    
+   
+
+    /**
+     * Constructeur de l'interface graphique.
+     * @param data Données de simulation
+     * @param filename Nom du fichier de données
+     */
 	public Firemen(DonneesSimulation data, String filename) {
 		// cree l'IHM et l'associe a ce simulateur (this), qui en tant que
         // Simulable recevra les evenements suite aux actions de l'utilisateur
@@ -51,6 +66,10 @@ class Firemen implements Simulable {
 		dessine();    // mettre a jour l'affichage
 	}
 	
+
+    /**
+     * Avance d'un pas dans la simulation.
+     */
 	@Override
 	public void next() {
 		try {
@@ -63,6 +82,10 @@ class Firemen implements Simulable {
         }
 	}
 
+
+    /**
+     * Réinitialise la simulation dans son état initial.
+     */
     @Override
     public void restart() {
         try {
@@ -76,6 +99,10 @@ class Firemen implements Simulable {
         }
     }
 
+
+    /**
+     * Dessine les données de la simulation dans l'interface graphique.
+     */
     private void dessine() {
         // Afficher les donnees 		
         try {

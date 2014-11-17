@@ -1,12 +1,27 @@
+/**
+ * Scénario 1 de Manager.
+ * Ce manager teste les déplacements, le remplissage, la vidange de robots ainsi que l'extinction d'incendies.
+ * @author Amanda Sambath
+ * @date 2014-11-15
+ */
 public class ManagerScenario1 extends Manager {
     int i;
 
-	// Constructeur
+
+    /**
+     * Constructeur de manager.
+     * @param simu Simulateur associé
+     * @param simuData Données de simulation associées
+     */
 	public ManagerScenario1(Simulateur simu, DonneesSimulation simuData) {
 		super(simu, simuData);
         i = 0;
 	}
 
+
+    /**
+     * Méthode de gestion des événements à exécuter.
+     */
 	@Override
     public void manage() {
 		Robot r = simuData.getRobots().get(1);
@@ -42,14 +57,25 @@ public class ManagerScenario1 extends Manager {
         this.i = i+1;
 	}
 
+
+    /**
+     * Indique le succès de l'exécution d'un événement.
+     * @param e Evénement exécuté
+     */
 	@Override
 	public void signaleSuccessEvent(Evenement e) {
 		return;
 	}
 
+
+    /**
+     * Indique l'échec de l'exécution d'un événement.
+     * @param e Evénement exécuté
+     */
 	@Override
 	public void signaleFailEvent(Evenement e) {
 		System.out.println("[ERR] Erreur de simulation du Scenario 1");
 		return;
 	}
+
 }

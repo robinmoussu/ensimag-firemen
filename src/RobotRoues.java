@@ -16,8 +16,10 @@ public class RobotRoues extends Robot {
      * @param pos Case sur laquelle le robot est crée
      */
     public RobotRoues(Case pos) {
-        super(pos, vitesse, volumeMax, tempsRemplissage, volumeIntervention, dureeIntervention);
-        volumeEau = volumeMax;
+        super(pos, vitesse, volumeMax, tempsRemplissage, volumeIntervention,
+                dureeIntervention);
+        volumeEau = volumeMax; // Remplir le réservoir
+
     }
     /**
      * Constructeur de robot à roues.
@@ -39,7 +41,8 @@ public class RobotRoues extends Robot {
      */
     @Override
     public int getVitesse(NatureTerrain terrain) {
-        if(terrain == NatureTerrain.TERRAIN_LIBRE || terrain == NatureTerrain.HABITAT) {
+        if(terrain == NatureTerrain.TERRAIN_LIBRE
+                || terrain == NatureTerrain.HABITAT) {
             return this.vitesse;
         }
         else {
@@ -64,8 +67,11 @@ public class RobotRoues extends Robot {
      */
     @Override
     public void deplacer(Case c) throws SimulationException {
-        if(c.estVoisine(this.getPosition())==false || (c.getTerrain()!=NatureTerrain.TERRAIN_LIBRE && c.getTerrain()!=NatureTerrain.HABITAT) ) {
-            throw new SimulationException("Case inaccessible pour le robot sélectionné !");
+        if(c.estVoisine(this.getPosition())==false
+                || (c.getTerrain()!=NatureTerrain.TERRAIN_LIBRE
+                && c.getTerrain()!=NatureTerrain.HABITAT) ) {
+            throw new SimulationException("Case inaccessible pour le robot"
+                    + "sélectionné !");
         }
         
         this.setPosition(c);
@@ -75,15 +81,22 @@ public class RobotRoues extends Robot {
     /**
      * Remplir le réservoir d'eau du robot si la case le permet.
      * @param carte Carte sur laquelle le robot évolue
-     * @throws SimulationException si la case courante ne permet pas un remplissage du réservoir
+     * @throws SimulationException si la case courante ne permet pas un
+     * remplissage du réservoir
      */
     @Override
     public void remplirReservoir(Carte carte) throws SimulationException {
         if(carte.estBordEau(this.getPosition()) != true) {
-            throw new SimulationException("Impossible de remplir le réservoir sur la case actuelle !");
+            throw new SimulationException("Impossible de remplir le réservoir "
+                    + "sur la case actuelle !");
         }
         
         this.volumeEau = this.volumeMax;
     } 
+
+    @Override
+    public ValideCase getValidateur() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 }

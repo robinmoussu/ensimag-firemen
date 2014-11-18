@@ -34,13 +34,14 @@ CARTE=cartes/carteSujet.txt
 
 all: exeAfficheSimulation exeTest
 
-exeTest: exeIHM exeTestJunit exeTestLecture
-
 ########################################################################################
-# programme
+# programmes
 
 makeAfficheSimulation:
 	javac -d $(BIN) -classpath $(BIN)/ihm.jar -sourcepath $(SRC) $(SRC)/MainClass.java
+
+exeIHM: makeIHM
+	java -classpath $(BIN):$(BIN)/ihm.jar TestIHM
 
 exeAfficheSimulation: makeAfficheSimulation
 	java -classpath $(BIN):$(BIN)/ihm.jar MainClass cartes/carteSujet.txt
@@ -50,6 +51,8 @@ clean:
 
 ########################################################################################
 # tests
+
+exeTest: exeIHM exeTestJunit exeTestLecture
 
 makeIHM:
 	javac -d $(BIN) -classpath $(BIN)/ihm.jar -sourcepath $(SRC) $(TEST)/TestIHM.java
@@ -70,6 +73,7 @@ CLASSPATH=$(BIN):$(BIN)/ihm.jar
 #--------- Name of Junit test in order of wanted excecution -------------  
 JUNIT_LIST= $(PACKAGE)testAstar\
             $(PACKAGE)testCase\
+			#$(PACKAGE)testManagerDynamique\
 
 JUNITPATH=  /usr/share/java/junit.jar
 

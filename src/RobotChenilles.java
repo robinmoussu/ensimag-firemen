@@ -89,4 +89,9 @@ public class RobotChenilles extends Robot {
         this.volumeEau = this.volumeMax;
     } 
 
+    @Override
+    public ValideCase getValidateur() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

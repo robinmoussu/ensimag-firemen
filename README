@@ -2,15 +2,12 @@ Ensimag 2A POO - TP 2014/15
 ============================
 
 Groupe :
-  - BACKENSTRASS Thibaud, 2A SLE
-  - MOUSSU Robin, 2A SLE
-  - SAMBATH Amanda, 2A SLE
+- BACKENSTRASS Thibaud, 2A SLE
+- MOUSSU Robin, 2A SLE
+- SAMBATH Amanda, 2A SLE
 
 
 Ce qui est rendu :
-Le sujet a pu être traité dans sa totalité. Les robots se déplacent et
-vont éteindre les incendies en utilisant l'algorithme Astar pour trouver
-le plus court chemin.
 
 - src: contient les classes du programme
   => METTRE ICI UNE LISTE DES CLASSES ET CE A QUOI ELLES SERVENT
@@ -19,9 +16,17 @@ le plus court chemin.
 
 - bin: répertoire de compilation, contient les classes de l'interface graphique
 
-- test: les tests unitaires réalisés sur l'algorithme du plus court chemin avec Junit
+- test: les classes de test et les tests unitaires réalisés sur
+        l'algorithme du plus court chemin avec Junit
 
 
+Etat du projet :
 
-
-
+Le sujet a pu être traité dans sa totalité. Les robots se déplacent et
+vont éteindre les incendies en utilisant l'algorithme Astar pour trouver
+le plus court chemin.
+La validation des classes a été faite au fur et à mesure de leur
+développement en utilisant des classes de tests pour les plus simples,
+des tests unitaires pour les plus complexes (algorithme du plus court
+chemin). Ces tests unitaires ont été effectués grâce à Junit. Les
+programmes de tests peuvent être trouvés dans le répertoire test/.

@@ -139,6 +139,7 @@ public class testManagerDynamique {
             
             depart = data.getCarte().getCase(1,1);
             int distanceEau = initCarte1Eau(data, depart);
+            int distanceFeu = initCarte1Feu(data, depart);
             
             // initialisation du robot
             robot  = new RobotRoues(depart);
@@ -150,7 +151,7 @@ public class testManagerDynamique {
             ///////////////////////////////////////////////////////////////////
             
             scenarioChercherEau(data, robot, distanceEau, manager);
-            scenarioChercherFeu(data, robot, distanceEau, manager);
+            scenarioChercherFeu(data, robot, distanceFeu, manager);
             
         } catch (ConstructionException | SimulationException ex) {
             Logger.getLogger(testManagerDynamique.class.getName()).log(

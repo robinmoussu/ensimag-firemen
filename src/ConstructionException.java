@@ -4,10 +4,7 @@
  * @date 2014-11-14
  */
 public class ConstructionException extends Exception {
-    
-    // Constructeur
     public ConstructionException(String msg) {
         super(msg);
     }
-
 }

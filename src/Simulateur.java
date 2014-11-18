@@ -1,24 +1,38 @@
 import java.util.PriorityQueue;
 
+/**
+ * Simulateur qui contrôle les événements de la simulation et les exécute.
+ * @author Amanda Sambath
+ * @date 2014-11-15
+ */
 public class Simulateur {
-
 	private Date dateSimulation;
 	private PriorityQueue<Evenement> evenements;
 	private Manager manager = null;
 
-	// Constructeur
+
+	/**
+     * Construction d'un simulateur à la date courante.
+     * @param Objet-date servant de point de départ pour la simulation
+     */
 	public Simulateur(Date date) {
 		this.dateSimulation = date;
 		this.evenements = new PriorityQueue<Evenement>();
 	}
 
-	// Accesseurs
+
+	/**
+     * Accesseur sur la date courante du simulateur.
+     * @return Objet-date représentant la date courante de simulation
+     */
 	public Date getDate() {
 		return this.dateSimulation;
 	}
-	public PriorityQueue<Evenement> getEvents() {
-		return this.evenements;
-	}
+    /**
+     * Accesseur sur le manager associé au simulateur.
+     * @return Manager associé à la création des événements du simulateur
+     * @throws SimulationException si aucun manager n'est associé au simulateur
+     */
 	public Manager getManager() throws SimulationException {
         if(this.manager == null) {
             throw new SimulationException("Aucun manager associé au simulateur !");
@@ -27,27 +41,30 @@ public class Simulateur {
 		return this.manager;
 	}
 
-	// Mutateur
+
+	/**
+     * Mutateur du manager associé au simulateur.
+     * @param manager Référence sur le manager à associer au simulateur
+     */
 	public void setManager(Manager manager) {
 		this.manager = manager;
 	}
 
+
 	/**
-      * ajouteEvement(e)
-	  * Ajoute un evenement à la file prioritaire des evenements à realiser
-	  *
-	  * @param Evenement e : evenement a ajouter aux evenements a executer
-	  */
+	 * Ajoute un événement à la liste des événement à exécuter.
+	 * @param e Evénement à ajouter
+	 */
 	public void ajouteEvenement(Evenement e) {
 		evenements.add(e);
 	}
 
+
 	/**
-      * incrementeDate(t)
-	  * Mise à jour de la date
-	  *
-	  * @param long t : nombres de tics a ajouter a la date courrante du Simulateur
-	  */
+	 * Avance d'un pas dans la simulation.
+	 * @param t Nombre de secondes à ajouter à la date courante du simulateur
+     * @throws SimulationException si aucun manager n'est associé au simulateur
+	 */
 	public void incrementeDate(long t) throws SimulationException {
         if(this.manager == null) {
             throw new SimulationException("Aucun manager associé au simulateur !");
@@ -73,11 +90,11 @@ public class Simulateur {
 		manager.manage();
 	}
 
-	/** simulationTermine()
-	  * Retourne true si la liste d'évenement est vide
-	  *
-	  * @return boolean : retourne true si la simulation est terminee, ie. si la liste des evenements a executer est vide
-	  */
+
+	/**
+     * Indique si la liste des événements est vide.
+     * @return Booléen indiquant si la simulation est terminée
+     */
 	private boolean simulationTermine() {
 		if (evenements.size() == 0) {
 			return true;

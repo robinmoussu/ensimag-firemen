@@ -40,9 +40,6 @@ all: exeAfficheSimulation exeTest
 makeAfficheSimulation:
 	javac -d $(BIN) -classpath $(BIN)/ihm.jar -sourcepath $(SRC) $(SRC)/MainClass.java
 
-exeIHM: makeIHM
-	java -classpath $(BIN):$(BIN)/ihm.jar TestIHM
-
 exeAfficheSimulation: makeAfficheSimulation
 	java -classpath $(BIN):$(BIN)/ihm.jar MainClass cartes/carteSujet.txt
 

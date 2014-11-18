@@ -17,6 +17,7 @@ public abstract class Manager {
         this.simuData = simuData;
     }
 
+
     /**
      * manage() Methode abstraite qui dans les sous-classes concretes de Manager
      * implemente le choix des evenements a executer (predefini a l'avance ou
@@ -24,6 +25,7 @@ public abstract class Manager {
      * @throws SimulationException
      */
     public abstract void manage() throws SimulationException;
+
 
     /**
      * signaleSuccessEvent(e) Est appelee sur un manager concret lorsque

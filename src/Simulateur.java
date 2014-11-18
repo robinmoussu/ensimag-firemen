@@ -81,6 +81,7 @@ public class Simulateur {
    				manager.signaleSuccessEvent(e);
     		}
 	    	catch(SimulationException exc) {
+                System.out.println(exc.getMessage());
 		    	manager.signaleFailEvent(e); // Signal d'échec
 			}
 			e = evenements.peek();

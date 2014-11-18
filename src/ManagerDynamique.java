@@ -12,6 +12,11 @@ import java.util.PriorityQueue;
  * @author robin
  */
 public class ManagerDynamique extends Manager {
+
+    enum Objectif {
+        ChercheEau,
+        None,
+    }
     
     ArrayList<Managed> managed;
 
@@ -112,10 +117,5 @@ public class ManagerDynamique extends Manager {
         if (m.parcourt != null) {
             m.typeObjectif = Objectif.ChercheEau;
         }
-    }
-
-    enum Objectif {
-        ChercheEau,
-        None,
     }
 }

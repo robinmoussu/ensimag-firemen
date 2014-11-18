@@ -150,7 +150,24 @@ abstract class Robot implements ValideCase {
         return true;
     }
 
+    /**
+     * @param carte
+     * @return true si le robot peut être remplis
+     */
     public boolean estRemplissable(Carte carte) {
         return carte.estBordEau(this.position);
+    }
+    
+    /** 
+     * @param simuData
+     * @return true si le robot peut éteindre un feu
+     */
+    public boolean peutEteindreFeu(DonneesSimulation simuData) {
+        for (Incendie incendie : simuData.getIncendies()) {
+            if (this.position.equals(incendie.getPosition())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

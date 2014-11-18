@@ -1,7 +1,5 @@
 /**
  * Interface permettant de s'assurer que des classes peuvent valider le parcours d'une case.
- * @author Robin Moussu
- * @date 2014-11-17
  */
 public interface ValideCase {
     

@@ -79,6 +79,7 @@ abstract class Robot {
      * @return Chaîne représentant le robot sur l'interface graphique
      */
     abstract public String getImage();
+    abstract public ValideCase getValidateur();
 
 
     /**
@@ -89,9 +90,16 @@ abstract class Robot {
         this.position = c;
     }
     
+    // Predicats
+    public boolean estPlein() {
+        return this.volumeEau == this.volumeMax;
+    }
+    public boolean estVide() {
+        return this.volumeEau == 0;
+    }
     
-    /**
-     * Vider le réservoir d'eau d'un robot.
+    /** Vider le réservoir d'eau d'un robot.
+    * 
      * @param simulation Données de simulation
      * @param nbInterventions Nombre d'interventions unitaires à effectuer
      * @throws SimulationException si le réservoir est vide

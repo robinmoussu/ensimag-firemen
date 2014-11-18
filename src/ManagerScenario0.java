@@ -5,8 +5,8 @@
  * @date 2014-11-15
  */
 public class ManagerScenario0 extends Manager {
-    int i;
 
+    int i;
     
     /**
      * Constructeur du manager.
@@ -47,7 +47,6 @@ public class ManagerScenario0 extends Manager {
         this.i = i + 1;
     }
 
-
     /**
      * Indiquer le succès de l'exécution d'un événement.
      * @param e Evénement exécuté
@@ -56,7 +55,6 @@ public class ManagerScenario0 extends Manager {
     public void signaleSuccessEvent(Evenement e) {
         return;
     }
-
 
     /**
      * Indiquer l'échec de l'exécution d'un événement.
@@ -67,5 +65,4 @@ public class ManagerScenario0 extends Manager {
         System.out.println("[ERR] Erreur de simulation dans le Scenario 0");
         return;
     }
-
 }

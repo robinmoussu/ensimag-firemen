@@ -128,7 +128,7 @@ public class testManagerDynamique {
 
         assertThat("Le robot doit être à proximitée de l'eau. "
                 + "Position courante " + robot.getPosition() + ". ", true,
-                is(data.getCarte().estBordEau(robot.getPosition())));
+                is(robot.estRemplissable(data.getCarte())));
 
         manager.manage();
         assertThat("Le robot doit être désormais remplis", true,

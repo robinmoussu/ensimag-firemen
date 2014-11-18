@@ -1,18 +1,27 @@
 Ensimag 2A POO - TP 2014/15
 ============================
 
-- src: contient les classes fournies par les enseignants 
-  -> LecteurDonnees.java         : lit tous les elements d'un fichier de description de donnees (cases, incendies et robots) et les affiche.
-                                   A vous de modifier cette classe pour creer les objets correspondants à vos propres classes
-  -> ExceptionFormatDonnees.java : exception levee en cas de probleme de lecture
-  -> TestLecteurDonnees.java     : lit un fichier de donnees et affiche son contenu
-  -> TestIHM                     : cree une fenetre graphique "Invaders"
+Groupe :
+  - BACKENSTRASS Thibaud, 2A SLE
+  - MOUSSU Robin, 2A SLE
+  - SAMBATH Amanda, 2A SLE
 
-- cartes: quelques exemples de fichiers de donnees
 
-- bin/ihm.jar: archive Java contenant les classes de l'interface graphique. Voir un exemple d'utilisation dans TestIHM.java
+Ce qui est rendu :
+Le sujet a pu être traité dans sa totalité. Les robots se déplacent et
+vont éteindre les incendies en utilisant l'algorithme Astar pour trouver
+le plus court chemin.
 
-- doc: la documentation (API) des classes de l'interface graphique contenues dans ihm.jar. Point d'entrée: index.html
+- src: contient les classes du programme
+  => METTRE ICI UNE LISTE DES CLASSES ET CE A QUOI ELLES SERVENT
 
-- Makefile: quelques explications sur la compilation en ligne, notamment la notion de classpath et l'utilisation de ihm.jar
+- cartes: quelques exemples de fichiers de données
+
+- bin: répertoire de compilation, contient les classes de l'interface graphique
+
+- test: les tests unitaires réalisés sur l'algorithme du plus court chemin avec Junit
+
+
+
+
 

@@ -151,7 +151,8 @@ public class testManagerDynamique {
             ///////////////////////////////////////////////////////////////////
             
             scenarioChercherEau(data, robot, distanceEau, manager);
-            scenarioChercherFeu(data, robot, distanceFeu, manager);
+            scenarioChercherFeu(data, robot, distanceEau + distanceFeu -1,
+                    manager);
             
         } catch (ConstructionException | SimulationException ex) {
             Logger.getLogger(testManagerDynamique.class.getName()).log(

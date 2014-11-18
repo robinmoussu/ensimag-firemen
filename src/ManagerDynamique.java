@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import java.util.ListIterator;
 import java.util.PriorityQueue;
 
 /*
@@ -12,12 +13,6 @@ import java.util.PriorityQueue;
  * @author robin
  */
 public class ManagerDynamique extends Manager {
-
-    enum Objectif {
-        ChercheEau,
-        ChercheFeu,
-        None,
-    }
     
     ArrayList<Managed> managed;
 
@@ -29,24 +24,7 @@ public class ManagerDynamique extends Manager {
         
         managed = new ArrayList<>(robots.size());
         for(Robot robot: robots) {
-            managed.add(new Managed(robot));
-        }
-    }
-
-    static protected class Managed {
-        protected Robot robot;
-
-        /** Le parcourt en court du robot
-         * Peut être null si le robot n'a pas de tache affecté en court
-         */
-        protected Astar parcourt;
-        
-        protected Objectif typeObjectif;
-        
-        public Managed(Robot robot) {
-            this.robot = robot;
-            this.parcourt = null;
-            this.typeObjectif = Objectif.None;
+            managed.add(new DoNothing(robot));
         }
     }
     
@@ -60,47 +38,22 @@ public class ManagerDynamique extends Manager {
                     + "manager avant d'avoir fini d'ajouter touts les robots à "
                     + "la simulation ?");
         }
-        
-        for(Managed m : managed) {
-            if (m.typeObjectif == Objectif.None) {
+        ListIterator<Managed> itr = this.managed.listIterator();
+        while (itr.hasNext()) {
+            Managed m = itr.next();
+            if (m.actionFinie()) {
                 // Il faut lui trouver un nouvel objectif
-                
+
                 if (m.robot.estVide()) {
-                    initChercherEau(m);
+                    m = new ChercheEau(this.simuData, m.getRobot());
+                    itr.set(m);
                 } else {
-                    initChercherIncendie(m);
+                    m = new EteindreIncendie(this.simuData, m.getRobot());
+                    itr.set(m);
                 }
             }
-
-            switch (m.typeObjectif) {
-            case ChercheEau:
-                System.out.println("Recherche d'eau…");
-                if (m.robot.estRemplissable(this.simuData.getCarte())) {
-                    System.out.println("On remplie le robot…");
-                    m.robot.remplirReservoir(this.simuData.getCarte());
-                } else {
-                    System.out.println("On rapproche le robot");
-                    m.robot.deplacer(m.parcourt.next(
-                            m.robot.getPosition()));
-                }
-                break;
-
-            case ChercheFeu:
-                System.out.println("Recherche d'incendies…");
-                if (m.robot.peutEteindreFeu(this.simuData)) {
-                    System.out.println("On éteind l'incendie…");
-                    m.robot.deverserEau(this.simuData, 1);
-                } else {
-                    System.out.println("On rapproche le robot");
-                    m.robot.deplacer(m.parcourt.next(
-                            m.robot.getPosition()));
-                }
-                break;
-
-            default:
-                System.err.println("Le robot " + m.robot
-                        + " n'a plus rien à faire");
-            }
+            
+            m.doAction();
         }
     }
 
@@ -113,43 +66,121 @@ public class ManagerDynamique extends Manager {
     public void signaleFailEvent(Evenement e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+}
+
+abstract class Managed {
+    protected Robot robot;
+    protected boolean finished;
+
+    public Managed(Robot robot) {
+        this.robot = robot;
+        this.finished = false;
+    }
     
-    ////////////////////
-    // protected
+    public boolean actionFinie() {
+        return this.finished;
+    }
+
+    public Robot getRobot() {
+        return robot;
+    }
     
-    protected void initChercherEau(Managed m) throws SimulationException {
+    abstract void doAction() throws SimulationException;
+}
+
+class DoNothing extends Managed {
+
+    public DoNothing(Robot robot) {
+        super(robot);
+        this.finished = true;
+    }
+
+    @Override
+    void doAction() {
+        // Rien à faire
+        System.err.println("Le robot " + this.robot + " n'a plus rien à faire");
+    }
+
+}
+
+class ChercheEau extends Managed {
+    protected Astar parcourt;
+    protected DonneesSimulation data;
+
+    public ChercheEau(DonneesSimulation data, Robot robot)
+            throws SimulationException {
+        super(robot);
+        this.data = data;
+        
         // On rempli le robot avec l'eau la plus proche
         Astar astar;
         PriorityQueue<Astar> eauProche;
 
         eauProche = new PriorityQueue<>();
-        for (Case eau : this.simuData.getCaseEau()) {
-            astar = new Astar(this.simuData.getCarte(),
-                    m.robot.getPosition(), eau, m.robot);
+        for (Case eau : data.getCaseEau()) {
+            astar = new Astar(data.getCarte(),
+                    this.robot.getPosition(), eau, this.robot);
             eauProche.add(astar);
         }
         
-        m.parcourt = eauProche.peek();
-        if (m.parcourt != null) {
-            m.typeObjectif = Objectif.ChercheEau;
+        this.parcourt = eauProche.peek();
+        if (this.parcourt != null) {
+            finished = true;
+        }
+    }
+
+    @Override
+    void doAction() throws SimulationException {
+        System.out.println("Recherche d'eau…");
+        if (this.robot.estRemplissable(this.data.getCarte())) {
+            System.out.println("On remplie le robot…");
+            this.robot.remplirReservoir(this.data.getCarte());
+        } else {
+            System.out.println("On rapproche le robot");
+            this.robot.deplacer(this.parcourt.next(
+                    this.robot.getPosition()));
         }
     }
     
-    private void initChercherIncendie(Managed m) throws SimulationException {
+}
+
+class EteindreIncendie extends Managed {
+    protected Astar parcourt;
+    protected DonneesSimulation data;
+
+    public EteindreIncendie(DonneesSimulation data, Robot robot)
+            throws SimulationException {
+        super(robot);
+        this.data = data;
+        
         // On cherche l'incendie le plus proche
         Astar astar;
         PriorityQueue<Astar> feuProche;
         
         feuProche = new PriorityQueue<>();
-        for (Incendie feu : this.simuData.getIncendies()) {
-            astar = new Astar(this.simuData.getCarte(),
-                    m.robot.getPosition(), feu.getPosition(), m.robot);
+        for (Incendie feu : data.getIncendies()) {
+            astar = new Astar(data.getCarte(),
+                    this.robot.getPosition(), feu.getPosition(), this.robot);
             feuProche.add(astar);
         }
         
-        m.parcourt = feuProche.peek();
-        if (m.parcourt != null) {
-            m.typeObjectif = Objectif.ChercheFeu;
+        this.parcourt = feuProche.peek();
+        if (this.parcourt != null) {
+            finished = true;
         }
     }
+
+    @Override
+    void doAction() throws SimulationException {
+        System.out.println("Recherche d'incendies…");
+        if (this.robot.peutEteindreFeu(this.data)) {
+            System.out.println("On éteind l'incendie…");
+            this.robot.deverserEau(this.data, 1);
+        } else {
+            System.out.println("On rapproche le robot");
+            this.robot.deplacer(this.parcourt.next(
+                    this.robot.getPosition()));
+        }
+    }
+    
 }

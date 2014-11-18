@@ -15,6 +15,7 @@ public class ManagerDynamique extends Manager {
 
     enum Objectif {
         ChercheEau,
+        ChercheFeu,
         None,
     }
     
@@ -66,24 +67,39 @@ public class ManagerDynamique extends Manager {
                 
                 if (m.robot.estVide()) {
                     initChercherEau(m);
+                } else {
+                    initChercherIncendie(m);
                 }
             }
-            
-            if (m.typeObjectif != Objectif.None) {
-                if (m.typeObjectif == Objectif.ChercheEau) {
-                    System.out.println("Recherche d'eau…");
-                    if (m.robot.estRemplissable(this.simuData.getCarte())) {
-                        System.out.println("On remplie le robot…");
-                        m.robot.remplirReservoir(this.simuData.getCarte());
-                    } else {
-                        System.out.println("On rapproche le robot");
-                        m.robot.deplacer(m.parcourt.next(
+
+            switch (m.typeObjectif) {
+            case ChercheEau:
+                System.out.println("Recherche d'eau…");
+                if (m.robot.estRemplissable(this.simuData.getCarte())) {
+                    System.out.println("On remplie le robot…");
+                    m.robot.remplirReservoir(this.simuData.getCarte());
+                } else {
+                    System.out.println("On rapproche le robot");
+                    m.robot.deplacer(m.parcourt.next(
                             m.robot.getPosition()));
-                    }
                 }
-            } else {
-                System.err.println("Le robot " + m.robot +
-                        " n'a plus rien à faire");
+                break;
+
+            case ChercheFeu:
+                System.out.println("Recherche d'incendies…");
+                if (m.robot.peutEteindreFeu(this.simuData)) {
+                    System.out.println("On éteind l'incendie…");
+                    m.robot.deverserEau(this.simuData, 1);
+                } else {
+                    System.out.println("On rapproche le robot");
+                    m.robot.deplacer(m.parcourt.next(
+                            m.robot.getPosition()));
+                }
+                break;
+
+            default:
+                System.err.println("Le robot " + m.robot
+                        + " n'a plus rien à faire");
             }
         }
     }
@@ -116,6 +132,24 @@ public class ManagerDynamique extends Manager {
         m.parcourt = eauProche.peek();
         if (m.parcourt != null) {
             m.typeObjectif = Objectif.ChercheEau;
+        }
+    }
+    
+    private void initChercherIncendie(Managed m) throws SimulationException {
+        // On cherche l'incendie le plus proche
+        Astar astar;
+        PriorityQueue<Astar> feuProche;
+        
+        feuProche = new PriorityQueue<>();
+        for (Incendie feu : this.simuData.getIncendies()) {
+            astar = new Astar(this.simuData.getCarte(),
+                    m.robot.getPosition(), feu.getPosition(), m.robot);
+            feuProche.add(astar);
+        }
+        
+        m.parcourt = feuProche.peek();
+        if (m.parcourt != null) {
+            m.typeObjectif = Objectif.ChercheFeu;
         }
     }
 }

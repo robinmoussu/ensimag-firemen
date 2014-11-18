@@ -152,8 +152,8 @@ public class testManagerDynamique {
                     is(robot.getPosition()));
 
             manager.manage();
-            assertThat("Le feu doit désormais être éteind", true,
-                    is(robot.estPlein()));
+            assertThat("Le feu doit désormais être éteind", 0,
+                    is(data.getIncendies().get(0).getIntensite()));
 
         } catch (ConstructionException | SimulationException ex) {
             Logger.getLogger(testManagerDynamique.class.getName()).log(

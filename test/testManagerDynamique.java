@@ -104,7 +104,66 @@ public class testManagerDynamique {
         }
     }
     
-    ///////////////////////////////////////////////////////////////////////////
+    @Test
+    public void eteindreFeu() {
+        try {
+            Robot robot;
+            ManagerDynamique manager;
+            Simulateur simu;
+            DonneesSimulation data;
+            Case depart, eau, feu;
+            int distanceEau, distanceFeu;
+            
+            simu = new Simulateur(new Date());
+            data = new DonneesSimulation(1000, 1000, 1000);
+            
+            // initalisation de la carte
+            distanceEau = 10;
+            distanceFeu = 15;
+            int x = 1;
+            int y = 1;
+            depart = data.getCarte().getCase(x, y);
+            eau = new Case(x, y + distanceEau, NatureTerrain.EAU);
+            data.addCase(eau);
+            feu = new Case(x + distanceFeu, y, NatureTerrain.HABITAT);
+            data.addCase(feu);
+            data.addIncendie(feu, 1); // On initialise un feu simple à éteindre
+            
+            // initialisation du robot
+            robot  = new RobotRoues(depart);
+            data.addRobot(depart, robot);
+            
+            manager = new ManagerDynamique(simu, data);
+            
+            //////////////////////////////////////////////////////////////////
+            
+            // Le robot est situé à une distance de distanceFeu unitées du
+            // bord d'eau
+            for (int i = 0; i <= distanceFeu - 1; i++) {
+                Case prev = robot.getPosition();
+                manager.manage();
+                assertThat("Le robot doit se deplacer", prev,
+                        is(not(robot.getPosition())));
+                System.out.println(robot.getPosition());
+            }
+
+            assertThat("Le robot doit être sur l'incendie. "
+                    + "Position courante " + robot.getPosition() + ". ", feu,
+                    is(robot.getPosition()));
+
+            manager.manage();
+            assertThat("Le feu doit désormais être éteind", true,
+                    is(robot.estPlein()));
+
+        } catch (ConstructionException | SimulationException ex) {
+            Logger.getLogger(testManagerDynamique.class.getName()).log(
+                    Level.SEVERE, null, ex);
+            fail(ex.toString());
+        }
+
+    }
+    
+    //////////////////////////////////////////////////////////////////////////
     
     void scenarioChercherEau(DonneesSimulation data, Robot robot,
             int distanceEau, Manager manager)

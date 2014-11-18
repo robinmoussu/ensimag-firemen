@@ -47,18 +47,6 @@ public class ManagerDynamique extends Manager {
             this.parcourt = null;
             this.typeObjectif = Objectif.None;
         }
-        
-        public Robot getRobot() {
-            return this.robot;
-        }
-
-        public Astar getParcourt() {
-            return parcourt;
-        }
-
-        public Objectif getTypeObjectif() {
-            return typeObjectif;
-        }
     }
     @Override
     public void manage()
@@ -72,7 +60,7 @@ public class ManagerDynamique extends Manager {
         }
         
         for(Managed m : managed) {
-            if (m.getTypeObjectif() == Managed.Objectif.None) {
+            if (m.typeObjectif == Managed.Objectif.None) {
                 // Il faut lui trouver un nouvel objectif
                 
                 if (m.robot.estVide()) {
@@ -80,20 +68,20 @@ public class ManagerDynamique extends Manager {
                 }
             }
             
-            if (m.getTypeObjectif() != Managed.Objectif.None) {
-                if (m.getTypeObjectif() == Managed.Objectif.ChercheEau) {
+            if (m.typeObjectif != Managed.Objectif.None) {
+                if (m.typeObjectif == Managed.Objectif.ChercheEau) {
                     System.out.println("Recherche d'eau…");
                     if (this.simuData.getCarte().estBordEau(m.robot.position)) {
                         System.out.println("On remplie le robot…");
-                        m.getRobot().remplirReservoir(this.simuData.getCarte());
+                        m.robot.remplirReservoir(this.simuData.getCarte());
                     } else {
                         System.out.println("On rapproche le robot");
-                        m.getRobot().deplacer(m.getParcourt().next(
-                            m.getRobot().getPosition()));
+                        m.robot.deplacer(m.parcourt.next(
+                            m.robot.getPosition()));
                     }
                 }
             } else {
-                System.err.println("Le robot " + m.getRobot() +
+                System.err.println("Le robot " + m.robot +
                         " n'a plus rien à faire");
             }
         }

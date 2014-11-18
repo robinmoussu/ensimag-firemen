@@ -41,7 +41,7 @@ public class LecteurDonnees {
 
     
     /**
-     * Lit et stocker les donnees de la carte.
+     * Lire et stocker les donnees de la carte.
      * @throws ExceptionFormatDonnees en cas d'erreur de syntaxe dans le fichier de données
      */
     private void lireCarte() throws ExceptionFormatDonnees {
@@ -69,7 +69,7 @@ public class LecteurDonnees {
 
 
     /**
-     * Lit et stocker les donnees d'une case.
+     * Lire et stocker les donnees d'une case.
      * @param lig Numéro de la ligne de la case, à partir de zéro
      * @param col Numéro de la colonne de la case, à partir de zéro
      * @throws ExceptionFormatDonnees en cas d'erreur de syntaxe dans le fichier de données
@@ -94,7 +94,7 @@ public class LecteurDonnees {
 
 
     /**
-     * Lit et stocker les donnees des incendies.
+     * Lire et stocker les donnees des incendies.
      * @throws ExceptionFormatDonnees en cas d'erreur de syntaxe dans le fichier de données
      */
     private void lireIncendies() throws ExceptionFormatDonnees {
@@ -115,7 +115,7 @@ public class LecteurDonnees {
 
 
     /**
-     * Lit et stocker les donnees du i-eme incendie.
+     * Lire et stocker les donnees du i-eme incendie.
      * @param i Numéro de l'incendie à lire, à partir de zéro
      * @throws ExceptionFormatDonnees en cas d'erreur de syntaxe dans le fichier de données
      * @throws ConstructionException si les données du fichier sont invalides
@@ -144,7 +144,7 @@ public class LecteurDonnees {
     }
 
     /**
-     * Lit et stocker les donnees des robots.
+     * Lire et stocker les donnees des robots.
      * @throws ExceptionFormatDonnees en cas d'erreur de syntaxe dans le fichier de données
      */
     private void lireRobots() throws ExceptionFormatDonnees {
@@ -164,7 +164,7 @@ public class LecteurDonnees {
     }
 
     /**
-     * Lit et stocker les donnees du i-eme robot.
+     * Lire et stocker les donnees du i-eme robot.
      * @param i Numéro du robot à lire, à partir de zéro
      * @throws ExceptionFormatDonnees en cas d'erreur de syntaxe dans le fichier de données
      * @throws ConstructionException si les données du fichier sont invalides

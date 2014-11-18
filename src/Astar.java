@@ -9,12 +9,12 @@ import java.util.logging.Logger;
 
 /** Algorithme de résolution du plus court chemin utilisant la méthode Astar
  */
-public class Astar {
+public class Astar implements Comparable<Astar> {
     protected Carte carte;
     protected Case arrivee;
-    ValideCase validateur;
-    int lastIndex = 0;
-    Stack<Case> solution;
+    protected ValideCase validateur;
+    protected int lastIndex = 0;
+    protected Stack<Case> solution;
 
     public Astar(Carte carte, Case depart, Case arrivee, ValideCase validateur)
             throws SimulationException {
@@ -22,6 +22,14 @@ public class Astar {
         this.arrivee = arrivee;
         this.validateur = validateur;
         initParcourt(depart);
+    }
+
+    public int getDistance() {
+        return this.solution.size();
+    }
+    @Override
+    public int compareTo(Astar o) {
+        return this.getDistance() - o.getDistance();
     }
 
     private static class Graph {

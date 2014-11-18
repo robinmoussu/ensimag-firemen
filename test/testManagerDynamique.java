@@ -137,23 +137,7 @@ public class testManagerDynamique {
             
             //////////////////////////////////////////////////////////////////
             
-            // Le robot est situé à une distance de distanceFeu unitées du
-            // bord d'eau
-            for (int i = 0; i <= distanceFeu - 1; i++) {
-                Case prev = robot.getPosition();
-                manager.manage();
-                assertThat("Le robot doit se deplacer", prev,
-                        is(not(robot.getPosition())));
-                System.out.println(robot.getPosition());
-            }
-
-            assertThat("Le robot doit être sur l'incendie. "
-                    + "Position courante " + robot.getPosition() + ". ", feu,
-                    is(robot.getPosition()));
-
-            manager.manage();
-            assertThat("Le feu doit désormais être éteind", 0,
-                    is(data.getIncendies().get(0).getIntensite()));
+            scenarioChercherFeu(data, robot, distanceFeu, manager);
 
         } catch (ConstructionException | SimulationException ex) {
             Logger.getLogger(testManagerDynamique.class.getName()).log(
@@ -165,7 +149,7 @@ public class testManagerDynamique {
     
     //////////////////////////////////////////////////////////////////////////
     
-    void scenarioChercherEau(DonneesSimulation data, Robot robot,
+    private void scenarioChercherEau(DonneesSimulation data, Robot robot,
             int distanceEau, Manager manager)
             throws SimulationException
     {
@@ -192,5 +176,26 @@ public class testManagerDynamique {
         manager.manage();
         assertThat("Le robot doit être désormais remplis", true,
                 is(robot.estPlein()));
+    }
+
+    private void scenarioChercherFeu(DonneesSimulation data, Robot robot,
+            int distanceFeu, Manager manager) throws SimulationException {
+            // Le robot est situé à une distance de distanceFeu unitées du
+        // bord d'eau
+        for (int i = 0; i <= distanceFeu - 1; i++) {
+            Case prev = robot.getPosition();
+            manager.manage();
+            assertThat("Le robot doit se deplacer", prev,
+                    is(not(robot.getPosition())));
+            System.out.println(robot.getPosition());
+        }
+
+        assertThat("Le robot doit être sur l'incendie. "
+                + "Position courante " + robot.getPosition() + ". ", true,
+                is(robot.peutEteindreFeu(data)));
+
+        manager.manage();
+        assertThat("Le feu doit désormais être éteind", 0,
+                is(data.getIncendies().get(0).getIntensite()));
     }
 }

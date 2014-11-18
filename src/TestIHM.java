@@ -1,6 +1,12 @@
 import ihm.*;
 import java.awt.Color;
 
+
+/**
+ * Classe de test de l'interface graphique (Invaders).
+ * @author Enseignants Ensimag
+ * @date -
+ */
 public class TestIHM {
 	public static void main(String[] args) {		
 		Invaders invaders = new Invaders();

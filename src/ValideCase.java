@@ -1,11 +1,15 @@
-
+/**
+ * Interface permettant de s'assurer que des classes peuvent valider le parcours d'une case.
+ * @author Robin Moussu
+ * @date 2014-11-17
+ */
 public interface ValideCase {
     
-    /** prédicat permettant de valider le parcourt d'une case
-     *
-     * @param case_ Case à tester
-     * @return true si case_ peut être parcouru
+    /**
+     * Prédicat permettant de valider le parcours d'une case.
+     * @param c Case à tester
+     * @return Booléen indiquant si la case peut être parcourue
      */
-    boolean estValide(Case case_);
+    boolean estValide(Case c);
     
 }

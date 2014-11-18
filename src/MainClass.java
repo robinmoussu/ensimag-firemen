@@ -141,9 +141,9 @@ class Firemen implements Simulable {
             for (Incendie i : simulation.getIncendies()) {
                 if (i.getIntensite() > 0) {
                     double tailleImage;
-                    if (i.getIntensite() < 1000) {
+                    if (i.getIntensite() < 10000) {
                         tailleImage = 0.5;
-                    } else if (i.getIntensite() < 10000) {
+                    } else if (i.getIntensite() < 50000) {
                         tailleImage = 0.7;
                     } else {
                         tailleImage = 0.9;

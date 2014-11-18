@@ -23,6 +23,7 @@ public class DonneesSimulation {
         carte = new Carte(nbLignes, nbColonnes, tailleCases);
         incendies = new ArrayList<>();
         robots = new ArrayList<>();
+        caseEau = new ArrayList<>();
     }
 
 

@@ -35,7 +35,7 @@ CARTE=cartes/carteSujet.txt
 all: exeAfficheSimulation exeTest
 
 ########################################################################################
-# programmes
+# programes
 
 makeAfficheSimulation:
 	javac -d $(BIN) -classpath $(BIN)/ihm.jar -sourcepath $(SRC) $(SRC)/MainClass.java
@@ -49,7 +49,7 @@ clean:
 ########################################################################################
 # tests
 
-exeTest: exeIHM exeTestJunit exeTestLecture
+exeTest: exeIHM exeTestJunit
 
 makeIHM:
 	javac -d $(BIN) -classpath $(BIN)/ihm.jar -sourcepath $(SRC) $(TEST)/TestIHM.java
@@ -57,11 +57,10 @@ makeIHM:
 exeIHM: makeIHM
 	java -classpath $(BIN):$(BIN)/ihm.jar TestIHM
 
-makeTestLecture:
-	javac -d $(BIN) -sourcepath $(SRC) $(SRC)/TestLecteurDonnees.java
-
-exeTestLecture: makeTestLecture
-	java -classpath $(BIN) TestLecteurDonnees $(CARTE)
+#makeTestLecture:
+	#javac -d $(BIN) -sourcepath $(SRC) $(SRC)/TestLecteurDonnees.java
+#exeTestLecture: makeTestLecture
+	#java -classpath $(BIN) TestLecteurDonnees $(CARTE)
 
 
 #---------  All the acces to lib.jar and .class used during the test ------
@@ -70,7 +69,7 @@ CLASSPATH=$(BIN):$(BIN)/ihm.jar
 #--------- Name of Junit test in order of wanted excecution -------------  
 JUNIT_LIST= $(PACKAGE)testAstar\
             $(PACKAGE)testCase\
-			#$(PACKAGE)testManagerDynamique\
+			$(PACKAGE)testManagerDynamique\
 
 JUNITPATH=  /usr/share/java/junit.jar
 

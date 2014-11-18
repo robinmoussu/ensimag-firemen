@@ -198,6 +198,10 @@ public class Astar implements Comparable<Astar> {
                     }
                 }
             }
+            
+            if (eligible.size() == 0) {
+                throw new SimulationException("Pas de chemin trouvé");
+            }
         }
         
         // À ce point là, it == solution;

@@ -88,15 +88,9 @@ public class RobotRoues extends Robot {
     public void remplirReservoir(Carte carte) throws SimulationException {
         if(carte.estBordEau(this.getPosition()) != true) {
             throw new SimulationException("Impossible de remplir le réservoir "
-                    + "sur la case actuelle !");
+                    + "depuis la case actuelle " + this.position.toString() + "!");
         }
         
         this.volumeEau = this.volumeMax;
-    } 
-
-    @Override
-    public ValideCase getValidateur() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
 }

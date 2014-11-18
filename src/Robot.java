@@ -3,15 +3,15 @@
  * @author Thibaud Backenstrass
  * @date 2014-11-17
  */
-abstract class Robot {
-    private Case position;
+abstract class Robot implements ValideCase {
+    protected Case position;
     protected int volumeEau; // en litres, 0 par défaut
     // Attributs à définir dans les sous-classes
-    private int vitesse; // en km/h
-    private int volumeMax; // en litres
-    private int tempsRemplissage; // en secondes
-    private int volumeIntervention; // en litres
-    private int dureeIntervention; // en secondes
+    protected int vitesse; // en km/h
+    protected int volumeMax; // en litres
+    protected int tempsRemplissage; // en secondes
+    protected int volumeIntervention; // en litres
+    protected int dureeIntervention; // en secondes
     
 
     /**
@@ -79,7 +79,6 @@ abstract class Robot {
      * @return Chaîne représentant le robot sur l'interface graphique
      */
     abstract public String getImage();
-    abstract public ValideCase getValidateur();
 
 
     /**
@@ -134,5 +133,10 @@ abstract class Robot {
      * @throws SimulationException si la case courante ne permet pas un remplissage du réservoir
      */
     abstract public void remplirReservoir(Carte carte) throws SimulationException;
+
+    @Override
+    public boolean estValide(Case c) {
+        return true;
+    }
 
 }

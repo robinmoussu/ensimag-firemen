@@ -87,11 +87,5 @@ public class RobotPattes extends Robot {
     public void remplirReservoir(Carte carte) {
         // Action à adopter en cas de remplissage : exception ?
         this.volumeEau = this.volumeMax;
-    } 
-
-    @Override
-    public ValideCase getValidateur() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
 }

@@ -12,7 +12,7 @@ abstract class Robot implements ValideCase {
     protected int tempsRemplissage; // en secondes
     protected int volumeIntervention; // en litres
     protected int dureeIntervention; // en secondes
-    
+
 
     /**
      * Constructeur abstrait de robot.
@@ -23,7 +23,8 @@ abstract class Robot implements ValideCase {
      * @param volumeIntervention Volume d'une intervention unitaire (en litres)
      * @param dureeIntervention Durée d'une intervention unitaire (en secondes)
      */
-    public Robot(Case pos, int vitesse, int volumeMax, int tempsRemplissage, int volumeIntervention, int dureeIntervention) {
+    public Robot(Case pos, int vitesse, int volumeMax, int tempsRemplissage,
+            int volumeIntervention, int dureeIntervention) {
         this.position = pos;
         this.vitesse = vitesse;
         this.volumeMax = volumeMax;
@@ -31,7 +32,7 @@ abstract class Robot implements ValideCase {
         this.volumeIntervention = volumeIntervention;
         this.dureeIntervention = dureeIntervention;
     }
-    
+
 
     /**
      * Accesseur sur la position du robot.
@@ -40,6 +41,7 @@ abstract class Robot implements ValideCase {
     public Case getPosition() {
         return this.position;
     }
+
     /**
      * Accesseur sur le volume d'eau contenu dans le réservoir.
      * @return Volume d'eau (en litres) actuellement dans le réservoir du robot
@@ -47,6 +49,7 @@ abstract class Robot implements ValideCase {
     public int getVolumeEau() {
         return this.volumeEau;
     }
+
     /**
      * Accesseur sur la vitesse du robot en fonction de la nature du terrain.
      * @param terrain Nature du terrain sur la case du robot
@@ -88,7 +91,7 @@ abstract class Robot implements ValideCase {
     public void setPosition(Case c) {
         this.position = c;
     }
-    
+
     // Predicats
     public boolean estPlein() {
         return this.volumeEau == this.volumeMax;
@@ -96,29 +99,35 @@ abstract class Robot implements ValideCase {
     public boolean estVide() {
         return this.volumeEau == 0;
     }
-    
+
     /** Vider le réservoir d'eau d'un robot.
-    * 
+    *
      * @param simulation Données de simulation
      * @param nbInterventions Nombre d'interventions unitaires à effectuer
      * @throws SimulationException si le réservoir est vide
      */
-    public void deverserEau(DonneesSimulation simulation, int nbInterventions) throws SimulationException {
+    public void deverserEau(DonneesSimulation simulation, int nbInterventions)
+            throws SimulationException {
         if(volumeEau == 0 || nbInterventions>volumeEau/volumeIntervention) {
-            throw new SimulationException("Pas assez d'eau dans le réservoir !");
+            throw new SimulationException("Pas assez d'eau dans le réservoir "
+                    + "!");
         }
-        
-        this.volumeEau = this.volumeEau - nbInterventions*volumeIntervention; // Diminuer l'eau du reservoir du robot
-        for(Incendie i : simulation.getIncendies()) { // On parcourt les incendies pour voir s'il y en a un à éteindre
+
+        // Diminuer l'eau du reservoir du robot
+        this.volumeEau -= nbInterventions*volumeIntervention;
+        for(Incendie i : simulation.getIncendies()) { // On parcourt les
+            // incendies pour voir s'il y en a un à éteindre
             if(i.getPosition().equals(this.position) == true) {
                 i.decrementeIntensite(nbInterventions*volumeIntervention);
-                // TODO: supprimer l'incendie de la LinkedList dans les données de simulation ?
-                break; // Sortir du for, un robot n'est que sur une case à la fois...
+                // TODO: supprimer l'incendie de la LinkedList dans les données
+                // de simulation ?
+                break; // Sortir du for, un robot n'est que sur une case à la
+                // fois...
             }
         }
     }
 
-    
+
     /**
      * Déplacer le robot sur une case voisine compatible.
      * @param c Case sur laquelle déplacer le robot
@@ -130,13 +139,18 @@ abstract class Robot implements ValideCase {
     /**
      * Remplir le réservoir d'eau du robot si la case le permet.
      * @param carte Carte sur laquelle le robot évolue
-     * @throws SimulationException si la case courante ne permet pas un remplissage du réservoir
+     * @throws SimulationException si la case courante ne permet pas un
+     * remplissage du réservoir
      */
-    abstract public void remplirReservoir(Carte carte) throws SimulationException;
+    abstract public void remplirReservoir(Carte carte)
+            throws SimulationException;
 
     @Override
     public boolean estValide(Case c) {
         return true;
     }
 
+    public boolean estRemplissable(Carte carte) {
+        return carte.estBordEau(this.position);
+    }
 }

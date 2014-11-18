@@ -37,17 +37,13 @@ public class ManagerDynamique extends Manager {
         
         protected Objectif typeObjectif;
         
-        enum Objectif {
-            ChercheEau,
-            None,
-        }
-
         public Managed(Robot robot) {
             this.robot = robot;
             this.parcourt = null;
             this.typeObjectif = Objectif.None;
         }
     }
+    
     @Override
     public void manage()
             throws SimulationException {
@@ -60,18 +56,18 @@ public class ManagerDynamique extends Manager {
         }
         
         for(Managed m : managed) {
-            if (m.typeObjectif == Managed.Objectif.None) {
+            if (m.typeObjectif == Objectif.None) {
                 // Il faut lui trouver un nouvel objectif
                 
                 if (m.robot.estVide()) {
-                    vaChercherEau(m);
+                    initChercherEau(m);
                 }
             }
             
-            if (m.typeObjectif != Managed.Objectif.None) {
-                if (m.typeObjectif == Managed.Objectif.ChercheEau) {
+            if (m.typeObjectif != Objectif.None) {
+                if (m.typeObjectif == Objectif.ChercheEau) {
                     System.out.println("Recherche d'eau…");
-                    if (this.simuData.getCarte().estBordEau(m.robot.position)) {
+                    if (m.robot.estRemplissable(this.simuData.getCarte())) {
                         System.out.println("On remplie le robot…");
                         m.robot.remplirReservoir(this.simuData.getCarte());
                     } else {
@@ -100,7 +96,7 @@ public class ManagerDynamique extends Manager {
     ////////////////////
     // protected
     
-    protected void vaChercherEau(Managed m) throws SimulationException {
+    protected void initChercherEau(Managed m) throws SimulationException {
         // On rempli le robot avec l'eau la plus proche
         Astar astar;
         PriorityQueue<Astar> eauProche;
@@ -114,7 +110,12 @@ public class ManagerDynamique extends Manager {
         
         m.parcourt = eauProche.peek();
         if (m.parcourt != null) {
-            m.typeObjectif = Managed.Objectif.ChercheEau;
+            m.typeObjectif = Objectif.ChercheEau;
         }
+    }
+
+    enum Objectif {
+        ChercheEau,
+        None,
     }
 }

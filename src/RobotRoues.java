@@ -77,6 +77,15 @@ public class RobotRoues extends Robot {
         this.setPosition(c);
     }
 
+    /**
+     * Savoir si le robot peut être rempli sur la case courante.
+     * @param carte Carte sur laquelle le robot se trouve
+     * @return true si le robot peut être rempli
+     */
+    @Override
+    public boolean estRemplissable(Carte carte) {
+        return carte.estBordEau(this.position);
+    }
 
     /**
      * Remplir le réservoir d'eau du robot si la case le permet.

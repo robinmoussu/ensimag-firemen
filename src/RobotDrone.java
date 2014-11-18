@@ -67,6 +67,15 @@ public class RobotDrone extends Robot {
         this.setPosition(c);
     }
 
+    /**
+     * Savoir si le robot peut être rempli sur la case courante.
+     * @param carte Carte sur laquelle le robot se trouve
+     * @return true si le robot peut être rempli
+     */
+    @Override
+    public boolean estRemplissable(Carte carte) {
+        return this.getPosition().getTerrain() == NatureTerrain.EAU;
+    }
     
     /**
      * Remplir le réservoir d'eau du robot si la case le permet.
@@ -81,4 +90,6 @@ public class RobotDrone extends Robot {
         
         this.volumeEau = this.volumeMax;
     }
+
+
 }

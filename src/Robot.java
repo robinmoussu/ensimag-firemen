@@ -135,6 +135,12 @@ abstract class Robot implements ValideCase {
      */
     abstract public void deplacer(Case c) throws SimulationException;
 
+    /**
+     * Savoir si le robot peut être rempli sur la case courante.
+     * @param carte Carte sur laquelle le robot se trouve
+     * @return true si le robot peut être remplis
+     */
+    abstract public boolean estRemplissable(Carte carte);
 
     /**
      * Remplir le réservoir d'eau du robot si la case le permet.
@@ -142,20 +148,11 @@ abstract class Robot implements ValideCase {
      * @throws SimulationException si la case courante ne permet pas un
      * remplissage du réservoir
      */
-    abstract public void remplirReservoir(Carte carte)
-            throws SimulationException;
+    abstract public void remplirReservoir(Carte carte) throws SimulationException;
 
     @Override
     public boolean estValide(Case c) {
         return true;
-    }
-
-    /**
-     * @param carte
-     * @return true si le robot peut être remplis
-     */
-    public boolean estRemplissable(Carte carte) {
-        return carte.estBordEau(this.position);
     }
     
     /** 

@@ -14,6 +14,8 @@ Ce qui est rendu :
 
 - cartes: quelques exemples de fichiers de données
 
+- images: répertoire contenant les images nécessaires à l'affichage de l'interface graphique
+
 - bin: répertoire de compilation, contient les classes de l'interface graphique
 
 - test: les classes de test et les tests unitaires réalisés sur

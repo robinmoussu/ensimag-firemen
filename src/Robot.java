@@ -155,8 +155,9 @@ abstract class Robot implements ValideCase {
         return true;
     }
     
-    /** 
-     * @param simuData
+    /**
+     * Savoir si un robot peut éteindre un feu sur la case courante. 
+     * @param simuData Données de simulation
      * @return true si le robot peut éteindre un feu
      */
     public boolean peutEteindreFeu(DonneesSimulation simuData) {
@@ -165,6 +166,7 @@ abstract class Robot implements ValideCase {
                 return true;
             }
         }
+
         return false;
     }
 }

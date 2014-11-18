@@ -70,15 +70,11 @@ public class ManagerDynamique extends Manager {
 
 abstract class Managed {
     protected Robot robot;
-    protected boolean finished;
+    boolean finished;
 
     public Managed(Robot robot) {
         this.robot = robot;
         this.finished = false;
-    }
-    
-    public boolean actionFinie() {
-        return this.finished;
     }
 
     public Robot getRobot() {
@@ -86,19 +82,27 @@ abstract class Managed {
     }
     
     abstract void doAction() throws SimulationException;
+    
+    public boolean actionFinie() {
+        return true;
+    }
 }
 
 class DoNothing extends Managed {
 
     public DoNothing(Robot robot) {
         super(robot);
-        this.finished = true;
     }
 
     @Override
     void doAction() {
         // Rien à faire
         System.err.println("Le robot " + this.robot + " n'a plus rien à faire");
+    }
+
+    @Override
+    public boolean actionFinie() {
+        return true;
     }
 
 }
@@ -124,9 +128,6 @@ class ChercheEau extends Managed {
         }
         
         this.parcourt = eauProche.peek();
-        if (this.parcourt != null) {
-            finished = true;
-        }
     }
 
     @Override
@@ -135,13 +136,13 @@ class ChercheEau extends Managed {
         if (this.robot.estRemplissable(this.data.getCarte())) {
             System.out.println("On remplie le robot…");
             this.robot.remplirReservoir(this.data.getCarte());
+            this.finished = true;
         } else {
             System.out.println("On rapproche le robot");
             this.robot.deplacer(this.parcourt.next(
                     this.robot.getPosition()));
         }
     }
-    
 }
 
 class EteindreIncendie extends Managed {
@@ -165,9 +166,6 @@ class EteindreIncendie extends Managed {
         }
         
         this.parcourt = feuProche.peek();
-        if (this.parcourt != null) {
-            finished = true;
-        }
     }
 
     @Override
@@ -176,11 +174,11 @@ class EteindreIncendie extends Managed {
         if (this.robot.peutEteindreFeu(this.data)) {
             System.out.println("On éteind l'incendie…");
             this.robot.deverserEau(this.data, 1);
+            this.finished = true;
         } else {
             System.out.println("On rapproche le robot");
             this.robot.deplacer(this.parcourt.next(
                     this.robot.getPosition()));
         }
     }
-    
 }

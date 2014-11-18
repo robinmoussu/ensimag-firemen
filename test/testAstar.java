@@ -75,8 +75,8 @@ public class testAstar {
             
             astar = new Astar(this.carte, depart, objectif, parcourtToutTerrain);
             
-            assertEquals("do not move", objectif,
-                    astar.next(objectif));
+            assertEquals("do not move", objectif, astar.next(objectif));
+            assertThat("Position Finale atteinte", true, is(astar.finished()));
         } catch (SimulationException ex) {
             Logger.getLogger(testAstar.class.getName()).log(
                     Level.SEVERE, null, ex);
@@ -93,23 +93,22 @@ public class testAstar {
             
             depart = this.carte.getVoisin(objectif, Direction.OUEST);
             astar = new Astar(this.carte, depart, objectif, parcourtToutTerrain);
-            assertEquals("must go right", objectif,
-                    astar.next(depart));
+            assertThat("Position Finale not atteinte", false,
+                    is(astar.finished()));
+            assertEquals("must go right", objectif, astar.next(depart));
+            assertTrue("Position Finale atteinte", astar.finished());
             
             depart = this.carte.getVoisin(objectif, Direction.EST);
             astar = new Astar(this.carte, depart, objectif, parcourtToutTerrain);
-            assertEquals("must go left", objectif,
-                    astar.next(depart));
+            assertEquals("must go left", objectif, astar.next(depart));
             
             depart = this.carte.getVoisin(objectif, Direction.NORD);
             astar = new Astar(this.carte, depart, objectif, parcourtToutTerrain);
-            assertEquals("must go down", objectif,
-                    astar.next(depart));
+            assertEquals("must go down", objectif, astar.next(depart));
             
             depart = this.carte.getVoisin(objectif, Direction.SUD);
             astar = new Astar(this.carte, depart, objectif, parcourtToutTerrain);
-            assertEquals("must go up", objectif,
-                    astar.next(depart));
+            assertEquals("must go up", objectif, astar.next(depart));
         } catch (SimulationException ex) {
             Logger.getLogger(testAstar.class.getName()).log(
                     Level.SEVERE, null, ex);
@@ -195,6 +194,8 @@ public class testAstar {
                                 Direction.NORD),
                                 Direction.EST);
             astar = new Astar(this.carte, depart, objectif, parcourtToutTerrain);
+            assertThat("Position Finale not atteinte", false,
+                    is(astar.finished()));
             // Pour atteindre la case, il faut faire 6 mouvements maximum
             it = depart;
             for (i = 0; (i < 6) && (it != objectif); i++) {
@@ -202,6 +203,7 @@ public class testAstar {
             }
             assertThat("Il faut faire 6 mouvements pour atteindre l'arrivée",
                     i, is(6));
+            assertThat("Position Finale atteinte", true, is(astar.finished()));
 
             depart = this.carte.getVoisin(this.carte.getVoisin(
                      this.carte.getVoisin(this.carte.getVoisin(

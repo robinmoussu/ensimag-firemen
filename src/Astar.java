@@ -60,6 +60,10 @@ public class Astar implements Comparable<Astar> {
         return this.solution.size();
     }
     
+    public boolean finished() {
+        return this.solution.size() <= 1;
+    }
+    
     /** Renvoie le plus court chemin entre deux Astar.
      * 
      * Permet de comparer la distance séparant un point A de deux point B et C,

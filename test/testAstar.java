@@ -53,7 +53,7 @@ public class testAstar {
     @Before
     public void setUp() {
         try {
-            carte = new Carte(1000, 1000, 1000);
+            carte = new Carte(100, 100, 100);
         } catch (ConstructionException ex) {
             Logger.getLogger(testAstar.class.getName()).log(
                     Level.SEVERE, null, ex);
@@ -272,7 +272,7 @@ public class testAstar {
         Case objectif;
         Case depart;
         try {
-            petiteCarte = new Carte(10, 10, 1000);
+            petiteCarte = new Carte(10, 10, 100);
             obstacles = new Case[]{
                 new Case(8, 9, NatureTerrain.ROCHE),
                 new Case(8, 8, NatureTerrain.ROCHE),

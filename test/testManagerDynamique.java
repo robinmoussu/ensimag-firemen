@@ -36,7 +36,7 @@ public class testManagerDynamique {
             Case depart, eau;
             
             simu = new Simulateur(new Date());
-            data = new DonneesSimulation(1000, 1000, 1000);
+            data = new DonneesSimulation(100, 100, 100);
             
             depart = data.getCarte().getCase(1,1);
             int distanceEau = initCarte1Eau(data, depart);
@@ -69,7 +69,7 @@ public class testManagerDynamique {
             int distanceEau;
 
             simu = new Simulateur(new Date());
-            data = new DonneesSimulation(1000, 1000, 1000);
+            data = new DonneesSimulation(100, 100, 100);
 
             depart = data.getCarte().getCase(1,1);
             distanceEau = initCarteMultipleEau(data, depart);
@@ -102,7 +102,7 @@ public class testManagerDynamique {
             int distanceFeu;
             
             simu = new Simulateur(new Date());
-            data = new DonneesSimulation(1000, 1000, 1000);
+            data = new DonneesSimulation(100, 100, 100);
             
             depart = data.getCarte().getCase(1, 1);
             distanceFeu = initCarte1Feu(data, depart);
@@ -134,7 +134,7 @@ public class testManagerDynamique {
             Case depart;
             
             simu = new Simulateur(new Date());
-            data = new DonneesSimulation(1000, 1000, 1000);
+            data = new DonneesSimulation(100, 100, 100);
             
             depart = data.getCarte().getCase(1,1);
             int distanceEau = initCarte1Eau(data, depart);
@@ -170,7 +170,7 @@ public class testManagerDynamique {
             Case depart;
             
             simu = new Simulateur(new Date());
-            data = new DonneesSimulation(10, 10, 1000);
+            data = new DonneesSimulation(10, 10, 100);
             
             depart = data.getCarte().getCase(1,1);
             
@@ -202,7 +202,7 @@ public class testManagerDynamique {
             Case depart;
             
             simu = new Simulateur(new Date());
-            data = new DonneesSimulation(1000, 1000, 1000);
+            data = new DonneesSimulation(100, 100, 100);
             
             depart = data.getCarte().getCase(1,1);
             int distanceFeu = initCarte1Feu(data, depart);
@@ -236,7 +236,7 @@ public class testManagerDynamique {
             int distanceFeu;
             
             simu = new Simulateur(new Date());
-            data = new DonneesSimulation(1000, 1000, 1000);
+            data = new DonneesSimulation(100, 100, 100);
             
             depart = data.getCarte().getCase(1, 1);
             distanceFeu = initCarte1Feu(data, depart);

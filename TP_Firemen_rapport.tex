@@ -91,7 +91,7 @@ L'algorithme utilisé pour le calcul du plus court chemin est l'algorithme dit <
 Cet algorithme est une variante optimisée de la méthode de \textsc{Dijkstra} en ce qu'il n'analyse pas tous les n\oe uds du graphe (coût quadratique), mais il recherche un chemin de coût minimal dans une direction globale donnée. Pour des graphes proches de la complétude (peu de n\oe uds inaccessibles et donc d'obstacles), cet algorithme se montre très performant.
 
 \vspace{\baselineskip}
-L'implémentation de cet algorithme se base sur une fonction d'heuristique utilisée pour calculer la distance qui sépare le n\oe ud courant du n\oe ud à atteindre. Dans notre programme, cette fonction se content d'additionner l'écart absolu en abscisse et en ordonnée entre les cases, sans tenir compte de leur taille ou de la vitesse du robot sur le terrain en question :
+L'implémentation de cet algorithme se base sur une fonction d'heuristique utilisée pour calculer la distance qui sépare le n\oe ud courant du n\oe ud à atteindre. Dans notre programme, cette fonction se contente d'additionner l'écart absolu en abscisse et en ordonnée entre les cases, sans tenir compte de leur taille ou de la vitesse du robot sur le terrain en question : c'est la distance de \emph{Manhattan}.
 \[h(x) = |dx|+|dy|\].
 
 Cette fonction est simple à calculer et donne, d'après nos tests, de bons résultats sur la cartes mises à disposition.

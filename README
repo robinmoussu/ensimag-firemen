@@ -8,13 +8,15 @@ Groupe :
 
 
 Ce qui est rendu :
+------------------
 
 - src: contient les classes du programme
   => METTRE ICI UNE LISTE DES CLASSES ET CE A QUOI ELLES SERVENT
 
 - cartes: quelques exemples de fichiers de données
 
-- images: répertoire contenant les images nécessaires à l'affichage de l'interface graphique
+- images: répertoire contenant les images nécessaires à l'affichage de
+  l'interface graphique
 
 - bin: répertoire de compilation, contient les classes de l'interface graphique
 
@@ -23,16 +25,40 @@ Ce qui est rendu :
 
 
 Etat du projet :
+----------------
 
-Le sujet a pu être traité en grande partie. Les robots se déplacent
-et vont éteindre les incendies en utilisant l'algorithme Astar pour
-trouver le plus court chemin. Cependant, la simulation n'inclue pas
-l'aspect temporel : les déplacements, vidange et remplissage
-s'effectuent "instantanément".
-La validation des classes a été faite au fur et à mesure de leur
-développement en utilisant des classes de tests pour les plus simples,
-des tests unitaires pour les plus complexes (algorithme du plus court
-chemin). Ces tests unitaires ont été effectués grâce à Junit. Les
-programmes de tests peuvent être trouvés dans le répertoire test/.
-Pour plus de détails, consulter le rapport contenant les choix de
-conception et les résultats et tests réalisés.
+Le sujet a pu être traité en grande partie. Les robots se déplacent et vont
+éteindre les incendies en utilisant l'algorithme Astar pour trouver le plus
+court chemin. Cependant, la simulation n'inclue pas l'aspect temporel : les
+déplacements, vidange et remplissage s'effectuent "instantanément".
+
+La validation des classes a été faite au fur et à mesure de leur développement
+en utilisant des classes de tests pour les plus simples, des tests unitaires
+pour les plus complexes (algorithme du plus court chemin). Ces tests unitaires
+ont été effectués grâce à Junit. Les programmes de tests peuvent être trouvés
+dans le répertoire test/. Pour plus de détails, consulter le rapport contenant
+les choix de conception et les résultats et tests réalisés.
+
+Comment executer le projet :
+----------------------------
+
+Il est conseillé de faire un `make clean` prélablement.
+
+`make` ou `make all`
+Compile le projet, puis lance tous les tests, puis lance la simulation pour les
+quatres cartes fournies les unes après les autres.
+
+`make exeAfficheSimulation`
+Compile le projet puis lance la simulation pour les quatres cartes fournies les
+unes après les autres.
+
+`make exeTest`
+Execute tout les tests.
+
+`make clean`
+Nettoie le repertoire de compilation et supprime tous les fichiers *.class
+
+D'autres cibles sont présentes dans le makefile pour ne lancer la simulation
+que sur une seule carte, où encore pour ne faire que la compilation.
+
+

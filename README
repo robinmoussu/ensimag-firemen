@@ -24,11 +24,15 @@ Ce qui est rendu :
 
 Etat du projet :
 
-Le sujet a pu être traité dans sa totalité. Les robots se déplacent et
-vont éteindre les incendies en utilisant l'algorithme Astar pour trouver
-le plus court chemin.
+Le sujet a pu être traité en grande partie. Les robots se déplacent
+et vont éteindre les incendies en utilisant l'algorithme Astar pour
+trouver le plus court chemin. Cependant, la simulation n'inclue pas
+l'aspect temporel : les déplacements, vidange et remplissage
+s'effectuent "instantanément".
 La validation des classes a été faite au fur et à mesure de leur
 développement en utilisant des classes de tests pour les plus simples,
 des tests unitaires pour les plus complexes (algorithme du plus court
 chemin). Ces tests unitaires ont été effectués grâce à Junit. Les
 programmes de tests peuvent être trouvés dans le répertoire test/.
+Pour plus de détails, consulter le rapport contenant les choix de
+conception et les résultats et tests réalisés.

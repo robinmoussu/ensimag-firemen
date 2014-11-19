@@ -98,8 +98,8 @@ public class testManagerDynamique {
             ManagerDynamique manager;
             Simulateur simu;
             DonneesSimulation data;
-            Case depart, eau, feu;
-            int distanceEau, distanceFeu;
+            Case depart;
+            int distanceFeu;
             
             simu = new Simulateur(new Date());
             data = new DonneesSimulation(1000, 1000, 1000);
@@ -122,7 +122,6 @@ public class testManagerDynamique {
                     Level.SEVERE, null, ex);
             fail(ex.toString());
         }
-
     }
     
     @Test
@@ -132,7 +131,7 @@ public class testManagerDynamique {
             ManagerDynamique manager;
             Simulateur simu;
             DonneesSimulation data;
-            Case depart, eau;
+            Case depart;
             
             simu = new Simulateur(new Date());
             data = new DonneesSimulation(1000, 1000, 1000);
@@ -154,6 +153,104 @@ public class testManagerDynamique {
             scenarioChercherFeu(data, robot, distanceEau + distanceFeu -1,
                     manager);
             
+        } catch (ConstructionException | SimulationException ex) {
+            Logger.getLogger(testManagerDynamique.class.getName()).log(
+                    Level.SEVERE, null, ex);
+            fail(ex.toString());
+        }
+    }
+    
+    @Test
+    public void pasObjectif() {
+        try {
+            Robot robot;
+            ManagerDynamique manager;
+            Simulateur simu;
+            DonneesSimulation data;
+            Case depart;
+            
+            simu = new Simulateur(new Date());
+            data = new DonneesSimulation(10, 10, 1000);
+            
+            depart = data.getCarte().getCase(1,1);
+            
+            // initialisation du robot
+            robot  = new RobotRoues(depart);
+            data.addRobot(depart, robot);
+            viderRobot(data, robot);
+            
+            manager = new ManagerDynamique(simu, data);
+            
+            ///////////////////////////////////////////////////////////////////
+            
+            scenarioRienAFaire(manager);            
+            
+        } catch (ConstructionException | SimulationException ex) {
+            Logger.getLogger(testManagerDynamique.class.getName()).log(
+                    Level.SEVERE, null, ex);
+            fail(ex.toString());
+        }
+    }
+    
+    @Test
+    public void eteindreFeuRobotVidePasEau() {
+        try {
+            Robot robot;
+            ManagerDynamique manager;
+            Simulateur simu;
+            DonneesSimulation data;
+            Case depart;
+            
+            simu = new Simulateur(new Date());
+            data = new DonneesSimulation(1000, 1000, 1000);
+            
+            depart = data.getCarte().getCase(1,1);
+            int distanceFeu = initCarte1Feu(data, depart);
+            
+            // initialisation du robot
+            robot  = new RobotRoues(depart);
+            data.addRobot(depart, robot);
+            viderRobot(data, robot);
+            
+            manager = new ManagerDynamique(simu, data);
+            
+            ///////////////////////////////////////////////////////////////////
+            
+            scenarioRienAFaire(manager); 
+            
+        } catch (ConstructionException | SimulationException ex) {
+            Logger.getLogger(testManagerDynamique.class.getName()).log(
+                    Level.SEVERE, null, ex);
+            fail(ex.toString());
+        }
+    }
+    
+    @Test
+    public void objectifNonAtteignable() {
+        try {
+            Robot robot;
+            ManagerDynamique manager;
+            Simulateur simu;
+            DonneesSimulation data;
+            Case depart;
+            int distanceFeu;
+            
+            simu = new Simulateur(new Date());
+            data = new DonneesSimulation(1000, 1000, 1000);
+            
+            depart = data.getCarte().getCase(1, 1);
+            distanceFeu = initCarte1Feu(data, depart);
+            
+            // initialisation du robot
+            robot  = new RobotRoues(depart);
+            data.addRobot(depart, robot);
+            
+            manager = new ManagerDynamique(simu, data);
+            
+            //////////////////////////////////////////////////////////////////
+            
+            scenarioRienAFaire(manager); 
+
         } catch (ConstructionException | SimulationException ex) {
             Logger.getLogger(testManagerDynamique.class.getName()).log(
                     Level.SEVERE, null, ex);
@@ -259,5 +356,12 @@ public class testManagerDynamique {
                     is(not(robot.getPosition())));
             System.out.println(robot.getPosition());
         }
+    }
+
+    private void scenarioRienAFaire(Manager manager)
+            throws SimulationException {
+        assertFalse("Simulation non terminée", manager.finSimulation());
+        manager.manage();
+        assertTrue("Il n'y a rien à faire", manager.finSimulation());
     }
 }

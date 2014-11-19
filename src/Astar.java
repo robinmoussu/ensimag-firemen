@@ -31,6 +31,7 @@ public class Astar implements Comparable<Astar> {
     protected ValideCase validateur;
     protected int lastIndex = 0;
     protected Stack<Case> solution;
+    protected boolean pasDeCheminTrouve;
 
     /**
      * 
@@ -172,7 +173,7 @@ public class Astar implements Comparable<Astar> {
      * Doit être appelé dans le constructeur.
      * @throws SimulationException 
      */
-    public final void initParcourt(Case depart) throws SimulationException {
+    public final void initParcourt(Case depart) {
         Graph graph;
         PriorityQueue<Graph.Node> eligible;
         Graph.Node it;
@@ -182,7 +183,8 @@ public class Astar implements Comparable<Astar> {
 
         eligible.add(graph.getNode(null, depart, this.arrivee));
 
-        while(! (it = eligible.poll()).getCase().equals(this.arrivee)) {
+        for (it = eligible.poll(); it != null
+                && ! it.getCase().equals(this.arrivee); it = eligible.poll()) {
             
             Direction[] dirVoisins = {Direction.NORD, Direction.SUD,
                 Direction.EST, Direction.OUEST};
@@ -191,21 +193,23 @@ public class Astar implements Comparable<Astar> {
                 if (this.carte.voisinExiste(it.getCase(), dir)) {
                     Case caseVoisine;
                     
-                    caseVoisine = carte.getVoisin(it.getCase(), dir);
-                    if (graph.estVisitee(caseVoisine)) {
-                        graph.updateNode(it, caseVoisine);
-                    } else {
-                        Graph.Node voisin = graph.getNode(it, caseVoisine, this.arrivee);
-                        if(this.validateur.estValide(voisin.getCase())) {
-                            eligible.add(voisin);
+                    try {
+                        caseVoisine = carte.getVoisin(it.getCase(), dir);
+                        if (graph.estVisitee(caseVoisine)) {
+                            graph.updateNode(it, caseVoisine);
+                        } else {
+                            Graph.Node voisin = graph.getNode(it, caseVoisine, this.arrivee);
+                            if (this.validateur.estValide(voisin.getCase())) {
+                                eligible.add(voisin);
+                            }
                         }
+                    } catch (SimulationException ex) {
+                        // On ignore le fait qu'il n'y ai pas de case voisine
                     }
                 }
             }
             
-            if (eligible.size() == 0) {
-                throw new SimulationException("Pas de chemin trouvé");
-            }
+            this.pasDeCheminTrouve = (eligible.size() == 0);
         }
         
         // À ce point là, it == solution;

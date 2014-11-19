@@ -15,10 +15,12 @@ import java.util.PriorityQueue;
 public class ManagerDynamique extends Manager {
     
     ArrayList<Managed> managed;
+    protected boolean finSimulation;
 
     public ManagerDynamique(Simulateur simu, DonneesSimulation simuData)
             throws SimulationException {
         super(simu, simuData);
+        this.finSimulation = false;
         
         ArrayList<Robot> robots = this.simuData.getRobots();
         
@@ -38,6 +40,10 @@ public class ManagerDynamique extends Manager {
                     + "manager avant d'avoir fini d'ajouter touts les robots à "
                     + "la simulation ?");
         }
+        
+        // si tout les robots sont inactifs, la simu est terminée
+        this.finSimulation = true;
+        
         ListIterator<Managed> itr = this.managed.listIterator();
         while (itr.hasNext()) {
             Managed m = itr.next();
@@ -53,6 +59,11 @@ public class ManagerDynamique extends Manager {
                 }
             }
             
+            // Au moins un robot est actif -> la simu n'est pas terminée
+            if (!m.actionFinie()) {
+                this.finSimulation = false;
+            }
+            
             m.doAction();
         }
     }
@@ -65,6 +76,10 @@ public class ManagerDynamique extends Manager {
     @Override
     public void signaleFailEvent(Evenement e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public boolean finSimulation() {
+        return this.finSimulation;
     }
 }
 
@@ -81,7 +96,12 @@ abstract class Managed {
         return robot;
     }
     
-    abstract void doAction() throws SimulationException;
+    final void doAction() throws SimulationException {
+        if (!this.finished) {
+            doInternalAction();
+        }
+    }
+    abstract void doInternalAction() throws SimulationException;
     
     public boolean actionFinie() {
         return true;
@@ -95,7 +115,7 @@ class DoNothing extends Managed {
     }
 
     @Override
-    void doAction() {
+    void doInternalAction() {
         // Rien à faire
         System.err.println("Le robot " + this.robot + " n'a plus rien à faire");
     }
@@ -126,12 +146,16 @@ class ChercheEau extends Managed {
                     this.robot.getPosition(), eau, this.robot);
             eauProche.add(astar);
         }
-        
+
         this.parcourt = eauProche.peek();
+        if (this.parcourt != null) {
+        } else {
+            this.finished = true;
+        }
     }
 
     @Override
-    void doAction() throws SimulationException {
+    void doInternalAction() throws SimulationException {
         System.out.println("Recherche d'eau…");
         if (this.robot.estRemplissable(this.data.getCarte())) {
             System.out.println("On remplie le robot…");
@@ -169,7 +193,7 @@ class EteindreIncendie extends Managed {
     }
 
     @Override
-    void doAction() throws SimulationException {
+    void doInternalAction() throws SimulationException {
         System.out.println("Recherche d'incendies…");
         if (this.robot.peutEteindreFeu(this.data)) {
             System.out.println("On éteind l'incendie…");

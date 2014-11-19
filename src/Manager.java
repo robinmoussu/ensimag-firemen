@@ -45,4 +45,8 @@ public abstract class Manager {
      * d'execution)
      */
     public abstract void signaleFailEvent(Evenement e);
+
+    boolean finSimulation() {
+        return false;
+    }
 }

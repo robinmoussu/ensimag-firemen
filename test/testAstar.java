@@ -263,4 +263,34 @@ public class testAstar {
             fail();
         }
     }
+    
+    @Test
+    public void pasDeChemin() {
+        Carte petiteCarte;
+        Astar astar;
+        Case[] obstacles;
+        Case objectif;
+        Case depart;
+        try {
+            petiteCarte = new Carte(10, 10, 1000);
+            obstacles = new Case[]{
+                new Case(8, 9, NatureTerrain.ROCHE),
+                new Case(8, 8, NatureTerrain.ROCHE),
+                new Case(9, 9, NatureTerrain.ROCHE),
+            };
+            for (Case obstacle: obstacles) {
+                petiteCarte.setCase(obstacle);
+            }
+            objectif = petiteCarte.getCase(9, 9);
+            depart = petiteCarte.getCase(0, 0);
+                            
+            astar = new Astar(petiteCarte, depart, objectif,parcourtTerrainLibre);
+            assertTrue("Aucun chemin n'a été trouvé", astar.finished());
+            
+        } catch (SimulationException | ConstructionException ex) {
+            Logger.getLogger(testAstar.class.getName()).log(
+                    Level.SEVERE, null, ex);
+            fail();
+        }
+    }
 }

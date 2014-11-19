@@ -104,7 +104,7 @@ abstract class Managed {
     abstract void doInternalAction() throws SimulationException;
     
     public boolean actionFinie() {
-        return true;
+        return finished;
     }
 }
 
@@ -142,7 +142,8 @@ class ChercheEau extends Managed {
 
         if (!this.robot.estRemplissable(this.data.getCarte())) {
             eauProche = new PriorityQueue<>();
-            for (Case eau : data.getCaseEau()) {
+            ArrayList<Case> caseEau = data.getCaseEau();
+            for (Case eau : caseEau) {
                 astar = new Astar(data.getCarte(),
                         this.robot.getPosition(), eau, this.robot);
                 eauProche.add(astar);
@@ -213,7 +214,8 @@ class EteindreIncendie extends Managed {
                 System.out.println("On rapproche le robot");
                 Case next = this.parcourt.next(this.robot.getPosition());
                 if (next.equals(this.robot.getPosition())) {
-                    // On était déjà arrivée sur le feu, et il est éteint
+                    System.out.println("On était déjà arrivée sur le feu, et il"
+                            + " est éteint");
                     this.finished = true;
                 } else {
                     this.robot.deplacer(next);

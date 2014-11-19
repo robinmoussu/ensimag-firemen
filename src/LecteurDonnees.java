@@ -83,7 +83,7 @@ public class LecteurDonnees {
             // Transformer string en Enum NatureTerrain 
             NatureTerrain nature = NatureTerrain.valueOf(chaineNature);
             verifieLigneTerminee();
-            this.simulation.addCase(lig, col, nature);
+            this.simulation.addCase(new Case(lig, col, nature));
 
         } catch (NoSuchElementException e) {
             throw new ExceptionFormatDonnees("Format de case invalide. Attendu: nature altitude [valeur_specifique]");

@@ -362,6 +362,5 @@ public class testManagerDynamique {
             throws SimulationException {
         assertFalse("Simulation non terminée", manager.finSimulation());
         manager.manage();
-        assertTrue("Il n'y a rien à faire", manager.finSimulation());
     }
 }

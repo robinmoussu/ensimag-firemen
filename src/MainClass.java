@@ -2,6 +2,8 @@ import ihm.*;
 import java.awt.Color;
 import java.util.LinkedList;
 import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Classe principale, chargée d'appeler toutes les autres.
@@ -61,7 +63,14 @@ class Firemen implements Simulable {
         date = new Date();
         this.filename = filename;
         this.simulateur = new Simulateur(date); // Création du simulteur
-        this.manager = new ManagerScenario1(simulateur, simulation); // Création du manager
+        
+//        this.manager = new ManagerScenario1(simulateur, simulation); // Création du manager
+        try {
+            this.manager = new ManagerDynamique(simulateur, simulation);
+        } catch (SimulationException ex) {
+            Logger.getLogger(Firemen.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         this.simulateur.setManager(manager);
 		dessine();    // mettre a jour l'affichage
 	}

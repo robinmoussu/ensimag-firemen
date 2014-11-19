@@ -102,7 +102,7 @@ class Firemen implements Simulable {
             this.simulation = lecteur.creeDonnees();
             date.resetDate(); // Réinitialiser la date
             this.simulateur = new Simulateur(date);
-            this.manager = new ManagerScenario1(simulateur, simulation);
+            this.manager = new ManagerDynamique(simulateur, simulation);
             this.simulateur.setManager(manager);
             System.gc(); // Garbage collector
             dessine();

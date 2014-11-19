@@ -296,8 +296,8 @@ public class testManagerDynamique {
                 is(robot.peutEteindreFeu(data)));
 
         manager.manage();
-        assertThat("Le feu doit désormais être éteind", 0,
-                is(data.getIncendies().get(0).getIntensite()));
+        assertTrue("Le feu doit désormais être éteind", 
+                data.getIncendies().isEmpty());
     }
 
     private int initCarteMultipleEau(DonneesSimulation data, Case depart)

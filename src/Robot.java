@@ -130,7 +130,6 @@ abstract class Robot implements ValideCase {
                 break; // Sortir du for, un robot n'est que sur une case à la
                 // fois...
             }
-            itr.next();
         }
     }
 

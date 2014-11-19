@@ -70,7 +70,7 @@ public class RobotPattes extends Robot {
     @Override
     public void deplacer(Case c) throws SimulationException {
         if(c.estVoisine(this.getPosition())==false || c.getTerrain()==NatureTerrain.EAU)  {
-            throw new SimulationException("Case inaccessible pour le robot sélectionné !");
+            throw new SimulationException("Case inaccessible pour le robot  à pattes sélectionné !");
         }
         
         this.setPosition(c);

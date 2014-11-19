@@ -6,8 +6,8 @@ public interface ValideCase {
     /**
      * Prédicat permettant de valider le parcours d'une case.
      * @param c Case à tester
-     * @return Booléen indiquant si la case peut être parcourue
+     * @return Entier négatif ou nul si le parcours est impossible, positif et d'autant plus grand que le parcours est meilleur
      */
-    boolean estValide(Case c);
+    int estValide(Case c);
     
 }

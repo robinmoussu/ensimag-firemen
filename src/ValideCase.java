@@ -8,6 +8,6 @@ public interface ValideCase {
      * @param c Case à tester
      * @return Booléen indiquant si la case peut être parcourue
      */
-    boolean estValide(Case c);
+    int estValide(Case c);
     
 }

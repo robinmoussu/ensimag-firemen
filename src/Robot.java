@@ -158,8 +158,8 @@ System.out.println("Reste dans le réservoir: " + this.volumeEau);
     abstract public void remplirReservoir(Carte carte) throws SimulationException;
 
     @Override
-    public boolean estValide(Case c) {
-        return getVitesse(c.getTerrain()) > 0;
+    public int estValide(Case c) {
+        return getVitesse(c.getTerrain());
     }
     
     /**

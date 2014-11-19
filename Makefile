@@ -65,7 +65,7 @@ cleanJavadoc:
 # documentation
 
 javadoc: cleanJavadoc
-	javadoc -locale fr_FR -encoding UTF8 -d $(JAVADOC) -classpath $(BIN)/ihm.jar -sourcepath $(SRC)/*.java $(SRC)/Astar.java
+	javadoc -locale fr_FR -encoding UTF8 -d $(JAVADOC) -classpath $(BIN)/ihm.jar -sourcepath $(SRC) $(SRC)/AfficheSimulation.java  $(SRC)/ConstructionException.java  $(SRC)/EteindreIncendies.java  $(SRC)/ExceptionFormatDonnees.java  $(SRC)/Manager.java           $(SRC)/RobotDrone.java   $(SRC)/SimulationException.java $(SRC)/Astar.java              $(SRC)/Date.java                   $(SRC)/Evenement.java          $(SRC)/Incendie.java                $(SRC)/ManagerScenario0.java  $(SRC)/Robot.java        $(SRC)/ValideCase.java $(SRC)/Carte.java              $(SRC)/Direction.java              $(SRC)/EventMoveRobot.java     $(SRC)/LecteurDonnees.java          $(SRC)/ManagerScenario1.java  $(SRC)/RobotPattes.java $(SRC)/Case.java               $(SRC)/DonneesSimulation.java      $(SRC)/EventRemplirRobot.java  $(SRC)/Managed.java                 $(SRC)/NatureTerrain.java     $(SRC)/RobotRoues.java $(SRC)/ChercherEau.java        $(SRC)/DoNothing.java              $(SRC)/EventViderRobot.java    $(SRC)/ManagerDynamique.java        $(SRC)/RobotChenilles.java    $(SRC)/Simulateur.java
 
 ########################################################################################
 # tests

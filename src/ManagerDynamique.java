@@ -26,7 +26,7 @@ public class ManagerDynamique extends Manager {
         
         managed = new ArrayList<>(robots.size());
         for(Robot robot: robots) {
-            managed.add(new DoNothing(robot));
+            managed.add(new DoNothing(robot, simu));
         }
     }
     
@@ -51,10 +51,10 @@ public class ManagerDynamique extends Manager {
                 // Il faut lui trouver un nouvel objectif
 
                 if (m.robot.estVide()) {
-                    m = new ChercheEau(this.simuData, m.getRobot());
+                    m = new ChercheEau(this.simuData, m.getRobot(), simu);
                     itr.set(m);
                 } else {
-                    m = new EteindreIncendie(this.simuData, m.getRobot());
+                    m = new EteindreIncendie(this.simuData, m.getRobot(), simu);
                     itr.set(m);
                 }
             }
@@ -86,10 +86,12 @@ public class ManagerDynamique extends Manager {
 abstract class Managed {
     protected Robot robot;
     boolean finished;
+    protected Simulateur simu;
 
-    public Managed(Robot robot) {
+    public Managed(Robot robot, Simulateur simu) {
         this.robot = robot;
         this.finished = false;
+        this.simu = simu;
     }
 
     public Robot getRobot() {
@@ -110,8 +112,8 @@ abstract class Managed {
 
 class DoNothing extends Managed {
 
-    public DoNothing(Robot robot) {
-        super(robot);
+    public DoNothing(Robot robot, Simulateur simu) {
+        super(robot, simu);
     }
 
     @Override
@@ -131,9 +133,9 @@ class ChercheEau extends Managed {
     protected Astar parcourt;
     protected DonneesSimulation data;
 
-    public ChercheEau(DonneesSimulation data, Robot robot)
+    public ChercheEau(DonneesSimulation data, Robot robot, Simulateur simu)
             throws SimulationException {
-        super(robot);
+        super(robot, simu);
         this.data = data;
         
         // On rempli le robot avec l'eau la plus proche
@@ -178,9 +180,9 @@ class EteindreIncendie extends Managed {
     protected Astar parcourt;
     protected DonneesSimulation data;
 
-    public EteindreIncendie(DonneesSimulation data, Robot robot)
+    public EteindreIncendie(DonneesSimulation data, Robot robot, Simulateur simu)
             throws SimulationException {
-        super(robot);
+        super(robot, simu);
         this.data = data;
         
         // On cherche l'incendie le plus proche

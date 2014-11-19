@@ -4,7 +4,7 @@ import java.util.ListIterator;
 /** Manager calculant dynamiquement les actions à effectuer pour chacuns des
  * robots
  */
-public class ManagerDynamique extends Manager {
+class ManagerDynamique extends Manager {
     
     ArrayList<Managed> managed;
     protected boolean finSimulation;

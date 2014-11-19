@@ -82,7 +82,7 @@ class Firemen implements Simulable {
 	@Override
 	public void next() {
 		try {
-            simulateur.incrementeDate(238); // Incrémenter la date courante et gérer les événements ; 238 correspond à un déplacement d'une case pour un drone
+            simulateur.incrementeDate(1); // Incrémenter la date courante et gérer les événements ; 238 correspond à un déplacement d'une case pour un drone
             dessine();
             System.out.println("[OK] Simulation avancée d'un pas à la date " + this.date.getDate());
         }

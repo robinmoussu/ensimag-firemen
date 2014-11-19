@@ -158,7 +158,7 @@ class ChercheEau extends Managed {
     void doInternalAction() throws SimulationException {
         System.out.println("Recherche d'eau…");
         if (this.robot.estRemplissable(this.data.getCarte())) {
-            System.out.println("On remplie le robot…");
+            System.out.println("On rempli le robot…");
             this.robot.remplirReservoir(this.data.getCarte());
             this.finished = true;
         } else {

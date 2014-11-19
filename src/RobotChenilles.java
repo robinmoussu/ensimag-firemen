@@ -68,7 +68,7 @@ public class RobotChenilles extends Robot {
     @Override
     public void deplacer(Case c) throws SimulationException {
         if(c.estVoisine(this.getPosition())==false || c.getTerrain()==NatureTerrain.EAU || c.getTerrain()==NatureTerrain.ROCHE)  {
-            throw new SimulationException("Case inaccessible pour le robot sélectionné !");
+            throw new SimulationException("Case inaccessible pour le robot chenilles sélectionné !");
         }
         
         this.setPosition(c);

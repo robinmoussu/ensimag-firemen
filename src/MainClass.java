@@ -99,8 +99,13 @@ class Firemen implements Simulable {
     public void restart() {
         try {
             LecteurDonnees lecteur = new LecteurDonnees(filename);
-            DonneesSimulation simulation = lecteur.creeDonnees();
-            Firemen firemen = new Firemen(simulation, filename); // Il faut recréer l'IHM pour réinitialiser le manager et le simulateur avec les bonnes références !
+            this.simulation = lecteur.creeDonnees();
+            date.resetDate(); // Réinitialiser la date
+            this.simulateur = new Simulateur(date);
+            this.manager = new ManagerScenario1(simulateur, simulation);
+            this.simulateur.setManager(manager);
+            System.gc(); // Garbage collector
+            dessine();
             System.out.println("[OK] Redémarrage de la simulation depuis son état initial.");
         } catch (Exception e) {
             System.out.println("[ERR] Erreur lors de la remise à jour des données de simulation : " + e.getMessage());

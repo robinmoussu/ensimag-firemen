@@ -67,11 +67,13 @@ public class RobotRoues extends Robot {
      */
     @Override
     public void deplacer(Case c) throws SimulationException {
+        System.out.println (this.position.toString() + " " + this.position.getTerrain().toString());
+        System.out.println (c.toString() + " " + c.getTerrain().toString());
         if(c.estVoisine(this.getPosition())==false
                 || (c.getTerrain()!=NatureTerrain.TERRAIN_LIBRE
                 && c.getTerrain()!=NatureTerrain.HABITAT) ) {
-            throw new SimulationException("Case inaccessible pour le robot"
-                    + "sélectionné !");
+            throw new SimulationException("Case inaccessible pour le robot "
+                    + "à roue sélectionné ! ");
         }
         
         this.setPosition(c);

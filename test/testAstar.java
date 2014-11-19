@@ -53,7 +53,7 @@ public class testAstar {
     @Before
     public void setUp() {
         try {
-            carte = new Carte(1000, 1000, 1000);
+            carte = new Carte(100, 100, 100);
         } catch (ConstructionException ex) {
             Logger.getLogger(testAstar.class.getName()).log(
                     Level.SEVERE, null, ex);
@@ -272,11 +272,11 @@ public class testAstar {
         Case objectif;
         Case depart;
         try {
-            petiteCarte = new Carte(10, 10, 1000);
+            petiteCarte = new Carte(10, 10, 100);
             obstacles = new Case[]{
                 new Case(8, 9, NatureTerrain.ROCHE),
                 new Case(8, 8, NatureTerrain.ROCHE),
-                new Case(9, 9, NatureTerrain.ROCHE),
+                new Case(9, 8, NatureTerrain.ROCHE),
             };
             for (Case obstacle: obstacles) {
                 petiteCarte.setCase(obstacle);
@@ -285,7 +285,7 @@ public class testAstar {
             depart = petiteCarte.getCase(0, 0);
                             
             astar = new Astar(petiteCarte, depart, objectif,parcourtTerrainLibre);
-            assertTrue("Aucun chemin n'a été trouvé", astar.finished());
+            assertTrue("Aucun chemin ne doit être trouvé", astar.finished());
             
         } catch (SimulationException | ConstructionException ex) {
             Logger.getLogger(testAstar.class.getName()).log(

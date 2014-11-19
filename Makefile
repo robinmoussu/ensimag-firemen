@@ -32,7 +32,7 @@ CARTE=cartes/carteSujet.txt
 
 ########################################################################################
 
-all: exeAfficheSimulation exeTest
+all: exeTest exeAfficheSimulation
 
 ########################################################################################
 # programes
@@ -49,13 +49,12 @@ clean:
 ########################################################################################
 # tests
 
-exeTest: exeIHM exeTestJunit
+exeTest: exeTestJunit
 
-makeIHM:
-	javac -d $(BIN) -classpath $(BIN)/ihm.jar -sourcepath $(SRC) $(TEST)/TestIHM.java
-
-exeIHM: makeIHM
-	java -classpath $(BIN):$(BIN)/ihm.jar TestIHM
+#makeIHM:
+	#javac -d $(BIN) -classpath $(BIN)/ihm.jar -sourcepath $(SRC) $(TEST)/TestIHM.java
+#exeIHM: makeIHM
+	#java -classpath $(BIN):$(BIN)/ihm.jar TestIHM
 
 #makeTestLecture:
 	#javac -d $(BIN) -sourcepath $(SRC) $(SRC)/TestLecteurDonnees.java

@@ -101,7 +101,7 @@ abstract class Managed {
     abstract void doInternalAction() throws SimulationException;
     
     public boolean actionFinie() {
-        return true;
+        return finished;
     }
 }
 
@@ -137,27 +137,32 @@ class ChercheEau extends Managed {
         Astar astar;
         PriorityQueue<Astar> eauProche;
 
-        eauProche = new PriorityQueue<>();
-        for (Case eau : data.getCaseEau()) {
-            astar = new Astar(data.getCarte(),
-                    this.robot.getPosition(), eau, this.robot);
-            eauProche.add(astar);
-        }
+        if (!this.robot.estRemplissable(this.data.getCarte())) {
+            eauProche = new PriorityQueue<>();
+            ArrayList<Case> caseEau = data.getCaseEau();
+            for (Case eau : caseEau) {
+                astar = new Astar(data.getCarte(),
+                        this.robot.getPosition(), eau, this.robot);
+                eauProche.add(astar);
+            }
 
-        this.parcourt = eauProche.peek();
-        if (this.parcourt != null) {
-        } else {
-            this.finished = true;
+            this.parcourt = eauProche.peek();
+            if (this.parcourt != null) {
+            } else {
+                this.finished = true;
+            }
         }
     }
 
     @Override
     void doInternalAction() throws SimulationException {
-        System.out.println("Recherche d'eau…");
+        System.out.println("Recherche d'eau…" + this.robot.estRemplissable(this.data.getCarte()));
         if (this.robot.estRemplissable(this.data.getCarte())) {
             System.out.println("On rempli le robot…");
             this.simulateur.ajouteEvenement( new EventRemplirRobot(simulateur.getDate(), this.robot, this.data.getCarte() );
-            this.finished = true;
+            if (this.robot.estPlein()) {
+                this.finished = true;
+            }
         } else {
             System.out.println("On rapproche le robot");
             this.simulateur.ajouteEvenement( new EventMoveRobot(simulateur.getDate(), this.robot, this.parcourt.next(this.robot.getPosition()), this.data.getCarte()) );
@@ -178,14 +183,16 @@ class EteindreIncendie extends Managed {
         Astar astar;
         PriorityQueue<Astar> feuProche;
         
-        feuProche = new PriorityQueue<>();
-        for (Incendie feu : data.getIncendies()) {
-            astar = new Astar(data.getCarte(),
-                    this.robot.getPosition(), feu.getPosition(), this.robot);
-            feuProche.add(astar);
+        if (!this.robot.peutEteindreFeu(data)) {
+            feuProche = new PriorityQueue<>();
+            for (Incendie feu : data.getIncendies()) {
+                astar = new Astar(data.getCarte(),
+                        this.robot.getPosition(), feu.getPosition(), this.robot);
+                feuProche.add(astar);
+            }
+
+            this.parcourt = feuProche.peek();
         }
-        
-        this.parcourt = feuProche.peek();
     }
 
     @Override
@@ -197,8 +204,20 @@ class EteindreIncendie extends Managed {
             this.robot.deverserEau(this.data, 1);
             this.finished = true;
         } else {
-            System.out.println("On rapproche le robot");
-            this.simulateur.ajouteEvenement( new EventMoveRobot(simulateur.getDate(), this.robot, this.parcourt.next(this.robot.getPosition()), this.data.getCarte()) );
+            if (this.parcourt == null) {
+                // On était déjà arrivée sur le feu, et il est éteint
+                this.finished = true;
+            } else {
+                System.out.println("On rapproche le robot");
+                Case next = this.parcourt.next(this.robot.getPosition());
+                if (next.equals(this.robot.getPosition())) {
+                    System.out.println("On était déjà arrivée sur le feu, et il"
+                            + " est éteint");
+                    this.finished = true;
+                } else {
+                    this.simulateur.ajouteEvenement( new EventMoveRobot(simulateur.getDate(), this.robot, next, this.data.getCarte()) );
+                }
+            }
         }
     }
 }

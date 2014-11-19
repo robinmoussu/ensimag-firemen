@@ -79,20 +79,6 @@ public class DonneesSimulation {
     public ArrayList<Case> getCaseEau() {
         return this.caseEau;
     }
-
-
-    /** Ajouter une case à la simulation, à la place (ligne,colonne) à partir du
-     * coin supérieur gauche.
-     * @param ligne Numéro de la ligne où créer la case, à partir de zéro
-     * @param colonne Numéro de la colonne où créer la case, à partir de zéro
-     * @param t Nature du terrain sur la case à créer
-     * @throws ConstructionException si les coordonnées sont à l'extérieur des
-     * limites de la carte
-     */
-    public void addCase(int ligne, int colonne, NatureTerrain t)
-            throws ConstructionException {
-        this.carte.setCase(ligne, colonne, t);
-    }
     
     /**
      * Ajouter une case à la simulation.

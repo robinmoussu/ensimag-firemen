@@ -199,7 +199,8 @@ public class Astar implements Comparable<Astar> {
                             graph.updateNode(it, caseVoisine);
                         } else {
                             Graph.Node voisin = graph.getNode(it, caseVoisine, this.arrivee);
-                            if (this.validateur.estValide(voisin.getCase()) > 0) {
+                            if (this.validateur.estValide(voisin.getCase()) > 0
+                                    || voisin.getCase().equals(this.arrivee)) {
                                 eligible.add(voisin);
                             }
                         }
@@ -208,9 +209,10 @@ public class Astar implements Comparable<Astar> {
                     }
                 }
             }
-            
-            this.pasDeCheminTrouve = (eligible.size() == 0);
         }
+        
+        this.pasDeCheminTrouve = (eligible.size() == 0);
+        System.out.println("pas de chemin trouvé");
         
         // À ce point là, it == solution;
 
@@ -230,13 +232,18 @@ public class Astar implements Comparable<Astar> {
      * @throws SimulationException
      */
     public Case next(Case depart) throws SimulationException {
+        if (this.solution.empty()) {
+            return depart; // On à atteind l'arrivée
+        }
+        
         if (!this.solution.pop().equals(depart)) {
             throw new SimulationException("Le trajet calculé ne correspond pas");
-        }
-        if (solution.empty()) {
-            return depart; // On à atteind l'arrivée
         } else {
-            return solution.peek();
+            if (this.solution.empty()) {
+                return depart; // On à atteind l'arrivée
+            } else {
+                return solution.peek();
+            }
         }
     }
 }

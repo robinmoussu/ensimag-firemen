@@ -20,7 +20,7 @@ import java.util.Stack;
  *      case_courante = astar.next(case_courante);
  * }
  */
-public class Astar implements Comparable<Astar> {
+class Astar implements Comparable<Astar> {
     protected Carte carte;
     protected Case arrivee;
     protected ValideCase validateur;

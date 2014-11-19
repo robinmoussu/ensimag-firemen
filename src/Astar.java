@@ -199,7 +199,7 @@ public class Astar implements Comparable<Astar> {
                             graph.updateNode(it, caseVoisine);
                         } else {
                             Graph.Node voisin = graph.getNode(it, caseVoisine, this.arrivee);
-                            if (this.validateur.estValide(voisin.getCase())) {
+                            if (this.validateur.estValide(voisin.getCase()) > 0) {
                                 eligible.add(voisin);
                             }
                         }

@@ -1,10 +1,9 @@
-import java.util.Objects;
-
 /**
  * Description d'une case, représentée par ses coordonnées sur une carte.
- * @author Thibaud Backenstrass
- * @date 2014-11-17
  */
+
+import java.util.Objects;
+
 public class Case {
     private int ligne; // >0
     private int colonne; // >0

@@ -1,11 +1,11 @@
-import java.io.*;
-import java.util.*;
-
 /**
  * Lecteur de cartes au format spécifié dans le sujet.
  * @author Enseignants Ensimag
- * @date -
  */
+
+import java.io.*;
+import java.util.*;
+
 public class LecteurDonnees {
     private DonneesSimulation simulation;
     private String fichierDonnees;

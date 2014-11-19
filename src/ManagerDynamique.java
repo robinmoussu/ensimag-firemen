@@ -1,17 +1,10 @@
+/*
+ */
 
 import java.util.ArrayList;
 import java.util.ListIterator;
 import java.util.PriorityQueue;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- *
- * @author robin
- */
 public class ManagerDynamique extends Manager {
     
     ArrayList<Managed> managed;

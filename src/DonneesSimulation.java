@@ -1,10 +1,11 @@
-import java.util.ArrayList;
-
 /**
  * Description d'une simulation.
  * @author Thibaud Backenstrass
  * @date 2014-11-17
  */
+
+import java.util.ArrayList;
+
 public class DonneesSimulation {
     private Carte carte;
     private ArrayList<Incendie> incendies;

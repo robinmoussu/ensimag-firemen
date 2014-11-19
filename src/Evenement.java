@@ -1,10 +1,9 @@
-import java.util.* ;
-
 /**
  * Description abstraite d'une événement.
- * @author Amanda Sambath
- * @date 2014-11-15
  */
+
+import java.util.* ;
+
 public abstract class Evenement implements Comparable<Evenement> {
 	protected Date dateDebut;	
 	protected Date dateFin;

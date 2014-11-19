@@ -1,12 +1,3 @@
-import static java.lang.Math.abs;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.PriorityQueue;
-import java.util.Queue;
-import java.util.Stack;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /** Algorithme de résolution du plus court chemin utilisant la méthode Astar
  * 
  * exemple d'utilisation :
@@ -25,6 +16,16 @@ import java.util.logging.Logger;
  *      case_courante = astar.next(case_courante);
  * }
  */
+
+import static java.lang.Math.abs;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.Stack;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class Astar implements Comparable<Astar> {
     protected Carte carte;
     protected Case arrivee;

@@ -1,9 +1,8 @@
 /**
  * Scénario 1 de Manager.
  * Ce manager teste les déplacements, le remplissage, la vidange de robots ainsi que l'extinction d'incendies.
- * @author Amanda Sambath
- * @date 2014-11-15
  */
+
 public class ManagerScenario1 extends Manager {
     int i;
 

@@ -1,3 +1,7 @@
+/**
+ * Classe principale, chargée d'appeler toutes les autres.
+ */
+
 import ihm.*;
 import java.awt.Color;
 import java.util.LinkedList;
@@ -5,11 +9,6 @@ import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * Classe principale, chargée d'appeler toutes les autres.
- * @author Thibaud Backenstrass
- * @date 2014-11-17
- */
 public class MainClass {
 
     public static void main(String[] args) {

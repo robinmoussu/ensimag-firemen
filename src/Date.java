@@ -1,8 +1,7 @@
 /**
  * Objet-date permettant de représenter une date commune à toute la simulation.
- * @author Amanda Sambath
- * @date 2014-11-15
  */
+
 public class Date {
     private long date;
     

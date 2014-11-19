@@ -1,8 +1,7 @@
 /**
  * Classe abstraite de description d'un manager.
- * @author Amanda Sambath
- * @date 2014-11-15
  */
+
 public abstract class Manager {
     protected Simulateur simu;
     protected DonneesSimulation simuData;

@@ -1,9 +1,8 @@
 /**
  * Evénement de remplissage du réservoir d'un robot.
  * Cette classe concrétise la classe abstraite Evenement
- * @author Amanda Sambath
- * @date 2014-11-15
  */
+
 public class EventRemplirRobot extends Evenement {
 	private Robot robot;
 	private Carte carte;

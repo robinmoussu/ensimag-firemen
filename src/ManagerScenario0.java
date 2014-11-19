@@ -1,9 +1,8 @@
 /**
  * Scénario 0 de manager.
  * Ce manager se contente de tester la réaction du simulateur si un robot sort de la carte.
- * @author Amanda Sambath
- * @date 2014-11-15
  */
+
 public class ManagerScenario0 extends Manager {
 
     int i;

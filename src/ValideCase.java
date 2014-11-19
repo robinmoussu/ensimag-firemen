@@ -1,6 +1,7 @@
 /**
  * Interface permettant de s'assurer que des classes peuvent valider le parcours d'une case.
  */
+
 public interface ValideCase {
     
     /**

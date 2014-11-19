@@ -1,10 +1,9 @@
-import java.util.PriorityQueue;
-
 /**
  * Simulateur qui contrôle les événements de la simulation et les exécute.
- * @author Amanda Sambath
- * @date 2014-11-15
  */
+
+import java.util.PriorityQueue;
+
 public class Simulateur {
 	private Date dateSimulation;
 	private PriorityQueue<Evenement> evenements;

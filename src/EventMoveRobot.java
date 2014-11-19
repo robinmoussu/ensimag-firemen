@@ -1,9 +1,8 @@
 /**
  * Evénement de déplacement d'un robot.
  * Cette classe concrétise la classe abstraite Evenement.
- * @author Amanda Sambath
- * @date 2014-11-15
  */
+
 public class EventMoveRobot extends Evenement {
 	private Robot robot;
 	private Direction direction;

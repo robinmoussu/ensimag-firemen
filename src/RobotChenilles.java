@@ -1,8 +1,7 @@
 /**
  * Description d'un robot à chenilles.
- * @author Thibaud Backenstrass
- * @date 2014-11-17
  */
+
 public class RobotChenilles extends Robot {
     static private int vitesse = 60; // <=80
     static final int volumeMax = 2000;

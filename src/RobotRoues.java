@@ -1,8 +1,7 @@
 /**
  * Description d'un robot à roues.
- * @author Thibaud Backenstrass
- * @date 2014-11-17
  */
+
 public class RobotRoues extends Robot {
     static private int vitesse = 80;
     static final int volumeMax = 5000;

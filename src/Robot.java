@@ -1,11 +1,9 @@
+/**
+ * Classe abstraite de description d'un robot.
+ */
 
 import java.util.Iterator;
 
-/**
- * Classe abstraite de description d'un robot.
- * @author Thibaud Backenstrass
- * @date 2014-11-17
- */
 abstract class Robot implements ValideCase {
     protected Case position;
     protected int volumeEau; // en litres, 0 par défaut
@@ -158,8 +156,8 @@ System.out.println("Reste dans le réservoir: " + this.volumeEau);
     abstract public void remplirReservoir(Carte carte) throws SimulationException;
 
     @Override
-    public boolean estValide(Case c) {
-        return getVitesse(c.getTerrain()) > 0;
+    public int estValide(Case c) {
+        return getVitesse(c.getTerrain());
     }
     
     /**

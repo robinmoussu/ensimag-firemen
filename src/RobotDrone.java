@@ -1,8 +1,7 @@
 /**
  * Description d'un robot drone.
- * @author Thibaud Backenstrass
- * @date 2014-11-17
  */
+
 public class RobotDrone extends Robot {
     static private int vitesse = 100; // <150
     static final int volumeMax = 10000;

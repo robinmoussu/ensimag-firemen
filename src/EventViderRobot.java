@@ -1,9 +1,8 @@
 /**
  * Evénement de vidange du réservoir d'un robot.
  * Cette classe concrétise la classe abstraite Evenement
- * @author Amanda Sambath
- * @date 2014-11-15
  */
+
 public class EventViderRobot extends Evenement {
 	private Robot robot;
 	private int nbIntervention;

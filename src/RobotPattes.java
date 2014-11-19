@@ -1,8 +1,7 @@
 /**
  * Description d'un robot à pattes.
- * @author Thibaud Backenstrass
- * @date 2014-11-17
  */
+
 public class RobotPattes extends Robot {
     static private int vitesse = 30;
     static final int volumeMax = Integer.MAX_VALUE; // Réservoir infini
@@ -90,7 +89,6 @@ public class RobotPattes extends Robot {
     /**
      * Remplir le réservoir d'eau du robot si la case le permet.
      * @param carte Carte sur laquelle le robot évolue
-     * @throws SimulationException si la case courante ne permet pas un remplissage du réservoir
      */
     @Override
     public void remplirReservoir(Carte carte) {

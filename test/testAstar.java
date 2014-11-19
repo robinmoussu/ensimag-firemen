@@ -22,16 +22,16 @@ public class testAstar {
     static class ParcourtTerrainLibre implements ValideCase {
 
         @Override
-        public boolean estValide(Case case_) {
-            return case_.getTerrain().equals(NatureTerrain.TERRAIN_LIBRE);
+        public int estValide(Case case_) {
+            return case_.getTerrain().equals(NatureTerrain.TERRAIN_LIBRE)? 1 : 0;
         }
     }
 
     static class ParcourtToutTerrain implements ValideCase {
 
         @Override
-        public boolean estValide(Case case_) {
-            return true;
+        public int estValide(Case case_) {
+            return 1;
         }
     }
 

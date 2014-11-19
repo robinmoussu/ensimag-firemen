@@ -27,6 +27,7 @@ PACKAGE=
 SRC=$(PROJPATH)/src
 BIN=$(PROJPATH)/bin
 TEST=$(PROJPATH)/test
+JAVADOC=$(PROJPATH)/javadoc
 
 CARTE=cartes/carteSujet.txt
 
@@ -40,14 +41,31 @@ all: exeTest exeAfficheSimulation
 makeAfficheSimulation:
 	javac -d $(BIN) -classpath $(BIN)/ihm.jar -sourcepath $(SRC) $(SRC)/MainClass.java
 
-exeAfficheSimulation: makeAfficheSimulation
+exeAfficheSimulation: exeAfficheSimulation_carteSujet exeAfficheSimulation_desertOfDeath exeAfficheSimulation_mushroomOfHell exeAfficheSimulation_spiralOfMadness
+
+exeAfficheSimulation_carteSujet: makeAfficheSimulation
 	java -classpath $(BIN):$(BIN)/ihm.jar MainClass cartes/carteSujet.txt
+
+exeAfficheSimulation_desertOfDeath: makeAfficheSimulation
 	java -classpath $(BIN):$(BIN)/ihm.jar MainClass cartes/desertOfDeath-20x20.map
+
+exeAfficheSimulation_mushroomOfHell: makeAfficheSimulation
 	java -classpath $(BIN):$(BIN)/ihm.jar MainClass cartes/mushroomOfHell-20x20.map
+
+exeAfficheSimulation_spiralOfMadness: makeAfficheSimulation
 	java -classpath $(BIN):$(BIN)/ihm.jar MainClass cartes/spiralOfMadness-50x50.map
 
 clean:
 	rm -rf $(BIN)/*.class
+
+cleanJavadoc:
+	rm -rf  $(JAVADOC)/*
+
+########################################################################################
+# documentation
+
+javadoc: cleanJavadoc
+	javadoc -d $(JAVADOC) -classpath $(BIN)/ihm.jar -sourcepath $(SRC)/*.java $(SRC)/Astar.java
 
 ########################################################################################
 # tests

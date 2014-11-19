@@ -1,8 +1,7 @@
 /**
  * Incendie.
- * @author Thibaud Backenstrass
- * @date 2014-11-17
  */
+
 public class Incendie {
     private Case position;
     private int eauNecessaire; // Nombre de litres d'eau nécessaires pour l'éteindre

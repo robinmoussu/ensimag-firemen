@@ -11,7 +11,8 @@ Ce qui est rendu :
 ------------------
 
 - src: contient les classes du programme
-  => METTRE ICI UNE LISTE DES CLASSES ET CE A QUOI ELLES SERVENT
+Leur description à été faite dans à l'aide de javadoc. La javadoc est
+disponible dans le dossier javadoc/
 
 - cartes: quelques exemples de fichiers de données
 
@@ -60,5 +61,11 @@ Nettoie le repertoire de compilation et supprime tous les fichiers *.class
 
 D'autres cibles sont présentes dans le makefile pour ne lancer la simulation
 que sur une seule carte, où encore pour ne faire que la compilation.
+
+Javadoc :
+---------
+
+La javadoc est disponible dans le dossier javadoc. Vous pouvez la lire à l'aide
+de tout navigateur internet. Par exemple `firefox javadoc/index.html`
 
 

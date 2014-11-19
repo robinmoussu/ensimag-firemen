@@ -218,7 +218,7 @@ class EteindreIncendie extends Managed {
                             + " est éteint");
                     this.finished = true;
                 } else {
-                    this.robot.deplacer(next);
+                    this.simulateur.ajouteEvenement( new EventMoveRobot(simulateur.getDate(), this.robot, next, this.data.getCarte()) );
                 }
             }
         }

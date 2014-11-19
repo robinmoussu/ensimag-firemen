@@ -1,16 +1,11 @@
-
 import java.util.ArrayList;
 import java.util.ListIterator;
 import java.util.PriorityQueue;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
- *
- * @author robin
+ * Manager dynamique implémentant l'algorithme Astar
+ * @author Robin Moussu
+ * @date 2014-11-19
  */
 public class ManagerDynamique extends Manager {
     
@@ -26,7 +21,7 @@ public class ManagerDynamique extends Manager {
         
         managed = new ArrayList<>(robots.size());
         for(Robot robot: robots) {
-            managed.add(new DoNothing(robot));
+            managed.add(new DoNothing(robot, simu));
         }
     }
     
@@ -51,10 +46,10 @@ public class ManagerDynamique extends Manager {
                 // Il faut lui trouver un nouvel objectif
 
                 if (m.robot.estVide()) {
-                    m = new ChercheEau(this.simuData, m.getRobot());
+                    m = new ChercheEau(this.simuData, m.getRobot(), simu);
                     itr.set(m);
                 } else {
-                    m = new EteindreIncendie(this.simuData, m.getRobot());
+                    m = new EteindreIncendie(this.simuData, m.getRobot(), simu);
                     itr.set(m);
                 }
             }
@@ -86,10 +81,12 @@ public class ManagerDynamique extends Manager {
 abstract class Managed {
     protected Robot robot;
     boolean finished;
+    protected Simulateur simulateur;
 
-    public Managed(Robot robot) {
+    public Managed(Robot robot, Simulateur simulateur) {
         this.robot = robot;
         this.finished = false;
+        this.simulateur = simulateur;
     }
 
     public Robot getRobot() {
@@ -110,8 +107,8 @@ abstract class Managed {
 
 class DoNothing extends Managed {
 
-    public DoNothing(Robot robot) {
-        super(robot);
+    public DoNothing(Robot robot, Simulateur simulateur) {
+        super(robot, simulateur);
     }
 
     @Override
@@ -131,9 +128,9 @@ class ChercheEau extends Managed {
     protected Astar parcourt;
     protected DonneesSimulation data;
 
-    public ChercheEau(DonneesSimulation data, Robot robot)
+    public ChercheEau(DonneesSimulation data, Robot robot, Simulateur simulateur)
             throws SimulationException {
-        super(robot);
+        super(robot, simulateur);
         this.data = data;
         
         // On rempli le robot avec l'eau la plus proche
@@ -159,12 +156,11 @@ class ChercheEau extends Managed {
         System.out.println("Recherche d'eau…");
         if (this.robot.estRemplissable(this.data.getCarte())) {
             System.out.println("On rempli le robot…");
-            this.robot.remplirReservoir(this.data.getCarte());
+            this.simulateur.ajouteEvenement( new EventRemplirRobot(simulateur.getDate(), this.robot, this.data.getCarte() );
             this.finished = true;
         } else {
             System.out.println("On rapproche le robot");
-            this.robot.deplacer(this.parcourt.next(
-                    this.robot.getPosition()));
+            this.simulateur.ajouteEvenement( new EventMoveRobot(simulateur.getDate(), this.robot, this.parcourt.next(this.robot.getPosition()), this.data.getCarte()) );
         }
     }
 }
@@ -173,9 +169,9 @@ class EteindreIncendie extends Managed {
     protected Astar parcourt;
     protected DonneesSimulation data;
 
-    public EteindreIncendie(DonneesSimulation data, Robot robot)
+    public EteindreIncendie(DonneesSimulation data, Robot robot, Simulateur simulateur)
             throws SimulationException {
-        super(robot);
+        super(robot, simulateur);
         this.data = data;
         
         // On cherche l'incendie le plus proche
@@ -197,12 +193,12 @@ class EteindreIncendie extends Managed {
         System.out.println("Recherche d'incendies…");
         if (this.robot.peutEteindreFeu(this.data)) {
             System.out.println("On éteind l'incendie…");
+            this.simulateur.ajouteEvenement( new EventViderRobot(simulateur.getDate(), this.robot, 1, this.data) );
             this.robot.deverserEau(this.data, 1);
             this.finished = true;
         } else {
             System.out.println("On rapproche le robot");
-            this.robot.deplacer(this.parcourt.next(
-                    this.robot.getPosition()));
+            this.simulateur.ajouteEvenement( new EventMoveRobot(simulateur.getDate(), this.robot, this.parcourt.next(this.robot.getPosition()), this.data.getCarte()) );
         }
     }
 }

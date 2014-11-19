@@ -31,16 +31,16 @@ public class ManagerScenario0 extends Manager {
         // Ne créer les événements qu'une seule fois !
         if (this.i == 0) {
             // Implementer le calcul de la date de fin d'exe avec incrementeDate et simu.getDate
-            EventMoveRobot e1 = new EventMoveRobot(d, r, Direction.NORD, c);
+            EventMoveRobot e1 = new EventMoveRobot(d, r, r.getPosition().getVoisin(Direction.NORD), c);
             simu.ajouteEvenement(e1);
 
-            EventMoveRobot e2 = new EventMoveRobot(e1.getDateFin(), r, Direction.NORD, c);
+            EventMoveRobot e2 = new EventMoveRobot(e1.getDateFin(), r, r.getPosition().getVoisin(Direction.NORD), c);
             simu.ajouteEvenement(e2);
 
-            EventMoveRobot e3 = new EventMoveRobot(e2.getDateFin(), r, Direction.NORD, c);
+            EventMoveRobot e3 = new EventMoveRobot(e2.getDateFin(), r, r.getPosition().getVoisin(Direction.NORD), c);
             simu.ajouteEvenement(e3);
 
-            EventMoveRobot e4 = new EventMoveRobot(e3.getDateFin(), r, Direction.NORD, c);
+            EventMoveRobot e4 = new EventMoveRobot(e3.getDateFin(), r, r.getPosition().getVoisin(Direction.NORD), c);
             simu.ajouteEvenement(e4);
         }
 

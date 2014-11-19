@@ -8,7 +8,7 @@ import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class MainClass {
+public class AfficheSimulation {
 
     public static void main(String[] args) {
         if (args.length < 1) {

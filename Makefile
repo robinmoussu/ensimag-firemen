@@ -39,21 +39,21 @@ all: exeTest exeAfficheSimulation javadoc
 # programes
 
 makeAfficheSimulation:
-	javac -d $(BIN) -classpath $(CLASSPATH):$(BIN)/ihm.jar -sourcepath $(SRC) $(SRC)/MainClass.java
+	javac -d $(BIN) -classpath $(CLASSPATH):$(BIN)/ihm.jar -sourcepath $(SRC) $(SRC)/AfficheSimulation.java
 
 exeAfficheSimulation: exeAfficheSimulation_carteSujet exeAfficheSimulation_desertOfDeath exeAfficheSimulation_mushroomOfHell exeAfficheSimulation_spiralOfMadness
 
 exeAfficheSimulation_carteSujet: makeAfficheSimulation
-	java -classpath $(BIN):$(BIN)/ihm.jar MainClass cartes/carteSujet.txt
+	java -classpath $(BIN):$(BIN)/ihm.jar AfficheSimulation cartes/carteSujet.txt
 
 exeAfficheSimulation_desertOfDeath: makeAfficheSimulation
-	java -classpath $(BIN):$(BIN)/ihm.jar MainClass cartes/desertOfDeath-20x20.map
+	java -classpath $(BIN):$(BIN)/ihm.jar AfficheSimulation cartes/desertOfDeath-20x20.map
 
 exeAfficheSimulation_mushroomOfHell: makeAfficheSimulation
-	java -classpath $(BIN):$(BIN)/ihm.jar MainClass cartes/mushroomOfHell-20x20.map
+	java -classpath $(BIN):$(BIN)/ihm.jar AfficheSimulation cartes/mushroomOfHell-20x20.map
 
 exeAfficheSimulation_spiralOfMadness: makeAfficheSimulation
-	java -classpath $(BIN):$(BIN)/ihm.jar MainClass cartes/spiralOfMadness-50x50.map
+	java -classpath $(BIN):$(BIN)/ihm.jar AfficheSimulation cartes/spiralOfMadness-50x50.map
 
 clean:
 	rm -rf $(BIN)/*.class
@@ -65,7 +65,7 @@ cleanJavadoc:
 # documentation
 
 javadoc: cleanJavadoc
-	javadoc -d $(JAVADOC) -classpath $(BIN)/ihm.jar -sourcepath $(SRC)/*.java $(SRC)/Astar.java
+	javadoc -locale fr_FR -encoding UTF8 -d $(JAVADOC) -classpath $(BIN)/ihm.jar -sourcepath $(SRC)/*.java $(SRC)/Astar.java
 
 ########################################################################################
 # tests

@@ -42,6 +42,9 @@ makeAfficheSimulation:
 
 exeAfficheSimulation: makeAfficheSimulation
 	java -classpath $(BIN):$(BIN)/ihm.jar MainClass cartes/carteSujet.txt
+	java -classpath $(BIN):$(BIN)/ihm.jar MainClass cartes/desertOfDeath-20x20.map
+	java -classpath $(BIN):$(BIN)/ihm.jar MainClass cartes/mushroomOfHell-20x20.map
+	java -classpath $(BIN):$(BIN)/ihm.jar MainClass cartes/spiralOfMadness-50x50.map
 
 clean:
 	rm -rf $(BIN)/*.class

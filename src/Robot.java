@@ -158,7 +158,7 @@ abstract class Robot implements ValideCase {
 
     @Override
     public boolean estValide(Case c) {
-        return true;
+        return getVitesse(c.getTerrain()) > 0;
     }
     
     /**

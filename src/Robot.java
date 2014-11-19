@@ -124,6 +124,7 @@ abstract class Robot implements ValideCase {
             // On parcourt les incendies pour voir s'il y en a un à éteindre
             if(i.getPosition().equals(this.position) == true) {
                 i.decrementeIntensite(nbInterventions*volumeIntervention);
+System.out.println("Reste dans le réservoir: " + this.volumeEau);
                 if (i.getIntensite() == 0) {
                     itr.remove();
                 }

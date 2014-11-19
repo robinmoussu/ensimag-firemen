@@ -276,7 +276,7 @@ public class testAstar {
             obstacles = new Case[]{
                 new Case(8, 9, NatureTerrain.ROCHE),
                 new Case(8, 8, NatureTerrain.ROCHE),
-                new Case(9, 9, NatureTerrain.ROCHE),
+                new Case(9, 8, NatureTerrain.ROCHE),
             };
             for (Case obstacle: obstacles) {
                 petiteCarte.setCase(obstacle);
@@ -285,7 +285,7 @@ public class testAstar {
             depart = petiteCarte.getCase(0, 0);
                             
             astar = new Astar(petiteCarte, depart, objectif,parcourtTerrainLibre);
-            assertTrue("Aucun chemin n'a été trouvé", astar.finished());
+            assertTrue("Aucun chemin ne doit être trouvé", astar.finished());
             
         } catch (SimulationException | ConstructionException ex) {
             Logger.getLogger(testAstar.class.getName()).log(

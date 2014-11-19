@@ -12,7 +12,7 @@ public class Simulateur {
 
 	/**
      * Construction d'un simulateur à la date courante.
-     * @param Objet-date servant de point de départ pour la simulation
+     * @param date servant de point de départ pour la simulation
      */
 	public Simulateur(Date date) {
 		this.dateSimulation = date;

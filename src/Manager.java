@@ -21,7 +21,7 @@ public abstract class Manager {
      * manage() Methode abstraite qui dans les sous-classes concretes de Manager
      * implemente le choix des evenements a executer (predefini a l'avance ou
      * calcule selon le plus court chemin)
-     * @throws SimulationException
+     * @throws SimulationException en cas d'erreur lors de la simulation
      */
     public abstract void manage() throws SimulationException;
 
@@ -31,7 +31,7 @@ public abstract class Manager {
      * l'evenement e a reussi son execution Realise ce qu'il faut apres la
      * reussite de l'evenement (par ex. deverouiller un robot)
      *
-     * @param Evenement e : evenement que le simulateur a realise avec succes
+     * @param e : evenement que le simulateur a realise avec succes
      */
     public abstract void signaleSuccessEvent(Evenement e);
 
@@ -40,7 +40,7 @@ public abstract class Manager {
      * pas reussi son execution pour que le manager realise ce qu'il faut (par
      * ex. ignorer)
      *
-     * @param Evenement e : evenement qui a generé une exception (erreur
+     * @param e : evenement qui a generé une exception (erreur
      * d'execution)
      */
     public abstract void signaleFailEvent(Evenement e);

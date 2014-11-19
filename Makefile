@@ -27,6 +27,7 @@ PACKAGE=
 SRC=$(PROJPATH)/src
 BIN=$(PROJPATH)/bin
 TEST=$(PROJPATH)/test
+JAVADOC=$(PROJPATH)/javadoc
 
 CARTE=cartes/carteSujet.txt
 
@@ -56,6 +57,15 @@ exeAfficheSimulation_spiralOfMadness: makeAfficheSimulation
 
 clean:
 	rm -rf $(BIN)/*.class
+
+cleanJavadoc:
+	rm -rf  $(JAVADOC)/*
+
+########################################################################################
+# documentation
+
+javadoc: cleanJavadoc
+	javadoc -d $(JAVADOC) -classpath $(BIN)/ihm.jar -sourcepath $(SRC)/*.java $(SRC)/Astar.java
 
 ########################################################################################
 # tests

@@ -1,3 +1,7 @@
+import static java.lang.Math.abs;
+import java.util.PriorityQueue;
+import java.util.Stack;
+
 /** Algorithme de résolution du plus court chemin utilisant la méthode Astar
  * 
  * exemple d'utilisation :
@@ -16,16 +20,6 @@
  *      case_courante = astar.next(case_courante);
  * }
  */
-
-import static java.lang.Math.abs;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.PriorityQueue;
-import java.util.Queue;
-import java.util.Stack;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 public class Astar implements Comparable<Astar> {
     protected Carte carte;
     protected Case arrivee;
@@ -41,7 +35,7 @@ public class Astar implements Comparable<Astar> {
      * @param arrivee Case de depart
      * @param validateur Foncteur permettant d'évaluer la meilleure case à
      * choisir
-     * @throws SimulationException 
+     * @throws SimulationException En cas de trajet invalide
      */
     public Astar(Carte carte, Case depart, Case arrivee, ValideCase validateur)
             throws SimulationException {
@@ -172,7 +166,7 @@ public class Astar implements Comparable<Astar> {
 
     /** Calcule le meilleur parcourt entre la case départ et l'arrivée
      * Doit être appelé dans le constructeur.
-     * @throws SimulationException 
+     * @param depart case de départ de l'algoritme
      */
     public final void initParcourt(Case depart) {
         Graph graph;
@@ -231,7 +225,7 @@ public class Astar implements Comparable<Astar> {
      * 
      * @param depart La case courante
      * @return La case suivante du parcourt
-     * @throws SimulationException
+     * @throws SimulationException Si le trajet ne correspond pas
      */
     public Case next(Case depart) throws SimulationException {
         if (this.solution.empty()) {

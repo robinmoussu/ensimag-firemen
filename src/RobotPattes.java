@@ -89,7 +89,6 @@ public class RobotPattes extends Robot {
     /**
      * Remplir le réservoir d'eau du robot si la case le permet.
      * @param carte Carte sur laquelle le robot évolue
-     * @throws SimulationException si la case courante ne permet pas un remplissage du réservoir
      */
     @Override
     public void remplirReservoir(Carte carte) {

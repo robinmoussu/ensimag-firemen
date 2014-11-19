@@ -56,8 +56,8 @@ public class Carte {
 
     /**
      * Initialisation d'une case à la place (i, j) à partir du coin supérieur gauche de la carte.
-     * @param i Numéro de la ligne, en partant de zéro
-     * @param j Numéro de la colonne, en partant de zéro
+     * @param ligne Numéro de la ligne, en partant de zéro
+     * @param colonne Numéro de la colonne, en partant de zéro
      * @param t Nature du terrain
      * @throws ConstructionException si les coordonnées sont à l'extérieur des limites de la carte ou si la case a déja été initialisée
      */
@@ -84,8 +84,8 @@ public class Carte {
 
     /**
      * Récupérer une référence sur la case à la place (i,j) à partir du coin supérieur gauche de la carte.
-     * @param i Numéro de la ligne, en partant de zéro
-     * @param j Numéro de la colonne, en partant de zéro
+     * @param ligne Numéro de la ligne, en partant de zéro
+     * @param colonne Numéro de la colonne, en partant de zéro
      * @return Référence sur la case à la place (i,j)
      * @throws SimulationException si les coordonnées sont à l'extérieur des limites de la carte
      */

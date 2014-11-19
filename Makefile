@@ -33,13 +33,13 @@ CARTE=cartes/carteSujet.txt
 
 ########################################################################################
 
-all: exeTest exeAfficheSimulation
+all: exeTest exeAfficheSimulation javadoc
 
 ########################################################################################
 # programes
 
 makeAfficheSimulation:
-	javac -d $(BIN) -classpath $(BIN)/ihm.jar -sourcepath $(SRC) $(SRC)/MainClass.java
+	javac -d $(BIN) -classpath $(CLASSPATH):$(BIN)/ihm.jar -sourcepath $(SRC) $(SRC)/MainClass.java
 
 exeAfficheSimulation: exeAfficheSimulation_carteSujet exeAfficheSimulation_desertOfDeath exeAfficheSimulation_mushroomOfHell exeAfficheSimulation_spiralOfMadness
 

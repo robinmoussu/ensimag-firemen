@@ -1,3 +1,6 @@
+
+import java.util.Iterator;
+
 /**
  * Classe abstraite de description d'un robot.
  * @author Thibaud Backenstrass
@@ -115,15 +118,19 @@ abstract class Robot implements ValideCase {
 
         // Diminuer l'eau du reservoir du robot
         this.volumeEau -= nbInterventions*volumeIntervention;
-        for(Incendie i : simulation.getIncendies()) { // On parcourt les
-            // incendies pour voir s'il y en a un à éteindre
+        Iterator<Incendie> itr = simulation.getIncendies().iterator();
+        while(itr.hasNext()) {
+            Incendie i = itr.next();
+            // On parcourt les incendies pour voir s'il y en a un à éteindre
             if(i.getPosition().equals(this.position) == true) {
                 i.decrementeIntensite(nbInterventions*volumeIntervention);
-                // TODO: supprimer l'incendie de la LinkedList dans les données
-                // de simulation ?
+                if (i.getIntensite() == 0) {
+                    itr.remove();
+                }
                 break; // Sortir du for, un robot n'est que sur une case à la
                 // fois...
             }
+            itr.next();
         }
     }
 

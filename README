@@ -11,8 +11,8 @@ Ce qui est rendu :
 ------------------
 
 - src: contient les classes du programme
-Leur description à été faite dans à l'aide de javadoc. La javadoc est
-disponible dans le dossier javadoc/
+  Leur description à été faite à l'aide de javadoc. La javadoc est
+  disponible dans le dossier javadoc/
 
 - cartes: quelques exemples de fichiers de données
 
@@ -22,7 +22,7 @@ disponible dans le dossier javadoc/
 - bin: répertoire de compilation, contient les classes de l'interface graphique
 
 - test: les classes de test et les tests unitaires réalisés sur
-        l'algorithme du plus court chemin avec Junit
+  l'algorithme du plus court chemin avec Junit
 
 
 Etat du projet :
@@ -30,7 +30,7 @@ Etat du projet :
 
 Le sujet a pu être traité en grande partie. Les robots se déplacent et vont
 éteindre les incendies en utilisant l'algorithme Astar pour trouver le plus
-court chemin. Cependant, la simulation n'inclue pas l'aspect temporel : les
+court chemin. Cependant, la simulation n'inclut pas l'aspect temporel : les
 déplacements, vidange et remplissage s'effectuent "instantanément".
 
 La validation des classes a été faite au fur et à mesure de leur développement
@@ -40,24 +40,29 @@ ont été effectués grâce à Junit. Les programmes de tests peuvent être trou
 dans le répertoire test/. Pour plus de détails, consulter le rapport contenant
 les choix de conception et les résultats et tests réalisés.
 
+
 Comment executer le projet :
 ----------------------------
 
-Il est conseillé de faire un `make clean` prélablement.
+Il est conseillé de faire un `make clean` préalablement.
 
-`make` ou `make all`
+`make` ou `make default`
+Compile le projet et lance la simulation pour les quatre cartes fournies,
+les unes après les autres.
+
+`make all`
 Compile le projet, puis lance tous les tests, puis lance la simulation pour les
-quatres cartes fournies les unes après les autres.
-
-`make exeAfficheSimulation`
-Compile le projet puis lance la simulation pour les quatres cartes fournies les
-unes après les autres.
+quatre cartes fournies les unes après les autres.
 
 `make exeTest`
 Execute tout les tests.
 
 `make clean`
 Nettoie le repertoire de compilation et supprime tous les fichiers *.class
+
+`make javadoc`
+Générer la javadoc sur tous les fichiers du projet. La javadoc est générée
+dans le dossier /javadoc.
 
 D'autres cibles sont présentes dans le makefile pour ne lancer la simulation
 que sur une seule carte, où encore pour ne faire que la compilation.

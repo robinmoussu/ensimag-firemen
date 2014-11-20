@@ -33,6 +33,8 @@ CARTE=cartes/carteSujet.txt
 
 ########################################################################################
 
+default: exeAfficheSimulation
+
 all: exeTest exeAfficheSimulation javadoc
 
 ########################################################################################

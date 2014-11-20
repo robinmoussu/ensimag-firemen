@@ -52,7 +52,7 @@ les unes après les autres.
 
 `make all`
 Compile le projet, puis lance tous les tests, puis lance la simulation pour les
-quatre cartes fournies les unes après les autres.
+quatre cartes fournies les unes après les autres, et enfin génère la javadoc.
 
 `make exeTest`
 Execute tout les tests.

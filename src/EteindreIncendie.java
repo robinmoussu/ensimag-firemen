@@ -1,4 +1,3 @@
-
 import java.util.PriorityQueue;
 
 /** Stratégie de recherche d'incendie

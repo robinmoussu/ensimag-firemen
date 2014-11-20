@@ -2,7 +2,8 @@ import static java.lang.Math.abs;
 import java.util.PriorityQueue;
 import java.util.Stack;
 
-/** Algorithme de résolution du plus court chemin utilisant la méthode Astar
+/**
+ * Algorithme de résolution du plus court chemin utilisant la méthode Astar.
  * 
  * exemple d'utilisation :
  * On veut aller d'une case depart à une case arrivee
@@ -87,7 +88,7 @@ class Astar implements Comparable<Astar> {
         /**
          * @param prev Noeud précédant dans le graph. Est null uniquement pour
          * le premier noeud du graph
-         * @param case_ La case associé au nouveau noeud
+         * @param case_ La case associée au nouveau noeud
          * @param distanceToThatCase distance séparant le noeud associé à la
          * case case_ de l'arrivée.
          * @return Le noeud associé à la Case case_
@@ -118,7 +119,7 @@ class Astar implements Comparable<Astar> {
             // TODO update methode
         }
         
-        /** À chaque case de la carte est associé un noeud présent dans le graph
+        /** À chaque case de la carte est associée un noeud présent dans le graphe
          * Ne doit être manipulé qu'au travers de la class Graph
          */
         public class Node implements Comparable<Node> {

@@ -26,7 +26,7 @@ class ManagerDynamique extends Manager {
     public void manage()
             throws SimulationException {
         if (this.managed.size() != this.simuData.getRobots().size()) {
-            throw new SimulationException("Le nombre de robots présent dans "
+            throw new SimulationException("Le nombre de robots présents dans "
                     + "la simulation ne correspond pas avec le nombre de "
                     + "robots managés. Peut être que vous avez creer ce "
                     + "manager avant d'avoir fini d'ajouter touts les robots à "

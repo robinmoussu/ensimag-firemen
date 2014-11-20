@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 
@@ -36,9 +35,9 @@ class ChercheEau extends Managed {
 
     @Override
     protected void doInternalAction() throws SimulationException {
-        System.out.println("Recherche d'eau…" + this.robot.estRemplissable(this.data.getCarte()));
+        System.out.println("Recherche d'eau..." + this.robot.estRemplissable(this.data.getCarte()));
         if (this.robot.estRemplissable(this.data.getCarte())) {
-            System.out.println("On rempli le robot…");
+            System.out.println("On remplit le robot...");
             this.robot.remplirReservoir(this.data.getCarte());
             if (this.robot.estPlein()) {
                 this.finished = true;

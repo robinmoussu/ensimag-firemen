@@ -30,9 +30,9 @@ class EteindreIncendie extends Managed {
 
     @Override
     protected void doInternalAction() throws SimulationException {
-        System.out.println("Recherche d'incendies…");
+        System.out.println("Recherche d'incendies...");
         if (this.robot.peutEteindreFeu(this.data)) {
-            System.out.println("On éteind l'incendie…");
+            System.out.println("On éteind l'incendie...");
             this.robot.deverserEau(this.data, 1);
             this.finished = true;
         } else {
@@ -43,7 +43,7 @@ class EteindreIncendie extends Managed {
                 System.out.println("On rapproche le robot");
                 Case next = this.parcourt.next(this.robot.getPosition());
                 if (next.equals(this.robot.getPosition())) {
-                    System.out.println("On était déjà arrivée sur le feu, et il"
+                    System.out.println("On était déjà arrivé sur le feu, et il"
                             + " est éteint");
                     this.finished = true;
                 } else {

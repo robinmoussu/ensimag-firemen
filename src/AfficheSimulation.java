@@ -62,7 +62,6 @@ class Firemen implements Simulable {
         this.filename = filename;
         this.simulateur = new Simulateur(date); // Création du simulteur
         
-//        this.manager = new ManagerScenario1(simulateur, simulation); // Création du manager
         try {
             this.manager = new ManagerDynamique(simulateur, simulation);
         } catch (SimulationException ex) {

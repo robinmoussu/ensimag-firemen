@@ -67,6 +67,7 @@ dans le dossier /javadoc.
 D'autres cibles sont présentes dans le makefile pour ne lancer la simulation
 que sur une seule carte, où encore pour ne faire que la compilation.
 
+
 Javadoc :
 ---------
 
@@ -83,27 +84,27 @@ Les classes principales du projet sont :
   Les classes qui s'occupent de la stratégie des robots. ManagerDynamique est
   la classe actuellement utilisée. Elle décide dynamiquement des actions à
   effectuer en fonction de l'état actuel de la carte. (l'apparition d'un feu
-  serait pris en compte). Ces stratégies sont définie dans les classes filles
+  serait pris en compte). Ces stratégies sont définies dans les classes filles
   de la classe Managed.
 
 - Robot et ses classes-filles RobotChenilles, RobotDrone, RobotPattes, et
   RobotRoues :
-  Les différents robots de la simulations.
+  Les différents robots de la simulation.
 
 - Managed et ses classes enfants DoNothing, EteindreIncendie et ChercheEau :
-  Les classes qui sont chargés de l'implantation concrète des stratégies.
+  Les classes qui sont chargées de l'implantation concrète des stratégies.
 
 - Carte, Incendie, Direction, NatureTerrain et Case :
-  La réprésentation de la carte. et les imformations de base.
+  La réprésentation de la carte et les informations de base.
 
 - Astar, ValideCase :
   Implantation de l'algorithme de recherche de plus court chemin.
 
 - SimulationException, ConstructionException :
-  Les exceptions générés par la simulation.
+  Les exceptions générées par la simulation.
 
 - Date, Simulateur :
-  Gestion de la simulations.
+  Gestion de la simulation.
 
 - Evenement, EventMoveRobot, EventRemplirRobot, EventViderRobot :
   Les évènements qui peuvent être utilisés dans la simulation (partiellement

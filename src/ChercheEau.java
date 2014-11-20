@@ -3,7 +3,7 @@ import java.util.PriorityQueue;
 
 /** S'occupe d'aller remplir un robot.
  */
-class ChercheEau extends Managed {
+public class ChercheEau extends Managed {
     protected Astar parcourt;
     protected DonneesSimulation data;
 

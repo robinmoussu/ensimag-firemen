@@ -3,7 +3,7 @@ import java.util.PriorityQueue;
 
 /** Stratégie de recherche d'incendie
  */
-class EteindreIncendie extends Managed {
+public class EteindreIncendie extends Managed {
     protected Astar parcourt;
     protected DonneesSimulation data;
 
